@@ -1,0 +1,10 @@
+export const SHOW_LOADER = 'SHOW_LOADER'
+export const FETCH_MONTH = 'FETCH_MONTH'
+export const ADD_TRAINING = 'ADD_TRAINING'
+export const REMOVE_TRAINING = 'REMOVE_TRAINING'
+
+export const ADD_EXERCISE = 'ADD_EXERCISE'
+export const REMOVE_EXERCISE = 'REMOVE_EXERCISE'
+export const ADD_SET = 'ADD_SET'
+export const REMOVE_SET = 'REMOVE_SET'
+export const CHANGE_VALUE = 'CHANGE_VALUE'

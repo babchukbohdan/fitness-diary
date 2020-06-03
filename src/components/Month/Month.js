@@ -1,18 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import './Month.scss'
 import { getDaysData, getDayString } from './utils'
+import { FirebaseContext } from '../../context/firebase/firebaseContext'
 
 
 export const Month = () => {
 
   const [date, setDate] = useState(new Date())
+  const {loading, fetchMonth, month} = useContext(FirebaseContext)
 
-  const daysData = getDaysData(date) // fetching data
-  const todayString = getDayString(new Date(), true) // current date
+  useEffect(() => {
+    fetchMonth(`${date.getFullYear()}/${date.getMonth() + 1}`)
+    // eslint-disable-next-line
+  }, [date])
 
 
-  console.log('string value', getDayString(date));
-  console.log('daysData', daysData);
+
+  const daysData = getDaysData(date, month) // fetching data
+  const today = getDayString(new Date(), true) // current date
+
+
+  const url = 'https://fitness-diary-f96e8.firebaseio.com'
+
+  const clickHandler = (e) => {
+    e.preventDefault();
+    const href = e.target.getAttribute('href')
+    console.log(href);
+  }
 
   return (
     <div className='month'>
@@ -23,10 +37,9 @@ export const Month = () => {
           name="date"
           value={getDayString(date)}
           onChange={(e) => {
-            console.log(e.target.value, "value")
-            console.log(new Date(Date.parse(e.target.value)).toDateString(), 'date object')
-            console.log(new Date(Date.parse(e.target.value)).getMonth(), 'date month')
+            console.log(e.target.value)
             setDate(new Date(Date.parse(e.target.value)))
+            // fetchMonth(`${date.getFullYear()}/${date.getMonth() + 1}`)
           }}
         />
       </div>
@@ -43,17 +56,27 @@ export const Month = () => {
         {
           daysData.map((day, i) => {
             const clazz = ["month__item"]
-
-            if (day.date === todayString) {
+            if (day.date === today) {
               clazz.push('today')
             }
+
+            const isTraining = !!day.exercises
+            const date = new Date(day.date).getDate()
 
             return (
               <div
                 className={clazz.join(' ')}
                 key={day.id}
               >
-                <span className="month__date">{day.day}</span>
+                {
+                  isTraining
+                  ? <a
+                      href={`${url}/${day.url}/${day.id}`}
+                      className="month__date"
+                      onClick={clickHandler}
+                    >{date}</a>
+                  : <span className="month__date">{date}</span>
+                }
               </div>
             )
           })

@@ -20,7 +20,7 @@ export const getDayString = (date, withDate = false) => {
   return `${date.getFullYear()}-${month}`
 }
 
-export const getDaysData = (date) => {
+export const getDaysData = (date, trainingsDays) => {
   const month = date.getMonth() // месяц
   const year = date.getFullYear() // год
 
@@ -38,11 +38,15 @@ export const getDaysData = (date) => {
   let days = new Array(daysCount)
     .fill('')
     .map((day, index) => ({
-      day: index + 1,
       id: index + 1,
       date: getDayString(new Date(year, month, index + 1), true),
-      month, year
+
     }))
+
+  trainingsDays.forEach(day => {
+    day.url = `${year}/${month + 1}`;
+    days[new Date(day.date).getDate() - 1] = day
+  });
 
   return voidDays.concat(days)
 }

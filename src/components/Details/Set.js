@@ -1,11 +1,32 @@
 import React from 'react'
 
-export const Set = () => {
+export const Set = ({index, onRemove}) => {
   return (
     <div className="details__set">
-      <div className="details__weight">100kg</div>
-      <div className="details__reps">12</div>
-      <button className="details__set__remove">&times;</button>
+      <div className="details__set__num">{index}</div>
+      <div className="details__values">
+        <div className="details__weight">
+          <input
+            className=""
+            // value="100"
+          />
+          <span>kg</span>
+        </div>
+        <div className="details__reps">
+          <input
+            className=""
+            // value="100"
+            // onChange={console.log}
+          />
+          <span>reps</span>
+        </div>
+      </div>
+      <div className="details__set__remove">
+        <button
+          className="details__set__btn"
+          onClick={onRemove}
+        >&times;</button>
+      </div>
     </div>
   )
 }
