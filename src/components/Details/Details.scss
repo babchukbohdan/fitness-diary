@@ -1,0 +1,118 @@
+.details {
+  width: calc(100% - 300px);
+
+  &__header, &__footer {
+    width: 100%;
+
+  }
+
+  &__list {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    padding: 10px;
+
+    border: 1px solid #000;
+  }
+
+  &__info {
+    height: 48px;
+    display: block;
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 48px;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &__exercises {
+    flex: 1 0 auto;
+  }
+
+  &__exercise {
+    display: flex;
+    margin-top: 20px;
+    border: 1px solid #000;
+  }
+
+  &__sets {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  &__set {
+    display: flex;
+    flex-flow: column;
+
+    position: relative;
+    padding-right: 15px;
+
+    &__remove {
+      position: absolute;
+      right: 0;
+    }
+  }
+
+  &__weight {
+    padding: 10px 10px 5px;
+
+  }
+
+  &__reps {
+    padding: 5px 10px 10px;
+
+  }
+
+  &__addset {
+    display: flex;
+    width: 48px;
+
+    button {
+      font-size: 25px;
+      width: 100%;
+    }
+  }
+
+  &__close {
+    display: flex;
+    width: 48px;
+
+    button {
+      font-size: 25px;
+      width: 100%;
+    }
+  }
+
+  &__addexercise {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 15px;
+
+    button {
+      font-size: 20px;
+      padding: 10px 15px;
+    }
+  }
+
+  &__note {
+    margin-top: 20px;
+    textarea {
+      width: 100%;
+    }
+  }
+
+  &__save {
+    text-align: center;
+
+    button {
+      padding: 10px;
+    }
+  }
+}

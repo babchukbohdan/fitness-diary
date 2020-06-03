@@ -1,0 +1,54 @@
+.month {
+  width: calc(100% - 300px);
+
+  &__select {
+    text-align: center;
+    padding: 10px;
+  }
+
+  &__daynames {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: minmax(50px, auto);
+    grid-gap: 5px;
+
+
+    padding: 0 5px;
+    margin-bottom: 5px;
+
+    div {
+      border: 1px solid tomato;
+      text-align: center;
+
+      font-size: 30px;
+    }
+  }
+
+  &__days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: minmax(100px, auto);
+    grid-gap: 5px;
+
+    padding: 0 5px;
+
+
+
+  }
+  &__item {
+    border: 1px solid tomato;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  &__date {
+    font-size: 40px;
+  }
+}
+
+.today {
+  background-color: tomato;
+}
