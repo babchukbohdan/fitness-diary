@@ -23,7 +23,7 @@ const handlers = {
 export const todayReducer = (state, action) => {
   const handle = handlers[action.type] || handlers.DEFAULT
   const newState = handle(state, action)
-  console.log(newState, 'newState')
+  console.log(newState, 'newState in todayReducer')
   return newState
 }
 
@@ -47,12 +47,10 @@ const _addSet = (exercises, id, set) => {
     newExercise,
     ...exercises.slice(exerciseIndex + 1),
   ]
-  console.log(findExercise,'findExercise');
   return res
 }
 
 const _removeSet = (exercises, id, index) => {
-  console.log(index);
   const exerciseIndex = exercises.findIndex((item) => item.id === id)
   const findExercise = exercises.find((item) => item.id === id)
 

@@ -20,7 +20,8 @@ export const getDayString = (date, withDate = false) => {
   return `${date.getFullYear()}-${month}`
 }
 
-export const getDaysData = (date, trainingsDays) => {
+export const getDaysData = (date, trainingsDays = []) => {
+  console.log('get days data');
   const month = date.getMonth() // месяц
   const year = date.getFullYear() // год
 

@@ -7,6 +7,7 @@ import { Details } from './components/Details/Details';
 import { Navbar } from './components/Navbar/Navbar';
 import { FirebaseState } from './context/firebase/FirebaseState';
 import { TodayState } from './context/today/TodayState';
+import { Info } from './components/Info/Info';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Switch>
               <Route path={'/'} exact component={Month} />
               <Route path={'/details'} component={Details} />
+              <Route path='/info/:year/:month/:id' component={Info} />
             </Switch>
           </Router>
         </TodayState>

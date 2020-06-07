@@ -19,6 +19,8 @@ export const FirebaseState = ({children}) => {
   const fetchMonth = async (path) => {
     console.log('fetching data in --', path);
     const res = await axios.get(`${url}/${path}.json`)
+    console.log(res.data, 'from firebase')
+    console.log(path, 'path')
 
     if (res.data === null) {
       console.log('data === null');

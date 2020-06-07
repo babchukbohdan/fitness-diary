@@ -21,7 +21,7 @@ export const Navbar = () => {
         <li className="navbar__item"><NavLink to="/settings" className="navbar__link">Settings</NavLink></li>
         <li className="navbar__item"><NavLink to="/" exact className="navbar__link">Month</NavLink></li>
         <li className="navbar__item"><NavLink to="/details" className="navbar__link">Details</NavLink></li>
-        <li className="navbar__item"><NavLink to="/progress" className="navbar__link">Progress</NavLink></li>
+        <li className="navbar__item"><NavLink to="/info" className="navbar__link">Info</NavLink></li>
       </ul>
     </div>
   )

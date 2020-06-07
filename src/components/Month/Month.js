@@ -1,10 +1,13 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useLayoutEffect } from 'react'
 import './Month.scss'
 import { getDaysData, getDayString } from './utils'
 import { FirebaseContext } from '../../context/firebase/firebaseContext'
+import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 
 export const Month = () => {
+
 
   const [date, setDate] = useState(new Date())
   const {loading, fetchMonth, month} = useContext(FirebaseContext)
@@ -14,18 +17,19 @@ export const Month = () => {
     // eslint-disable-next-line
   }, [date])
 
+  //<-- month #todo  // fetching data
 
+  const daysData = getDaysData(date, month)
 
-  const daysData = getDaysData(date, month) // fetching data
   const today = getDayString(new Date(), true) // current date
-
-
   const url = 'https://fitness-diary-f96e8.firebaseio.com'
 
-  const clickHandler = (e) => {
+  const clickHandler = async (e) => {
     e.preventDefault();
     const href = e.target.getAttribute('href')
+    // const res = await axios.get(`${href}.json`)
     console.log(href);
+    // console.log(res);
   }
 
   return (
@@ -35,6 +39,8 @@ export const Month = () => {
           id="date"
           type="month"
           name="date"
+          min="2012-12"
+          max="2100-12"
           value={getDayString(date)}
           onChange={(e) => {
             console.log(e.target.value)
@@ -59,9 +65,9 @@ export const Month = () => {
             if (day.date === today) {
               clazz.push('today')
             }
-
             const isTraining = !!day.exercises
-            const date = new Date(day.date).getDate()
+            // console.log( `istraining in ${day.date}`,isTraining, day.exercises)
+            const date = new Date(day.date).getDate() || ''
 
             return (
               <div
@@ -70,11 +76,12 @@ export const Month = () => {
               >
                 {
                   isTraining
-                  ? <a
-                      href={`${url}/${day.url}/${day.id}`}
+                  ? <Link
+                      url={`${url}/${day.url}/${day.id}`}
+                      to={`info/${day.url}/${day.id}`}
                       className="month__date"
-                      onClick={clickHandler}
-                    >{date}</a>
+                      // onClick={clickHandler}
+                    >{date}</Link>
                   : <span className="month__date">{date}</span>
                 }
               </div>

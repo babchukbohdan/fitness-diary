@@ -7,7 +7,15 @@ import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REMOVE_SET } from '../types'
 export const TodayState = ({children}) => {
   const initialState = {
     date: getDayString(new Date(), true),
-    exercises: [],
+    exercises: [{
+      id: Date.now(),
+      name: 'item',
+      sets: [{
+        id:Date.now(),
+        weight: 100,
+        reps: 8,
+      }]
+    }],
     note: '',
     start: '',
     end: '',
@@ -29,7 +37,6 @@ export const TodayState = ({children}) => {
   }
 
   const removeExercise = (id) => {
-    console.log(id);
     dispatch({
       type: REMOVE_EXERCISE,
       payload: id
@@ -48,8 +55,6 @@ export const TodayState = ({children}) => {
   }
 
   const removeSet = (id, index) => {
-    console.log('removeSet in id = ', id)
-    console.log('removeSet index = ', index)
     dispatch({
       type: REMOVE_SET,
       payload: {

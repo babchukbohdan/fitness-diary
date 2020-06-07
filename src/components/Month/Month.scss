@@ -10,17 +10,25 @@
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-auto-rows: minmax(50px, auto);
-    grid-gap: 5px;
 
 
     padding: 0 5px;
     margin-bottom: 5px;
 
+
     div {
-      border: 1px solid tomato;
+      border: 1px solid #eee;
       text-align: center;
 
       font-size: 30px;
+      color: whitesmoke;
+
+      background-image: url('./bg-calendar2.jpg');
+      background-image: url('./bg-calendar2.webp');
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-position: right center;
+      background-size: cover;
     }
   }
 
@@ -28,20 +36,38 @@
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-auto-rows: minmax(100px, 1fr);
-    grid-gap: 5px;
 
     padding: 0 5px;
 
 
-
   }
   &__item {
-    border: 1px solid tomato;
+    border: 1px solid #eee;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
+    background-image: url('./bg-calendar2.jpg');
+    background-image: url('./bg-calendar2.webp');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: cover;
+
+    color: whitesmoke;
+    transition: transform .3s ease-out;
+    transform-origin: right;
+
+    &:hover {
+      // transform: scale(1.3);
+
+    }
+
+    a {
+      color: palegreen;
+      text-decoration: none;
+    }
   }
 
   &__date {
@@ -50,5 +76,8 @@
 }
 
 .today {
-  background-color: tomato;
+  // background-color: tomato;
+  a {
+    color: cornflowerblue;
+  }
 }

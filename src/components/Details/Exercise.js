@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Set } from './Set'
 import { TodayContext } from '../../context/today/todayContext'
 
@@ -7,6 +7,7 @@ export const Exercise = ({exercise}) => {
   // const sets = new Array(5).fill('')
   const {sets, id} = exercise
   const {removeExercise, addSet, removeSet} = useContext(TodayContext)
+
   return (
     <div className="details__exercise">
 
@@ -23,12 +24,14 @@ export const Exercise = ({exercise}) => {
 
         <div className="details__sets">
           {
-            sets.map((set, i) =>
-              <Set
+            sets.map((set, i) => {
+              console.log(set.id, 'set id');
+              return <Set
                 index={i}
                 key={set.id}
                 onRemove={() => {removeSet(id, i)}}
-              />)
+              />
+            })
           }
         </div>
 

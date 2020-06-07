@@ -11,6 +11,7 @@ export const Details = () => {
 
   const {addTrainingDay} = useContext(FirebaseContext)
 
+
   const submitHandler = (data, path) => {
     addTrainingDay(data, path)
       .then(() => {
@@ -53,6 +54,7 @@ export const Details = () => {
       <div className="details__main">
         <div className="details__exercises">
           {exercises.map((item, i) => {
+            console.log(item.id, 'exercise id');
             return <Exercise key={item.id} exercise={item} />
           })}
 
@@ -89,6 +91,27 @@ export const Details = () => {
                     ]
                   },
                   {
+                    name: 'push-ups',
+                    sets: [
+                      {
+                        weight: 0,
+                        reps: 120
+                      },
+                      {
+                        weight: 0,
+                        reps: 100
+                      },
+                      {
+                        weight: 0,
+                        reps: 88
+                      },
+                      {
+                        weight: 0,
+                        reps: 76
+                      },
+                    ]
+                  },
+                  {
                     name: 'banch-press',
                     sets: [
                       {
@@ -98,6 +121,18 @@ export const Details = () => {
                       {
                         weight: 120,
                         reps: 10
+                      },
+                      {
+                        weight: 120,
+                        reps: 9
+                      },
+                      {
+                        weight: 130,
+                        reps: 8
+                      },
+                      {
+                        weight: 140,
+                        reps: 5
                       }
                     ]
                   },
