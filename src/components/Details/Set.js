@@ -1,30 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { TodayContext } from '../../context/today/todayContext'
 
-export const Set = ({index, onRemove}) => {
-  const [weight, setWeight] = useState(0)
-  const [reps, setReps] = useState(0)
+export const Set = ({exerciseId, id, index, weight, reps}) => {
+  const [state, setState] = useState({weight, reps})
+  const {replaceSet} = useContext(TodayContext)
+
+  const inputHandler = (e) => {
+    e.persist()
+    const key = e.target.name
+    const newState = {...state, [key]: e.target.value}
+    setState(newState)
+    replaceSet(exerciseId, id, newState)
+  }
+
   return (
     <div className="details__set">
       <div className="details__set__num">{index + 1}</div>
       <div className="details__values">
         <div className="details__weight">
           <input
-            className=""
+            name="weight"
+            type="number"
             value={weight}
-            onChange={(e) => {
-              setWeight(e.target.value)
-            }}
+            onChange={inputHandler}
           />
           <span>kg</span>
         </div>
         <div className="details__reps">
           <input
-            className=""
+            name="reps"
+            type="number"
             value={reps}
-            title='select'
-            onChange={(e) => {
-              setReps(e.target.value)
-            }}
+            onChange={inputHandler}
           />
           <span>reps</span>
         </div>
@@ -32,7 +39,7 @@ export const Set = ({index, onRemove}) => {
       <div className="details__set__remove">
         <button
           className="details__set__btn"
-          onClick={onRemove}
+          onClick={() => replaceSet(exerciseId, id)}
         >&times;</button>
       </div>
     </div>

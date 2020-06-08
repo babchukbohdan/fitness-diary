@@ -6,18 +6,14 @@ export const Exercise = ({exercise}) => {
 
   // const sets = new Array(5).fill('')
   const {sets, id} = exercise
-  const {removeExercise, addSet, removeSet} = useContext(TodayContext)
+  const {removeExercise, addSet, replaceSet} = useContext(TodayContext)
 
   return (
     <div className="details__exercise">
 
-      <select className="details__select" name="">
-        <option value="exercise01">exercise01</option>
-        <option value="exercise02">exercise02</option>
-        <option value="exercise03">exercise03</option>
-        <option value="exercise04">exercise04</option>
-        <option value="exercise05">exercise05</option>
-      </select>
+      <span className="details__select">
+        {exercise.name}
+      </span>
 
 
       <div className="details__container">
@@ -25,11 +21,14 @@ export const Exercise = ({exercise}) => {
         <div className="details__sets">
           {
             sets.map((set, i) => {
-              console.log(set.id, 'set id');
+              // console.log(set.id, 'setID');
               return <Set
+                weight={set.weight}
+                reps={set.reps}
                 index={i}
                 key={set.id}
-                onRemove={() => {removeSet(id, i)}}
+                id={set.id}
+                exerciseId={id}
               />
             })
           }
@@ -37,11 +36,7 @@ export const Exercise = ({exercise}) => {
 
         <div className="details__addset">
           <button
-            onClick={() => addSet(id, {
-              weight: 100,
-              reps: 8,
-              id: Date.now()
-            })}
+            onClick={() => addSet(id)}
           >Add<br/>set</button>
         </div>
 

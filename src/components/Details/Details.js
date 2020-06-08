@@ -1,18 +1,43 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import './Details.scss'
 import { Exercise } from './Exercise'
 import { FirebaseContext } from '../../context/firebase/firebaseContext'
 import { getDayString } from '../Month/utils'
 import { TodayContext } from '../../context/today/todayContext'
+import { ExercisesList } from './ExercisesList/ExercisesList'
 
 export const Details = () => {
-  const {state, addExercise, removeExercise} = useContext(TodayContext)
-  const exercises = state.exercises
+  const {state, addExercise} = useContext(TodayContext)
+  const {exercises} = state
 
   const {addTrainingDay} = useContext(FirebaseContext)
 
+  const [db, setDb] = useState()
+  const [showEx, setShowEx] = useState(false)
+
+  useEffect(() => {
+
+  }, [showEx])
+
+  useEffect(() => {
+
+    const getJson = async () => {
+      const response = await fetch('./exercises.json', {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      const data = await response.json()
+
+      setDb(data)
+    }
+    getJson()
+  }, [])
+
+  console.log(db, 'db');
 
   const submitHandler = (data, path) => {
+    console.log(data, 'submitting to ', path);
     addTrainingDay(data, path)
       .then(() => {
         console.log('add training day');
@@ -24,6 +49,11 @@ export const Details = () => {
 
 
   // 2020/5/3
+
+
+
+
+
 
 
   const dateHandler = (e) => {
@@ -54,15 +84,16 @@ export const Details = () => {
       <div className="details__main">
         <div className="details__exercises">
           {exercises.map((item, i) => {
-            console.log(item.id, 'exercise id');
             return <Exercise key={item.id} exercise={item} />
           })}
 
           <div className="details__addexercise">
             <button
-              onClick={addExercise}
+              onClick={() => {setShowEx(true)}}
             >Add exercise</button>
           </div>
+
+          {db && showEx && <ExercisesList db={db} onSelectExercise={addExercise} setShowEx={setShowEx} />}
 
         </div>
 
@@ -74,75 +105,7 @@ export const Details = () => {
         <div className="details__save">
           <button
             onClick={() => {
-              submitHandler({
-                date: getDayString(new Date(), true),
-                exercises: [
-                  {
-                    name: 'pull-up',
-                    sets: [
-                      {
-                        weight: 0,
-                        reps: 12
-                      },
-                      {
-                        weight: 0,
-                        reps: 10
-                      }
-                    ]
-                  },
-                  {
-                    name: 'push-ups',
-                    sets: [
-                      {
-                        weight: 0,
-                        reps: 120
-                      },
-                      {
-                        weight: 0,
-                        reps: 100
-                      },
-                      {
-                        weight: 0,
-                        reps: 88
-                      },
-                      {
-                        weight: 0,
-                        reps: 76
-                      },
-                    ]
-                  },
-                  {
-                    name: 'banch-press',
-                    sets: [
-                      {
-                        weight: 100,
-                        reps: 12
-                      },
-                      {
-                        weight: 120,
-                        reps: 10
-                      },
-                      {
-                        weight: 120,
-                        reps: 9
-                      },
-                      {
-                        weight: 130,
-                        reps: 8
-                      },
-                      {
-                        weight: 140,
-                        reps: 5
-                      }
-                    ]
-                  },
-                ],
-                note: '',
-                start: '',
-                end: '',
-                weight: '70kg',
-                sleep: ''
-              }, '2020/6')
+              submitHandler(state, '2020/6')
             }}
           >Save</button>
         </div>

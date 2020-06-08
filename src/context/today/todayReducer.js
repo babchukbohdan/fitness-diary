@@ -1,4 +1,4 @@
-import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REMOVE_SET } from "../types"
+import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REPLACE_SET } from "../types"
 
 const handlers = {
   [ADD_EXERCISE]: (state, {payload}) => ({
@@ -13,9 +13,14 @@ const handlers = {
     ...state,
     exercises: _addSet(state.exercises, payload.id, payload.set)
   }),
-  [REMOVE_SET]: (state, {payload}) => ({
+  [REPLACE_SET]: (state, {payload}) => ({
     ...state,
-    exercises: _removeSet(state.exercises, payload.id, payload.index)
+    exercises: _replaceSet(
+      state.exercises,
+      payload.exerciseId,
+      payload.setId,
+      payload.newSet
+    )
   }),
   DEFAULT: state => state
 }
@@ -27,47 +32,54 @@ export const todayReducer = (state, action) => {
   return newState
 }
 
-const getSetsInExercisesById = (exercises, id) => {
-  const exercise = exercises.find((item) => item.id === id)
-  return [...exercise.sets]
-}
-
-
-
-const _addSet = (exercises, id, set) => {
-  const exerciseIndex = exercises.findIndex((item) => item.id === id)
-  const findExercise = exercises.find((item) => item.id === id)
-
-  const sets = getSetsInExercisesById(exercises, id)
-  sets.push({...set})
-  const newExercise = {...findExercise, sets}
-
-  const res = [
+const changeExercise = (exercises, exerciseId, newExercise) => {
+  const exerciseIndex = exercises.findIndex((item) => item.id === exerciseId)
+  return [
     ...exercises.slice(0, exerciseIndex),
     newExercise,
     ...exercises.slice(exerciseIndex + 1),
   ]
-  return res
 }
 
-const _removeSet = (exercises, id, index) => {
-  const exerciseIndex = exercises.findIndex((item) => item.id === id)
-  const findExercise = exercises.find((item) => item.id === id)
+const replaceObjectInArrayById = (array, id, newItem) => {
+  return array.map((item) => {
+    if (item.id === id ) {
+      return {...item,...newItem}
+    }
+    return item
+  })
+}
 
-  const oldSets = getSetsInExercisesById(exercises, id)
+const removeObjectInArrayById = (array, id) => {
+  return array.filter((item) => item.id !== id)
+}
 
-  const sets = oldSets.filter((set, i) => i !== index )
 
+const _addSet = (exercises, exerciseId, set) => {
+  const findExercise = exercises.find((item) => item.id === exerciseId)
+
+  const sets = [...findExercise.sets, {...set}]
+  const newExercise = {...findExercise, sets}
+
+
+  return changeExercise(exercises, exerciseId, newExercise)
+}
+
+
+const _replaceSet = (exercises, exerciseId, setId, newSet = null) => {
+  const findExercise = exercises.find((item) => item.id === exerciseId)
+
+  const oldSets = [...findExercise.sets]
+  let sets
+
+  if (newSet) {
+    sets = replaceObjectInArrayById(oldSets, setId, newSet)
+  } else {
+    sets = removeObjectInArrayById(oldSets, setId)
+  }
 
 
   const newExercise = {...findExercise, sets}
 
-
-  const res = [
-    ...exercises.slice(0, exerciseIndex),
-    newExercise,
-    ...exercises.slice(exerciseIndex + 1),
-  ]
-
-  return res
+  return changeExercise(exercises, exerciseId, newExercise)
 }

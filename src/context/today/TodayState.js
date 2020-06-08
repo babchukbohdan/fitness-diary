@@ -2,20 +2,12 @@ import React, { useReducer } from 'react'
 import { TodayContext } from './todayContext'
 import { todayReducer } from './todayReducer'
 import { getDayString } from '../../components/Month/utils'
-import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REMOVE_SET } from '../types'
+import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REPLACE_SET } from '../types'
 
 export const TodayState = ({children}) => {
   const initialState = {
     date: getDayString(new Date(), true),
-    exercises: [{
-      id: Date.now(),
-      name: 'item',
-      sets: [{
-        id:Date.now(),
-        weight: 100,
-        reps: 8,
-      }]
-    }],
+    exercises: [],
     note: '',
     start: '',
     end: '',
@@ -25,13 +17,17 @@ export const TodayState = ({children}) => {
 
   const [state, dispatch] = useReducer(todayReducer, initialState)
 
-  const addExercise = () => {
+  const addExercise = (name) => {
     dispatch({
       type: ADD_EXERCISE,
       payload: {
         id: Date.now(),
-        name: '',
-        sets: [],
+        name,
+        sets: [{
+          weight: 0,
+          reps: 0,
+          id:Date.now(),
+        }],
       }
     })
   }
@@ -43,22 +39,26 @@ export const TodayState = ({children}) => {
     })
   }
 
-  const addSet = (id, set) => {
+  const addSet = (id) => {
     console.log('addSet');
     dispatch({
       type: ADD_SET,
       payload: {
         id,
-        set
+        set: {
+          weight: 0,
+          reps: 0,
+          id: Date.now()
+        }
       }
     })
   }
 
-  const removeSet = (id, index) => {
+  const replaceSet = (exerciseId, setId, newSet) => {
     dispatch({
-      type: REMOVE_SET,
+      type: REPLACE_SET,
       payload: {
-        id, index
+        exerciseId, setId, newSet
       }
     })
   }
@@ -71,7 +71,7 @@ export const TodayState = ({children}) => {
     <TodayContext.Provider value={{
       state: state,
       addExercise, removeExercise,
-      addSet, removeSet
+      addSet, replaceSet
     }}>
       {children}
     </TodayContext.Provider>
