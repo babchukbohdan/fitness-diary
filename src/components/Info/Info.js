@@ -40,7 +40,10 @@ export const Info = (props) => {
                 {
                   exercise.sets && exercise.sets.map((set, i) => {
                     return (
-                      <td key={i}>{set.weight} x {set.reps}</td>
+                      <td key={i}>
+                        {set.weight > 0 ? `${set.weight} kg x ` : ''}
+                        {set.reps}
+                      </td>
                     )
                   })
                 }

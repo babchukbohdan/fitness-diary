@@ -20,6 +20,7 @@
     padding: 10px;
 
     border: 1px solid #000;
+    border-left: none;
   }
 
   &__info {
@@ -62,6 +63,18 @@
     border-radius: 10px;
 
     height: 20px;
+
+    max-width: 100px;
+
+    align-self: stretch;
+
+    height: 100%;
+
+    max-height: 56px;
+    padding: 5px;
+    line-height: 1;
+
+    word-wrap: break-word;
   }
 
   &__container {

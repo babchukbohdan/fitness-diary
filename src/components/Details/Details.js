@@ -7,8 +7,16 @@ import { TodayContext } from '../../context/today/todayContext'
 import { ExercisesList } from './ExercisesList/ExercisesList'
 
 export const Details = () => {
-  const {state, addExercise} = useContext(TodayContext)
-  const {exercises} = state
+  const {state, addExercise, changeValue} = useContext(TodayContext)
+  const {
+    exercises,
+    date,
+    note,
+    start,
+    end,
+    weight,
+    sleep,
+  } = state
 
   const {addTrainingDay} = useContext(FirebaseContext)
 
@@ -52,7 +60,10 @@ export const Details = () => {
 
 
 
-
+  const inputHandler = (e) => {
+    console.log(e.target.name, e.target.value);
+    changeValue(e.target.name, e.target.value)
+  }
 
 
 
@@ -71,13 +82,35 @@ export const Details = () => {
               readOnly
               type="date"
               name="date"
-              value={getDayString(new Date(), true)}
+              value={date}
               id=""
-              onClick={dateHandler}
+              onChange={inputHandler}
             />
           </li>
-          <li className="details__info">Weight: 70kg</li>
-          <li className="details__info">Sleep: 9 hours</li>
+          <li className="details__info">
+            Weight:
+            <input
+              type="number"
+              name="weight"
+              min="20"
+              max="200"
+              onChange={inputHandler}
+              value={weight}
+            />
+            kg
+            </li>
+          <li className="details__info">
+            Sleep:
+            <input
+              type="number"
+              name="sleep"
+              min="6"
+              max="12"
+              onChange={inputHandler}
+              value={sleep}
+
+            />
+            hours</li>
         </ul>
       </div>
 
@@ -99,7 +132,11 @@ export const Details = () => {
 
         <div className="details__note">
           <h5>Note:</h5>
-          <textarea></textarea>
+          <textarea
+            name="note"
+            onChange={inputHandler}
+            value={note}
+          ></textarea>
         </div>
 
         <div className="details__save">
@@ -113,8 +150,24 @@ export const Details = () => {
 
       <div className="details__footer">
         <ul className="details__list">
-          <li className="details__info">Start: 17:00</li>
-          <li className="details__info">End: 18:30</li>
+          <li className="details__info">
+            Start:
+            <input
+              type="time"
+              name="start"
+              onChange={inputHandler}
+              value={start}
+            />
+          </li>
+          <li className="details__info">
+            End:
+            <input
+              type="time"
+              name="end"
+              onChange={inputHandler}
+              value={end}
+            />
+          </li>
           <li className="details__info">Duration: 90min</li>
         </ul>
       </div>

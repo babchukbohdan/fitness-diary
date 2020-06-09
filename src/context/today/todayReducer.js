@@ -1,4 +1,4 @@
-import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REPLACE_SET } from "../types"
+import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REPLACE_SET, CHANGE_VALUE } from "../types"
 
 const handlers = {
   [ADD_EXERCISE]: (state, {payload}) => ({
@@ -21,6 +21,9 @@ const handlers = {
       payload.setId,
       payload.newSet
     )
+  }),
+  [CHANGE_VALUE]: (state, {payload}) => ({
+    ...state, [payload.key]: payload.value
   }),
   DEFAULT: state => state
 }

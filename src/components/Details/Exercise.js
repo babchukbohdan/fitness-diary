@@ -11,9 +11,9 @@ export const Exercise = ({exercise}) => {
   return (
     <div className="details__exercise">
 
-      <span className="details__select">
+      <p className="details__select">
         {exercise.name}
-      </span>
+      </p>
 
 
       <div className="details__container">

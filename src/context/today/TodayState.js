@@ -2,7 +2,7 @@ import React, { useReducer } from 'react'
 import { TodayContext } from './todayContext'
 import { todayReducer } from './todayReducer'
 import { getDayString } from '../../components/Month/utils'
-import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REPLACE_SET } from '../types'
+import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REPLACE_SET, CHANGE_VALUE } from '../types'
 
 export const TodayState = ({children}) => {
   const initialState = {
@@ -24,9 +24,9 @@ export const TodayState = ({children}) => {
         id: Date.now(),
         name,
         sets: [{
-          weight: 0,
-          reps: 0,
-          id:Date.now(),
+          weight: '',
+          reps: '',
+          id: Date.now(),
         }],
       }
     })
@@ -63,6 +63,12 @@ export const TodayState = ({children}) => {
     })
   }
 
+  const changeValue = (key, value) => {
+    dispatch({
+      type: CHANGE_VALUE,
+      payload: {key, value}
+    })
+  }
 
 
 
@@ -71,7 +77,8 @@ export const TodayState = ({children}) => {
     <TodayContext.Provider value={{
       state: state,
       addExercise, removeExercise,
-      addSet, replaceSet
+      addSet, replaceSet,
+      changeValue
     }}>
       {children}
     </TodayContext.Provider>

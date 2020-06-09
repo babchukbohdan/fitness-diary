@@ -21,6 +21,7 @@ export const Set = ({exerciseId, id, index, weight, reps}) => {
           <input
             name="weight"
             type="number"
+            min="1"
             value={weight}
             onChange={inputHandler}
           />
@@ -30,6 +31,7 @@ export const Set = ({exerciseId, id, index, weight, reps}) => {
           <input
             name="reps"
             type="number"
+            min="1"
             value={reps}
             onChange={inputHandler}
           />
