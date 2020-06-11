@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { Set } from './Set'
 import { TodayContext } from '../../context/today/todayContext'
 
@@ -6,13 +6,13 @@ export const Exercise = ({exercise}) => {
 
   // const sets = new Array(5).fill('')
   const {sets, id} = exercise
-  const {removeExercise, addSet, replaceSet} = useContext(TodayContext)
+  const {removeExercise, addSet} = useContext(TodayContext)
 
   return (
     <div className="details__exercise">
 
       <p className="details__select">
-        {exercise.name}
+        {exercise.name.name}
       </p>
 
 

@@ -11,6 +11,14 @@ function getSpanNumber(day) {
   return day - 1
 }
 
+export const getTimeString = (date) => {
+  let hours = date.getHours()
+  let min = date.getMinutes()
+  if (hours < 10) hours = `0${hours}`
+  if (min < 10) min = `0${min}`
+  return `${hours}:${min}`
+}
+
 export const getDayString = (date, withDate = false) => {
   let month = date.getMonth() + 1
   let day = date.getDate()
@@ -21,7 +29,6 @@ export const getDayString = (date, withDate = false) => {
 }
 
 export const getDaysData = (date, trainingsDays = []) => {
-  console.log('get days data');
   const month = date.getMonth() // месяц
   const year = date.getFullYear() // год
 

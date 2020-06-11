@@ -17,7 +17,10 @@ export const Details = () => {
     sleep,
   } = state
 
+  console.log(state, 'state')
   const {addTrainingDay} = useContext(FirebaseContext)
+
+
 
   const [db, setDb] = useState()
   const [showEx, setShowEx] = useState(false)
@@ -63,13 +66,6 @@ export const Details = () => {
     changeValue(e.target.name, e.target.value)
   }
 
-
-
-  const dateHandler = (e) => {
-    console.log(e.target.value)
-  }
-
-
   return (
     <div className="details">
 
@@ -78,7 +74,7 @@ export const Details = () => {
           <li className="details__info">
             <img
               className="info__icon icon"
-              src="./img/icons/date.svg"
+              src="./img/icons/calendar.svg"
               alt="date"
             />
             {/* Date: */}

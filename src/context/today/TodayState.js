@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react'
 import { TodayContext } from './todayContext'
 import { todayReducer } from './todayReducer'
-import { getDayString } from '../../components/Month/utils'
+import { getDayString, getTimeString } from '../../components/Month/utils'
 import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REPLACE_SET, CHANGE_VALUE } from '../types'
 
 export const TodayState = ({children}) => {
@@ -9,10 +9,10 @@ export const TodayState = ({children}) => {
     date: getDayString(new Date(), true),
     exercises: [],
     note: '',
-    start: '',
-    end: '',
-    weight: '',
-    sleep: ''
+    start: getTimeString(new Date()),
+    end: getTimeString(new Date()),
+    weight: 77,
+    sleep: 8
   }
 
   const [state, dispatch] = useReducer(todayReducer, initialState)
@@ -24,8 +24,8 @@ export const TodayState = ({children}) => {
         id: Date.now(),
         name,
         sets: [{
-          weight: '',
-          reps: '',
+          weight: random(50, 100),
+          reps: random(5, 20),
           id: Date.now(),
         }],
       }
@@ -39,6 +39,13 @@ export const TodayState = ({children}) => {
     })
   }
 
+
+  const random = (min, max) => {
+    let rand = min - 0.5 + Math.random() * (max - min + 1);
+    return Math.round(rand);
+  }
+
+
   const addSet = (id) => {
     console.log('addSet');
     dispatch({
@@ -46,8 +53,8 @@ export const TodayState = ({children}) => {
       payload: {
         id,
         set: {
-          weight: '',
-          reps: '',
+          weight: random(50, 100),
+          reps: random(5, 20),
           id: Date.now()
         }
       }

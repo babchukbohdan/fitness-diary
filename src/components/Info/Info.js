@@ -12,6 +12,7 @@ export const Info = (props) => {
 
   useEffect(() => {
     getData()
+    // eslint-disable-next-line
   }, [])
 
   const getData = async () => {
@@ -36,7 +37,7 @@ export const Info = (props) => {
           exercises && exercises.map((exercise, i) => {
             return (
               <tr key={i}>
-                <td>{exercise.name}</td>
+                <td>{exercise.name.name}</td>
                 {
                   exercise.sets && exercise.sets.map((set, i) => {
                     return (

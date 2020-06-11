@@ -46,15 +46,19 @@
     // border: 1px solid #eee;
 
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    flex-direction: column;
 
     padding: 10px;
 
     line-height: 1;
-
-    background-image: url('./bg-calendar2.jpg');
-    background-image: url('./bg-calendar2.webp');
+    background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
+            linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
+            linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+    // background-image: url('./bg-calendar2.jpg');
+    // background-image: url('./bg-calendar2.webp');
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: right center;
@@ -73,6 +77,15 @@
       color: palegreen;
       text-decoration: none;
     }
+  }
+
+  &__muscles {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .muscle__icon {
   }
 
   &__date {

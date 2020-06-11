@@ -1,7 +1,8 @@
-import { SHOW_LOADER, ADD_TRAINING, FETCH_MONTH, REMOVE_TRAINING } from "../types"
+import { SHOW_LOADER, ADD_TRAINING, FETCH_MONTH, REMOVE_TRAINING, HIDE_LOADER } from "../types"
 
 const handlers = {
   [SHOW_LOADER]: state => ({...state, loading: true}),
+  [HIDE_LOADER]: state => ({...state, loading: false}),
   [ADD_TRAINING]: (state, {payload}) => ({
     ...state,
     month: [...state.month, payload]

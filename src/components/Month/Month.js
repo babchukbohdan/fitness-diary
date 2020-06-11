@@ -1,9 +1,9 @@
-import React, { useState, useContext, useEffect, useLayoutEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import './Month.scss'
 import { getDaysData, getDayString } from './utils'
 import { FirebaseContext } from '../../context/firebase/firebaseContext'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { Loader } from '../Loader/Loader'
 
 
 export const Month = () => {
@@ -24,12 +24,8 @@ export const Month = () => {
   const today = getDayString(new Date(), true) // current date
   const url = 'https://fitness-diary-f96e8.firebaseio.com'
 
-  const clickHandler = async (e) => {
-    e.preventDefault();
-    const href = e.target.getAttribute('href')
-    // const res = await axios.get(`${href}.json`)
-    console.log(href);
-    // console.log(res);
+  if (loading) {
+    return <Loader/>
   }
 
   return (
@@ -61,6 +57,8 @@ export const Month = () => {
       <div className="month__days">
         {
           daysData.map((day, i) => {
+
+
             const clazz = ["month__item"]
             if (day.date === today) {
               clazz.push('today')
@@ -68,6 +66,39 @@ export const Month = () => {
             const isTraining = !!day.exercises
             // console.log( `istraining in ${day.date}`,isTraining, day.exercises)
             const date = new Date(day.date).getDate() || ''
+            let ifTraining
+            if (isTraining) {
+              const uniqueMuscleGroups = day.exercises.map(exercise => {
+                return exercise.name.muscleGroup
+              })
+              uniqueMuscleGroups.length = 4
+
+              ifTraining = (
+                <>
+                  <Link
+                      url={`${url}/${day.url}/${day.id}`}
+                      to={`info/${day.url}/${day.id}`}
+                      className="month__date"
+                      // onClick={clickHandler}
+                  >{date}</Link>
+                  <div className="month__muscles">
+                    {
+                      uniqueMuscleGroups.map((muscle, i) => (
+                        <img
+                          src={`./img/icons/muscleGroups/${muscle}.png`}
+                          alt={muscle}
+                          className="icon muscle__icon"
+                          key={i}
+                        />
+                      ))
+                    }
+                  </div>
+                </>
+              )
+            }
+
+
+
 
             return (
               <div
@@ -76,12 +107,7 @@ export const Month = () => {
               >
                 {
                   isTraining
-                  ? <Link
-                      url={`${url}/${day.url}/${day.id}`}
-                      to={`info/${day.url}/${day.id}`}
-                      className="month__date"
-                      // onClick={clickHandler}
-                    >{date}</Link>
+                  ? ifTraining
                   : <span className="month__date">{date}</span>
                 }
               </div>
