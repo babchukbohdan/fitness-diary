@@ -18,6 +18,7 @@ export const FirebaseState = ({children}) => {
   const hideLoader = () => (dispatch({type: HIDE_LOADER}))
 
   const getTrainingsFromFirebase = (path) => {
+    console.log('fetching from firebase');
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(axios.get(`${url}/${path}.json`))
@@ -27,10 +28,8 @@ export const FirebaseState = ({children}) => {
   }
 
   const dispatchTrainings = (data) => {
-    console.log('dispatching data');
     return new Promise((resolve) => {
       if (data === null) {
-        console.log('data === null');
         return dispatch({
           type: FETCH_MONTH,
           payload: []
@@ -59,14 +58,23 @@ export const FirebaseState = ({children}) => {
     const res = await getTrainingsFromFirebase(path)
     dispatchTrainings(res.data)
     hideLoader()
+    return Object.keys(res.data).map(key => {
+      return {
+        ...res.data[key],
+        id: key
+      }
+    })
   }
 
   const removeSameExercise = (month, path, data) => {
     const same = month.find(day => day.date === data.date)
+    console.log('finding same');
     if (same) {
+      console.log('same fined');
       const pathWithId = `${path}/${same.id}`
       removeTraining(same.date, pathWithId)
-    }
+    } else console.log('same not fined');
+
   }
 
   const addTrainingDay = async (data, path) => {
@@ -100,7 +108,7 @@ export const FirebaseState = ({children}) => {
   }
 
   const removeTraining = async (date, path) => {
-    console.log('removingTraining ', path);
+    console.log('removing');
     await axios.delete(`${url}/${path}.json`)
     dispatch({
       type: REMOVE_TRAINING,

@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import './ExercisesList.scss'
 
 export const ExercisesList = ({db, onSelectExercise, setShowEx}) => {
-  console.log(db,'db');
 
   const muscleTypes = Object.keys(db.exercises)
 
@@ -10,11 +9,9 @@ export const ExercisesList = ({db, onSelectExercise, setShowEx}) => {
 
   const radioHandler = (e) => {
     setMuscleGroup(e.target.value)
-    console.log(e.target.value)
   }
 
   const clickHandler = (e) => {
-    console.log(e.target.textContent)
     setShowEx(false)
     onSelectExercise({
       name: e.target.textContent,

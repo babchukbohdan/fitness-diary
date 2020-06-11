@@ -21,7 +21,6 @@ export const Exercise = ({exercise}) => {
         <div className="details__sets">
           {
             sets.map((set, i) => {
-              // console.log(set.id, 'setID');
               return <Set
                 weight={set.weight}
                 reps={set.reps}

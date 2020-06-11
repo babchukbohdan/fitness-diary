@@ -4,6 +4,7 @@ export const FETCH_MONTH = 'FETCH_MONTH'
 export const ADD_TRAINING = 'ADD_TRAINING'
 export const REMOVE_TRAINING = 'REMOVE_TRAINING'
 
+export const INIT_STATE = 'INIT_STATE'
 export const ADD_EXERCISE = 'ADD_EXERCISE'
 export const REMOVE_EXERCISE = 'REMOVE_EXERCISE'
 export const ADD_SET = 'ADD_SET'

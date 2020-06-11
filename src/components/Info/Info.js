@@ -8,7 +8,6 @@ export const Info = (props) => {
   const {year, month, id} = props.match.params
 
   const [dayData, setDayData] = useState([{exercises: [{sets: []}]}])
-  console.log(dayData, 'exercises in start');
 
   useEffect(() => {
     getData()
@@ -16,7 +15,7 @@ export const Info = (props) => {
   }, [])
 
   const getData = async () => {
-    console.log('fetching data');
+    console.log(`fetching data by id ${id}`);
     const res = await axios.get(`${baseUrl}/${year}/${month}/${id}.json`)
     setDayData(res.data)
   }

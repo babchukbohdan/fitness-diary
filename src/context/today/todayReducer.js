@@ -1,6 +1,7 @@
-import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REPLACE_SET, CHANGE_VALUE } from "../types"
+import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REPLACE_SET, CHANGE_VALUE, INIT_STATE } from "../types"
 
 const handlers = {
+  [INIT_STATE]: (state, {payload}) => (payload),
   [ADD_EXERCISE]: (state, {payload}) => ({
     ...state,
     exercises: [...state.exercises, payload],
@@ -31,7 +32,7 @@ const handlers = {
 export const todayReducer = (state, action) => {
   const handle = handlers[action.type] || handlers.DEFAULT
   const newState = handle(state, action)
-  console.log(newState, 'newState in todayReducer')
+  console.log(newState, 'today newState')
   return newState
 }
 

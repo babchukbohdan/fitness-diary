@@ -22,6 +22,6 @@ const handlers = {
 export const firebaseReducer = (state, action) => {
   const handle = handlers[action.type] || handlers.DEFAULT
   const newState = handle(state, action)
-  console.log(newState, 'newState')
+  console.log(newState, 'firebase newState')
   return newState
 }

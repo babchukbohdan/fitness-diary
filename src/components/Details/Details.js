@@ -6,7 +6,7 @@ import { TodayContext } from '../../context/today/todayContext'
 import { ExercisesList } from './ExercisesList/ExercisesList'
 
 export const Details = () => {
-  const {state, addExercise, changeValue} = useContext(TodayContext)
+  const {state, addExercise, changeValue, pushState} = useContext(TodayContext)
   const {
     exercises,
     date,
@@ -17,17 +17,34 @@ export const Details = () => {
     sleep,
   } = state
 
-  console.log(state, 'state')
-  const {addTrainingDay} = useContext(FirebaseContext)
-
+  const {fetchMonth, addTrainingDay, month} = useContext(FirebaseContext)
+    console.log(state, 'today state')
+    console.log(month, 'firebase state')
 
 
   const [db, setDb] = useState()
   const [showEx, setShowEx] = useState(false)
 
-  // useEffect(() => {
+  useEffect(() => {
+    if (!month.length) {
+      const date = new Date(Date.parse(state.date))
+      fetchMonth(`${date.getFullYear()}/${date.getMonth() + 1}`)
+        .then(res => {
+          const todayTraining = res.filter((day) => {
+            return day.date === state.date
+          })[0]
+          console.log(todayTraining, 'todayTraining');
+          pushState({...todayTraining})
+        })
+    } else {
+      const todayTraining = month.filter((day) => {
+        return day.date === state.date
+      })[0]
+      console.log(todayTraining, 'todayTraining');
+      pushState({...todayTraining})
+    }
 
-  // }, [showEx])
+  }, [])
 
   useEffect(() => {
 
@@ -46,7 +63,6 @@ export const Details = () => {
 
 
   const submitHandler = (data, path) => {
-    console.log('submitting', data);
     addTrainingDay(data, path)
       .then(() => {
         console.log('add training day');
@@ -62,7 +78,6 @@ export const Details = () => {
 
 
   const inputHandler = (e) => {
-    console.log(e.target.name, e.target.value);
     changeValue(e.target.name, e.target.value)
   }
 

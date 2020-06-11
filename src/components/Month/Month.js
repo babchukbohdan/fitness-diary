@@ -39,9 +39,7 @@ export const Month = () => {
           max="2100-12"
           value={getDayString(date)}
           onChange={(e) => {
-            console.log(e.target.value)
             setDate(new Date(Date.parse(e.target.value)))
-            // fetchMonth(`${date.getFullYear()}/${date.getMonth() + 1}`)
           }}
         />
       </div>
@@ -64,13 +62,13 @@ export const Month = () => {
               clazz.push('today')
             }
             const isTraining = !!day.exercises
-            // console.log( `istraining in ${day.date}`,isTraining, day.exercises)
             const date = new Date(day.date).getDate() || ''
             let ifTraining
             if (isTraining) {
-              const uniqueMuscleGroups = day.exercises.map(exercise => {
+              const muscleGroups = day.exercises.map(exercise => {
                 return exercise.name.muscleGroup
               })
+              const uniqueMuscleGroups = [...new Set(muscleGroups)]
               uniqueMuscleGroups.length = 4
 
               ifTraining = (
