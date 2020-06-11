@@ -11,7 +11,7 @@ export const TodayState = ({children}) => {
     note: '',
     start: '',
     end: '',
-    weight: '70kg',
+    weight: '',
     sleep: ''
   }
 
@@ -46,8 +46,8 @@ export const TodayState = ({children}) => {
       payload: {
         id,
         set: {
-          weight: 0,
-          reps: 0,
+          weight: '',
+          reps: '',
           id: Date.now()
         }
       }

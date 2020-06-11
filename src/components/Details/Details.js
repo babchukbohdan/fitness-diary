@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from 'react'
 import './Details.scss'
 import { Exercise } from './Exercise'
 import { FirebaseContext } from '../../context/firebase/firebaseContext'
-import { getDayString } from '../Month/utils'
 import { TodayContext } from '../../context/today/todayContext'
 import { ExercisesList } from './ExercisesList/ExercisesList'
 
@@ -23,9 +22,9 @@ export const Details = () => {
   const [db, setDb] = useState()
   const [showEx, setShowEx] = useState(false)
 
-  useEffect(() => {
+  // useEffect(() => {
 
-  }, [showEx])
+  // }, [showEx])
 
   useEffect(() => {
 
@@ -42,10 +41,9 @@ export const Details = () => {
     getJson()
   }, [])
 
-  console.log(db, 'db');
 
   const submitHandler = (data, path) => {
-    console.log(data, 'submitting to ', path);
+    console.log('submitting', data);
     addTrainingDay(data, path)
       .then(() => {
         console.log('add training day');
@@ -77,7 +75,13 @@ export const Details = () => {
 
       <div className="details__header">
         <ul className="details__list">
-          <li className="details__info">Date:
+          <li className="details__info">
+            <img
+              className="info__icon icon"
+              src="./img/icons/date.svg"
+              alt="date"
+            />
+            {/* Date: */}
             <input
               readOnly
               type="date"
@@ -88,7 +92,12 @@ export const Details = () => {
             />
           </li>
           <li className="details__info">
-            Weight:
+            <img
+              className="info__icon icon"
+              src="./img/icons/weight.svg"
+              alt="weight"
+            />
+            {/* Weight: */}
             <input
               type="number"
               name="weight"
@@ -100,7 +109,12 @@ export const Details = () => {
             kg
             </li>
           <li className="details__info">
-            Sleep:
+            <img
+              className="info__icon icon"
+              src="./img/icons/sleep.svg"
+              alt="sleep"
+            />
+            {/* Sleep: */}
             <input
               type="number"
               name="sleep"
@@ -123,7 +137,14 @@ export const Details = () => {
           <div className="details__addexercise">
             <button
               onClick={() => {setShowEx(true)}}
-            >Add exercise</button>
+            >
+              <img
+                className="details__icon icon"
+                src="./img/icons/add.svg"
+                alt="weight"
+              />
+              Add exercise
+            </button>
           </div>
 
           {db && showEx && <ExercisesList db={db} onSelectExercise={addExercise} setShowEx={setShowEx} />}

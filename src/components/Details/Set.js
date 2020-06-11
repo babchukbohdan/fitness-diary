@@ -42,7 +42,14 @@ export const Set = ({exerciseId, id, index, weight, reps}) => {
         <button
           className="details__set__btn"
           onClick={() => replaceSet(exerciseId, id)}
-        >&times;</button>
+        >
+          <img
+            className="set__icon icon"
+            src="./img/icons/close.svg"
+            alt="weight"
+          />
+          {/* &times; */}
+        </button>
       </div>
     </div>
   )

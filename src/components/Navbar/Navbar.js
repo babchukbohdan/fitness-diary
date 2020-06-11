@@ -14,14 +14,34 @@ export const Navbar = () => {
               <img src={bg} alt="bg"/>
             </div>
               <img className="navbar__avatar" src={avatar} alt="avatar"/>
-              <span className="navbar__name">John Doe</span>
-              <span className="navbar__email">john.doe@gmail.com</span>
+              <p className="navbar__name">John Doe</p>
+              <p className="navbar__email">john.doe@gmail.com</p>
           </div>
         </li>
-        <li className="navbar__item"><NavLink to="/settings" className="navbar__link">Settings</NavLink></li>
-        <li className="navbar__item"><NavLink to="/" exact className="navbar__link">Month</NavLink></li>
-        <li className="navbar__item"><NavLink to="/details" className="navbar__link">Details</NavLink></li>
-        <li className="navbar__item"><NavLink to="/info" className="navbar__link">Info</NavLink></li>
+
+
+        <li className="navbar__item">
+          <NavLink to="/" exact className="navbar__link">
+            <img className="navbar__icon icon" src="./img/icons/date.svg" alt=""/>
+            Callendar
+          </NavLink>
+        </li>
+
+        <li className="navbar__item">
+
+          <NavLink to="/details" className="navbar__link">
+            <img className="navbar__icon icon" src="./img/icons/gym.svg" alt=""/>
+            Today training
+          </NavLink>
+        </li>
+
+        <li className="navbar__item">
+          <NavLink to="/settings" className="navbar__link">
+            <img className="navbar__icon icon" src="./img/icons/settings.svg" alt=""/>
+            Settings
+          </NavLink>
+        </li>
+
       </ul>
     </div>
   )

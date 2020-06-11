@@ -37,7 +37,14 @@ export const Exercise = ({exercise}) => {
         <div className="details__addset">
           <button
             onClick={() => addSet(id)}
-          >Add<br/>set</button>
+          >
+            <img
+              className="details__icon icon"
+              src="./img/icons/copy.svg"
+              alt="weight"
+            />
+            {/* Add<br/>set */}
+          </button>
         </div>
 
       </div>
@@ -45,7 +52,14 @@ export const Exercise = ({exercise}) => {
       <div className="details__close">
         <button
           onClick={() => removeExercise(id)}
-        >Remove<br/>exercise</button>
+        >
+          <img
+              className="details__icon icon"
+              src="./img/icons/bin.svg"
+              alt="weight"
+            />
+          {/* Remove<br/>exercise */}
+        </button>
       </div>
 
     </div>

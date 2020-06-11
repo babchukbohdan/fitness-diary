@@ -35,18 +35,23 @@
   &__days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-auto-rows: minmax(100px, 1fr);
+    grid-auto-rows: minmax(136px, 1fr);
+    grid-gap: 1px;
 
     padding: 0 5px;
 
-
+    overflow: hidden;
   }
   &__item {
-    border: 1px solid #eee;
+    // border: 1px solid #eee;
 
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-end;
+
+    padding: 10px;
+
+    line-height: 1;
 
     background-image: url('./bg-calendar2.jpg');
     background-image: url('./bg-calendar2.webp');
@@ -56,11 +61,11 @@
     background-size: cover;
 
     color: whitesmoke;
-    transition: transform .3s ease-out;
-    transform-origin: right;
+    transition: transform .1s ease-out;
+    // transform-origin: right;
 
     &:hover {
-      // transform: scale(1.3);
+      transform: scale(1.1);
 
     }
 
@@ -76,7 +81,6 @@
 }
 
 .today {
-  // background-color: tomato;
   a {
     color: cornflowerblue;
   }

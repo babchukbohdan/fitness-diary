@@ -16,42 +16,60 @@ export const FirebaseState = ({children}) => {
 
   const showLoader = () => dispatch({type: SHOW_LOADER})
 
+  const getTrainingsFromFirebase = (path) => {
+    return axios.get(`${url}/${path}.json`)
+  }
+
+  const dispatchTrainings = (data) => {
+    console.log('dispatching data');
+    return new Promise((resolve) => {
+      if (data === null) {
+        console.log('data === null');
+        return dispatch({
+          type: FETCH_MONTH,
+          payload: []
+        })
+      }
+
+      const payload = Object.keys(data).map(key => {
+        return {
+          ...data[key],
+          id: key
+        }
+      })
+
+      dispatch({
+        type: FETCH_MONTH,
+        payload
+      })
+      resolve(payload)
+    })
+  }
+
+
   const fetchMonth = async (path) => {
     console.log('fetching data in --', path);
-    const res = await axios.get(`${url}/${path}.json`)
+    const res = await getTrainingsFromFirebase(path)
     console.log(res.data, 'from firebase')
-    console.log(path, 'path')
-
-    if (res.data === null) {
-      console.log('data === null');
-      return dispatch({
-        type: FETCH_MONTH,
-        payload: []
-      })
-    }
-
-    const payload = Object.keys(res.data).map(key => {
-      return {
-        ...res.data[key],
-        id: key
-      }
-    })
-
-    dispatch({
-      type: FETCH_MONTH,
-      payload
-    })
-
+    dispatchTrainings(res.data)
   }
 
   const addTrainingDay = async (data, path) => {
+    if (!state.month.length) {
 
-    const same = state.month.find(day => day.date === data.date)
-    console.log(same);
-    if (same) {
-      const pathWithId = `${path}/${same.id}`
-      removeTraining(same.date, pathWithId)
+      getTrainingsFromFirebase(path)
+        .then(res => dispatchTrainings(res.data))
+        .then((month) => {
+          console.log(month);
+          const same = month.find(day => day.date === data.date)
+          console.log(same);
+          if (same) {
+            const pathWithId = `${path}/${same.id}`
+            removeTraining(same.date, pathWithId)
+          }
+        })
     }
+
 
 
     try {
@@ -72,6 +90,7 @@ export const FirebaseState = ({children}) => {
   }
 
   const removeTraining = async (date, path) => {
+    console.log('removingTraining ', path);
     await axios.delete(`${url}/${path}.json`)
     dispatch({
       type: REMOVE_TRAINING,
