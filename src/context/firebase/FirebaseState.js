@@ -30,6 +30,7 @@ export const FirebaseState = ({children}) => {
   const dispatchTrainings = (data) => {
     return new Promise((resolve) => {
       if (data === null) {
+        resolve([])
         return dispatch({
           type: FETCH_MONTH,
           payload: []
@@ -58,6 +59,11 @@ export const FirebaseState = ({children}) => {
     const res = await getTrainingsFromFirebase(path)
     dispatchTrainings(res.data)
     hideLoader()
+
+    if (!res.data) {
+      return []
+    }
+
     return Object.keys(res.data).map(key => {
       return {
         ...res.data[key],

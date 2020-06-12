@@ -22,7 +22,7 @@ export const Navbar = () => {
 
         <li className="navbar__item">
           <NavLink to="/" exact className="navbar__link">
-            <img className="navbar__icon icon" src="./img/icons/date.svg" alt=""/>
+            <img className="navbar__icon icon" src="./img/icons/calendar.svg" alt=""/>
             Callendar
           </NavLink>
         </li>

@@ -1,3 +1,19 @@
+:root {
+  --month-bg-gradient-rainbow:
+    linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
+    linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
+    linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+  --month-bg-img: url('./bg-calendar2.jpg'), url('./bg-calendar2.webp');
+  --month-bg-gradient-black:
+    linear-gradient(217deg, rgba(0,0,0,.8), rgba(0,0,0,0) 70.71%),
+    linear-gradient(127deg, rgba(0,0,0,.8), rgba(0,0,0,0) 50.71%),
+    linear-gradient(336deg, rgba(0,0,0,.8), rgba(0,0,0,0) 70.71%);
+
+  --month-bg-gradient-black2: linear-gradient(315deg, #89d4cf 0%, #6e45e1 74%);
+
+}
+
+
 .month {
   width: calc(100% - 300px);
 
@@ -23,8 +39,7 @@
       font-size: 30px;
       color: whitesmoke;
 
-      background-image: url('./bg-calendar2.jpg');
-      background-image: url('./bg-calendar2.webp');
+      background: var(--month-bg-gradient-rainbow);
       background-attachment: fixed;
       background-repeat: no-repeat;
       background-position: right center;
@@ -54,9 +69,7 @@
     padding: 10px;
 
     line-height: 1;
-    background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
-            linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
-            linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+    background: var(--month-bg-gradient-rainbow);
     // background-image: url('./bg-calendar2.jpg');
     // background-image: url('./bg-calendar2.webp');
     background-attachment: fixed;
@@ -85,8 +98,8 @@
     justify-content: space-evenly;
   }
 
-  .muscle__icon {
-  }
+  // .muscle__icon {
+  // }
 
   &__date {
     font-size: 40px;

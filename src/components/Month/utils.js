@@ -1,10 +1,19 @@
-export const getDayName = (num) => {
-  const arr = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'НД']
+import { dayNames } from "../../constants"
 
-  return arr[num % 7]
+export const getmuscleGroups = (exercises) => {
+  const muscleGroups = exercises.map(exercise => {
+    return exercise.name.muscleGroup
+  })
+  const uniqueMuscleGroups = [...new Set(muscleGroups)]
+  uniqueMuscleGroups.length = 4
+  return uniqueMuscleGroups
 }
 
-function getSpanNumber(day) {
+export const getDayName = (num) => {
+  return dayNames[num % 7]
+}
+
+function getVoidDaysNumber(day) {
   if(day === 0) {
     return 6
   }
@@ -37,18 +46,17 @@ export const getDaysData = (date, trainingsDays = []) => {
   const daysCount = new Date(year, month + 1, 0).getDate() // количество дней в месяце
 
 
-  // создает пустой массив для в количестве firstDay
-  const voidDays = new Array(getSpanNumber(firstDay))
+  // создает пустой массив в количестве firstDay
+  const voidDays = new Array(getVoidDaysNumber(firstDay))
     .fill('')
-    .map((day, index) => ({id: 0 - index}))
+    .map((_, index) => ({id: 0 - index}))
 
   // создает массив данных для рендеринга по количеству дней в месяце (daysCount)
   let days = new Array(daysCount)
     .fill('')
-    .map((day, index) => ({
+    .map((_, index) => ({
       id: index + 1,
       date: getDayString(new Date(year, month, index + 1), true),
-
     }))
 
   trainingsDays.forEach(day => {

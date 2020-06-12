@@ -1,26 +1,19 @@
 import React, { useContext, useState, useEffect } from 'react'
-import './Details.scss'
 import { Exercise } from './Exercise'
 import { FirebaseContext } from '../../context/firebase/firebaseContext'
 import { TodayContext } from '../../context/today/todayContext'
 import { ExercisesList } from './ExercisesList/ExercisesList'
+import { DetailsInfoList } from './DetailsInfoList/DetailsInfoList'
+import { header, footer } from '../../constants'
+import { duration } from './utils'
+import './Details.scss'
+
 
 export const Details = () => {
   const {state, addExercise, changeValue, pushState} = useContext(TodayContext)
-  const {
-    exercises,
-    date,
-    note,
-    start,
-    end,
-    weight,
-    sleep,
-  } = state
+  const {exercises, note, start, end} = state
 
   const {fetchMonth, addTrainingDay, month} = useContext(FirebaseContext)
-    console.log(state, 'today state')
-    console.log(month, 'firebase state')
-
 
   const [db, setDb] = useState()
   const [showEx, setShowEx] = useState(false)
@@ -34,14 +27,14 @@ export const Details = () => {
             return day.date === state.date
           })[0]
           console.log(todayTraining, 'todayTraining');
-          pushState({...todayTraining})
+          if (todayTraining) pushState({...todayTraining})
+
         })
     } else {
       const todayTraining = month.filter((day) => {
         return day.date === state.date
       })[0]
-      console.log(todayTraining, 'todayTraining');
-      pushState({...todayTraining})
+      if (todayTraining) pushState({...todayTraining})
     }
 
   }, [])
@@ -72,11 +65,6 @@ export const Details = () => {
       })
   }
 
-
-  // 2020/5/3
-
-
-
   const inputHandler = (e) => {
     changeValue(e.target.name, e.target.value)
   }
@@ -85,58 +73,12 @@ export const Details = () => {
     <div className="details">
 
       <div className="details__header">
-        <ul className="details__list">
-          <li className="details__info">
-            <img
-              className="info__icon icon"
-              src="./img/icons/calendar.svg"
-              alt="date"
-            />
-            {/* Date: */}
-            <input
-              readOnly
-              type="date"
-              name="date"
-              value={date}
-              id=""
-              onChange={inputHandler}
-            />
-          </li>
-          <li className="details__info">
-            <img
-              className="info__icon icon"
-              src="./img/icons/weight.svg"
-              alt="weight"
-            />
-            {/* Weight: */}
-            <input
-              type="number"
-              name="weight"
-              min="20"
-              max="200"
-              onChange={inputHandler}
-              value={weight}
-            />
-            kg
-            </li>
-          <li className="details__info">
-            <img
-              className="info__icon icon"
-              src="./img/icons/sleep.svg"
-              alt="sleep"
-            />
-            {/* Sleep: */}
-            <input
-              type="number"
-              name="sleep"
-              min="6"
-              max="12"
-              onChange={inputHandler}
-              value={sleep}
-
-            />
-            hours</li>
-        </ul>
+        <DetailsInfoList
+          items={header}
+          state={state}
+          changeValue={changeValue}
+          showTitle={false}
+        />
       </div>
 
       <div className="details__main">
@@ -181,27 +123,14 @@ export const Details = () => {
       </div>
 
       <div className="details__footer">
-        <ul className="details__list">
-          <li className="details__info">
-            Start:
-            <input
-              type="time"
-              name="start"
-              onChange={inputHandler}
-              value={start}
-            />
-          </li>
-          <li className="details__info">
-            End:
-            <input
-              type="time"
-              name="end"
-              onChange={inputHandler}
-              value={end}
-            />
-          </li>
-          <li className="details__info">Duration: 90min</li>
-        </ul>
+        <DetailsInfoList
+          items={footer}
+          state={state}
+          changeValue={changeValue}
+          showTitle={true}
+        >
+          <li className="details__info">Duration: {duration(start, end)} min </li>
+        </DetailsInfoList>
       </div>
 
     </div>
