@@ -1,0 +1,36 @@
+.info {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  list-style-type: none;
+
+  padding: 10px;
+
+  border: 1px solid #000;
+  border-left: none;
+
+  &__item {
+    display: flex;
+    align-items: center;
+
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 14px;
+    font-weight: 500;
+
+    padding: 10px;
+
+    border-radius: 5px;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    input[type=number] {
+      width: 50px;
+    }
+  }
+  &__icon {
+    margin-right: 10px;
+  }
+}

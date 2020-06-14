@@ -1,8 +1,7 @@
 .navbar {
   width: 300px;
   border: 1px solid black;
-  // padding: 20px;
-
+  min-height: 100vh;
   &__list {
     list-style-type: none;
     display: list-item;
@@ -72,8 +71,4 @@
       background-color: rgba(0,0,0,0.05);
     }
   }
-}
-
-.icon {
-  width: 25px;
 }

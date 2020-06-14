@@ -42,6 +42,13 @@ export const Navbar = () => {
           </NavLink>
         </li>
 
+        <li className="navbar__item">
+          <NavLink to="/todo" className="navbar__link">
+            <img className="navbar__icon icon" src="./img/icons/todo.png" alt=""/>
+            Todo List
+          </NavLink>
+        </li>
+
       </ul>
     </div>
   )

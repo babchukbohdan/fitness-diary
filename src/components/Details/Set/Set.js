@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
-import { TodayContext } from '../../context/today/todayContext'
+import { TodayContext } from '../../../context/today/todayContext'
+import './Set.scss'
 
 export const Set = ({exerciseId, id, index, weight, reps}) => {
   const [state, setState] = useState({weight, reps})
@@ -14,10 +15,11 @@ export const Set = ({exerciseId, id, index, weight, reps}) => {
   }
 
   return (
-    <div className="details__set">
-      <div className="details__set__num">{index + 1}</div>
-      <div className="details__values">
-        <div className="details__weight">
+    <div className="set">
+      <div className="set__num">{index + 1}</div>
+      <div className="set__values">
+
+        <div className="set__weight">
           <input
             name="weight"
             type="number"
@@ -27,7 +29,8 @@ export const Set = ({exerciseId, id, index, weight, reps}) => {
           />
           <span>kg</span>
         </div>
-        <div className="details__reps">
+
+        <div className="set__reps">
           <input
             name="reps"
             type="number"
@@ -37,10 +40,12 @@ export const Set = ({exerciseId, id, index, weight, reps}) => {
           />
           <span>reps</span>
         </div>
+
       </div>
-      <div className="details__set__remove">
+
+      <div className="set__remove">
         <button
-          className="details__set__btn"
+          className="set__btn"
           onClick={() => replaceSet(exerciseId, id)}
         >
           <img
@@ -51,6 +56,7 @@ export const Set = ({exerciseId, id, index, weight, reps}) => {
           {/* &times; */}
         </button>
       </div>
+
     </div>
   )
 }

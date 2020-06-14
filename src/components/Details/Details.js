@@ -1,19 +1,22 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { Exercise } from './Exercise'
+import { Exercise } from './Exercise/Exercise'
 import { FirebaseContext } from '../../context/firebase/firebaseContext'
 import { TodayContext } from '../../context/today/todayContext'
 import { ExercisesList } from './ExercisesList/ExercisesList'
 import { DetailsInfoList } from './DetailsInfoList/DetailsInfoList'
 import { header, footer } from '../../constants'
 import { duration } from './utils'
+import { AddExercise } from './AddExercise/AddExercise'
+import { Note } from './Note/Note'
+import { Submit } from './Submit/Submit'
+
 import './Details.scss'
 
-
 export const Details = () => {
+  const {fetchMonth, addTrainingDay, month} = useContext(FirebaseContext)
   const {state, addExercise, changeValue, pushState} = useContext(TodayContext)
   const {exercises, note, start, end} = state
 
-  const {fetchMonth, addTrainingDay, month} = useContext(FirebaseContext)
 
   const [db, setDb] = useState()
   const [showEx, setShowEx] = useState(false)
@@ -55,19 +58,8 @@ export const Details = () => {
   }, [])
 
 
-  const submitHandler = (data, path) => {
-    addTrainingDay(data, path)
-      .then(() => {
-        console.log('add training day');
-      })
-      .catch((e) => {
-        console.log('Error server post methos');
-      })
-  }
 
-  const inputHandler = (e) => {
-    changeValue(e.target.name, e.target.value)
-  }
+
 
   return (
     <div className="details">
@@ -78,6 +70,7 @@ export const Details = () => {
           state={state}
           changeValue={changeValue}
           showTitle={false}
+          showIcon={true}
         />
       </div>
 
@@ -87,39 +80,16 @@ export const Details = () => {
             return <Exercise key={item.id} exercise={item} />
           })}
 
-          <div className="details__addexercise">
-            <button
-              onClick={() => {setShowEx(true)}}
-            >
-              <img
-                className="details__icon icon"
-                src="./img/icons/add.svg"
-                alt="weight"
-              />
-              Add exercise
-            </button>
-          </div>
+
+          <AddExercise onClickHandler={() => setShowEx(true)} />
 
           {db && showEx && <ExercisesList db={db} onSelectExercise={addExercise} setShowEx={setShowEx} />}
 
         </div>
 
-        <div className="details__note">
-          <h5>Note:</h5>
-          <textarea
-            name="note"
-            onChange={inputHandler}
-            value={note}
-          ></textarea>
-        </div>
+        <Note value={note} changeValue={changeValue} />
 
-        <div className="details__save">
-          <button
-            onClick={() => {
-              submitHandler(state, '2020/6')
-            }}
-          >Save</button>
-        </div>
+        <Submit value={state} postData={addTrainingDay} />
       </div>
 
       <div className="details__footer">
@@ -129,7 +99,7 @@ export const Details = () => {
           changeValue={changeValue}
           showTitle={true}
         >
-          <li className="details__info">Duration: {duration(start, end)} min </li>
+          <li className="info__item">Duration: {duration(start, end)} min</li>
         </DetailsInfoList>
       </div>
 

@@ -2,12 +2,12 @@ import React from 'react'
 import { InfoIcon } from '../InfoIcon/InfoIcon'
 
 
-export const DetailsInfo = ({item, inputHandler, data, showTitle}) => {
+export const DetailsInfo = ({item, inputHandler, data, showTitle, showIcon}) => {
   const {attr, beforeInput, afterInput, img = false} = item
   return (
-    <li className="details__info">
+    <li className="info__item">
       {
-        img && <InfoIcon name={attr.name} />
+        showIcon && img && <InfoIcon name={attr.name} />
       }
 
       {showTitle && beforeInput && beforeInput}
