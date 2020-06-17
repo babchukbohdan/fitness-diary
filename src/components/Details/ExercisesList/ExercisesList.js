@@ -20,18 +20,23 @@ export const ExercisesList = ({db, onSelectExercise, setShowEx}) => {
   }
 
   return (
-    <div className="overlay">
+    <div className="overlay" onClick={(e) => {
+      if (e.target.classList.contains('overlay')) {
+        setShowEx(false)
+      }
+    }}>
       <div className="muscles">
         <div className="muscles__types">
           {
             muscleTypes.map((type, i) => {
+              const isActive = muscleGroup === type
               return (
-                <label key={type}>
+                <label key={type} className={isActive ? 'active' : null}>
                   <input
                     type="radio"
                     name="muscle"
                     value={type}
-                    checked={muscleGroup === type}
+                    checked={isActive}
                     onChange={radioHandler}
                   /><p>{type}</p>
                 </label>
@@ -41,7 +46,7 @@ export const ExercisesList = ({db, onSelectExercise, setShowEx}) => {
         </div>
 
         <div className="muscles__exercises">
-          <ol>
+          <ul>
             {
               db.exercises[muscleGroup].map((exercise, i) =>
               <li
@@ -49,7 +54,7 @@ export const ExercisesList = ({db, onSelectExercise, setShowEx}) => {
                 onClick={clickHandler}
               >{exercise}</li>)
             }
-          </ol>
+          </ul>
         </div>
       </div>
     </div>

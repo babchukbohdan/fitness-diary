@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { baseUrl } from '../../constants'
 
 import './Info.scss'
-const baseUrl = 'https://fitness-diary-f96e8.firebaseio.com'
+import { duration } from '../Details/utils'
 
 export const Info = (props) => {
   const {year, month, id} = props.match.params
 
-  const [dayData, setDayData] = useState([{exercises: [{sets: []}]}])
+  const [dayData, setDayData] = useState(null)
 
   useEffect(() => {
     getData()
@@ -20,39 +21,62 @@ export const Info = (props) => {
     setDayData(res.data)
   }
 
+  if (!dayData) return null
+
   const {exercises} = dayData
+  const maxSetsLength = exercises.reduce((acc, item) => {
+    return Math.max(acc, item.sets.length)
+  }, 0)
+  console.log(maxSetsLength)
+  console.log(dayData)
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Exercise</th>
-          <th colSpan="3">Sets</th>
-        </tr>
-      </thead>
-      <tbody>
+    <div className="diary">
+
+
+
+      <div className="diary__exercises">
+        <div className="diary__header">
+          <div className="header__item header__item--ex">Exercise</div>
+          <div className="header__item header__item--set">Sets</div>
+          <div className="setcount">
+            {
+              new Array(maxSetsLength).fill('').map((_, i) => {
+                return <div key={i}>{i + 1}</div>
+              })
+            }
+          </div>
+        </div>
+          {
+            exercises && exercises.map((exercise, i) => {
+              return (
+                <div className="row" key={i}>
+                  <div className="name">{exercise.name.name}</div>
+                  {
+                    exercise.sets && exercise.sets.map((set, i) => {
+                      return (
+                        <div key={i} className="setdata">
+                          {set.weight > 0 ? `${set.weight} kg x ` : ''}
+                          {set.reps}
+                        </div>
+                      )
+                    })
+                  }
+                </div>
+              )
+            })
+          }
+      </div>
+      <div className="diary__info">
 
         {
-          exercises && exercises.map((exercise, i) => {
-            return (
-              <tr key={i}>
-                <td>{exercise.name.name}</td>
-                {
-                  exercise.sets && exercise.sets.map((set, i) => {
-                    return (
-                      <td key={i}>
-                        {set.weight > 0 ? `${set.weight} kg x ` : ''}
-                        {set.reps}
-                      </td>
-                    )
-                  })
-                }
-              </tr>
-            )
+          ['date', 'weight', 'sleep', 'start', 'end',
+        'note'].map((item, i) => {
+            return <div className={`info__${item}`} key={i}>{item}: {dayData[item]}</div>
           })
         }
-
-      </tbody>
-    </table>
+        <div>duration: {duration(dayData.start, dayData.end)}</div>
+        </div>
+    </div>
   )
 }

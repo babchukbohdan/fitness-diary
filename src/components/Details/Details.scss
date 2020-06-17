@@ -1,5 +1,7 @@
 .details {
   width: calc(100% - 300px);
+  display: flex;
+  flex-direction: column;
 
   &__main {
     flex: 1 0 auto;

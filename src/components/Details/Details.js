@@ -11,9 +11,11 @@ import { Note } from './Note/Note'
 import { Submit } from './Submit/Submit'
 
 import './Details.scss'
+import { Loader } from '../UI/Loader/Loader'
+import { getDayString } from '../Month/utils'
 
 export const Details = () => {
-  const {fetchMonth, addTrainingDay, month} = useContext(FirebaseContext)
+  const {fetchMonth, addTrainingDay, month, loading} = useContext(FirebaseContext)
   const {state, addExercise, changeValue, pushState} = useContext(TodayContext)
   const {exercises, note, start, end} = state
 
@@ -22,6 +24,7 @@ export const Details = () => {
   const [showEx, setShowEx] = useState(false)
 
   useEffect(() => {
+    if(month.length && month[0].date.substr(0, 7) === getDayString(new Date())) return
     if (!month.length) {
       const date = new Date(Date.parse(state.date))
       fetchMonth(`${date.getFullYear()}/${date.getMonth() + 1}`)
@@ -57,7 +60,9 @@ export const Details = () => {
     getJson()
   }, [])
 
-
+  if (loading) {
+    return <Loader />
+  }
 
 
 

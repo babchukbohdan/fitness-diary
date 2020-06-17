@@ -43,6 +43,20 @@ export const Navbar = () => {
         </li>
 
         <li className="navbar__item">
+          <NavLink to="/progress" className="navbar__link">
+            <img className="navbar__icon icon" src="./img/icons/progress-black.svg" alt=""/>
+            Progress
+          </NavLink>
+        </li>
+
+        <li className="navbar__item">
+          <NavLink to="/copyright" className="navbar__link">
+            <img className="navbar__icon icon" src="./img/icons/copyright.svg" alt=""/>
+            Copyright
+          </NavLink>
+        </li>
+
+        <li className="navbar__item">
           <NavLink to="/todo" className="navbar__link">
             <img className="navbar__icon icon" src="./img/icons/todo.png" alt=""/>
             Todo List
