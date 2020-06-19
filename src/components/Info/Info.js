@@ -27,8 +27,6 @@ export const Info = (props) => {
   const maxSetsLength = exercises.reduce((acc, item) => {
     return Math.max(acc, item.sets.length)
   }, 0)
-  console.log(maxSetsLength)
-  console.log(dayData)
 
   return (
     <div className="diary">

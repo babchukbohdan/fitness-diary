@@ -4,14 +4,16 @@ import {ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Toolt
 import './Progress.scss'
 import { getDayString } from '../Month/utils';
 
-
+let count = 0
 const CustomizedLabel = (props) => {
 
   const {
     x, y, stroke, value,
   } = props;
+  // const count = Math.floor(Math.random() * 100)
+  // console.log(count)
 
-  return <text x={x} y={y} dy={-4} fill={stroke} fontSize={12} textAnchor="middle">{value}</text>;
+  return <text x={x} y={y} dy={count++ % 2 === 0 ? -10 : +17 } fill={stroke} fontSize={12} textAnchor="middle">{value}</text>;
 }
 
 

@@ -15,7 +15,6 @@ export const TodayState = ({children}) => {
     sleep: 8
   }
 
-
   const [state, dispatch] = useReducer(todayReducer, initialState)
 
   const pushState = (data) => {

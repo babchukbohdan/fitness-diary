@@ -24,7 +24,7 @@ export const Details = () => {
   const [showEx, setShowEx] = useState(false)
 
   useEffect(() => {
-    if(month.length && month[0].date.substr(0, 7) === getDayString(new Date())) return
+    // if (month.length && month[0].date.substr(0, 7) === getDayString(new Date())) return
     if (!month.length) {
       const date = new Date(Date.parse(state.date))
       fetchMonth(`${date.getFullYear()}/${date.getMonth() + 1}`)
