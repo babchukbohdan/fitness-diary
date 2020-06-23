@@ -1,34 +1,56 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './ExercisesList.scss'
 
-export const ExercisesList = ({db, onSelectExercise, setShowEx}) => {
+export const ExercisesList = ({onSelectExercise, changeVisible}) => {
 
-  const muscleTypes = Object.keys(db.exercises)
 
   const [muscleGroup, setMuscleGroup] = useState('legs')
+  const [muscleGroups, setMuscleGroups] = useState(null)
+  const [db, setDb] = useState(null)
+
+
+  useEffect(() => {
+    const getJson = async () => {
+      const response = await fetch('./exercises.json', {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      const data = await response.json()
+
+      setDb(data)
+      setMuscleGroups(Object.keys(data.exercises))
+    }
+    getJson()
+  }, [])
+
 
   const radioHandler = (e) => {
     setMuscleGroup(e.target.value)
   }
 
   const clickHandler = (e) => {
-    setShowEx(false)
+    changeVisible(false)
     onSelectExercise({
       name: e.target.textContent,
       muscleGroup
     })
   }
 
+  if (!db || !muscleGroups) {
+    return null
+  }
+
   return (
     <div className="overlay" onClick={(e) => {
       if (e.target.classList.contains('overlay')) {
-        setShowEx(false)
+        changeVisible(false)
       }
     }}>
       <div className="muscles">
         <div className="muscles__types">
           {
-            muscleTypes.map((type, i) => {
+            muscleGroups.map((type, i) => {
               const isActive = muscleGroup === type
               return (
                 <label key={type} className={isActive ? 'active' : null}>

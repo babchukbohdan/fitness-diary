@@ -5,14 +5,14 @@ import { TrainingDay } from '../TrainingDay/TrainingDay'
 export const Days = ({date, month}) => {
   const daysData = getDaysData(date, month)
   const today = getDayString(new Date(), true)
-  const clazz = ["month__item"] // classnames for callendar day
+  const baseCSSClass = ["month__item"] // classnames for callendar day
 
   return (
     <div className="month__days">
         {
           daysData.map((day) => {
             const { id, exercises, date } = day
-
+            const clazz = [...baseCSSClass]
             if (date === today) {
               clazz.push('today')
             }

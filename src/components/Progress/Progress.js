@@ -1,140 +1,164 @@
-import React from 'react'
+import React, { useState, useContext, useEffect } from 'react'
+import { LinearChart } from './LinearChart/LinearChart';
+import { ExercisesList } from '../Details/ExercisesList/ExercisesList';
 
-import {ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import './Progress.scss'
 import { getDayString } from '../Month/utils';
-
-let count = 0
-const CustomizedLabel = (props) => {
-
-  const {
-    x, y, stroke, value,
-  } = props;
-  // const count = Math.floor(Math.random() * 100)
-  // console.log(count)
-
-  return <text x={x} y={y} dy={count++ % 2 === 0 ? -10 : +17 } fill={stroke} fontSize={12} textAnchor="middle">{value}</text>;
-}
-
-
-
+import { FirebaseContext } from '../../context/firebase/firebaseContext';
 const data = [
-  {
-    "id": "weight",
-    "color": "hsl(115, 70%, 50%)",
-    "data": [
+
       {
-        "x": new Date('2020-06-01').getTime(),
-        "y": 70.850
+        "date": new Date('2020-06-01').getTime(),
+        "weight": 70.850
       },
       {
-        "x": new Date('2020-06-04').getTime(),
-        "y": 70.950
+        "date": new Date('2020-06-04').getTime(),
+        "weight": 70.950
       },
       {
-        "x": new Date('2020-06-05').getTime(),
-        "y": 70.950
+        "date": new Date('2020-06-05').getTime(),
+        "weight": 70.950
       },
       {
-        "x": new Date('2020-06-07').getTime(),
-        "y": 71
+        "date": new Date('2020-06-07').getTime(),
+        "weight": 71
       },
       {
-        "x": new Date('2020-06-11').getTime(),
-        "y": 71.500
+        "date": new Date('2020-06-11').getTime(),
+        "weight": 71.500
       },
       {
-        "x": new Date('2020-06-17').getTime(),
-        "y": 71.850
+        "date": new Date('2020-06-17').getTime(),
+        "weight": 71.850
       },
       {
-        "x": new Date('2020-06-22').getTime(),
-        "y": 72.400
+        "date": new Date('2020-06-22').getTime(),
+        "weight": 72.400
       },
       {
-        "x": new Date('2020-06-27').getTime(),
-        "y": 72.800
+        "date": new Date('2020-06-27').getTime(),
+        "weight": 72.800
       },
       {
-        "x": new Date('2020-06-29').getTime(),
-        "y": 72.400
+        "date": new Date('2020-06-29').getTime(),
+        "weight": 72.400
       },
       {
-        "x": new Date('2020-06-30').getTime(),
-        "y": 70.850
+        "date": new Date('2020-06-30').getTime(),
+        "weight": 70.850
       }
-    ]
-  }
 ]
 
-const renderLineChart = (
-  <ResponsiveContainer>
-    <LineChart
-      width={900}
-      height={500}
-      data={data[0].data}
-      margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-    >
-      <Line
-        type="monotone"
-        dataKey="y"
-        stroke="#8884d8"
-        activeDot={{ strokeWidth: 2, r: 5 }}
-        label={<CustomizedLabel />}
-        isAnimationActive={true}
-        animationBegin={300}
-        animationDuration={3000}
-      />
-      <CartesianGrid
-        stroke="#ccc"
-        strokeDasharray="5 5"
-      />
-      <XAxis
-        dataKey="x"
-        allowDecimals={true}
-        scale='time'
-        type='number'
-        domain={['auto', 'auto']}
-        tickFormatter={(tick) => {
-          return new Date(tick).getDate()
-        }}
-      />
-      <YAxis
-        hide={false}
-        width={100}
-        height={100}
-        orientation='left'
-        type='number'
-        domain={[dataMin => Math.floor(dataMin), dataMax => Math.ceil(dataMax)]}
-        interval={0}
-        // padding={{ top: 20, bottom: 20 }}
-        // minTickGap={1000}
-        // allowDataOverflow={true}
-        axisLine={true}
-        tickLine={true}
-        // ticks={[69,70,71,72,73,74]}
-        mirror={false}
-        reversed={false}
-        // label="Height"
-        // scale='pow'
-        unit='kg'
-        name='lol'
-        allowDuplicatedCategory={true}
-        allowDecimals={true}
-        tickSize={10}
-      />
-      <Tooltip />
-      <Legend verticalAlign="top" height={36}/>
-    </LineChart>
-  </ResponsiveContainer>
-);
+
 
 export const Progress = () => {
+  const [isExercisesVisible, setIsExercisesVisible] = useState(false)
+  const [date, setDate] = useState((new Date()))
+  const [exercise, setExercise] = useState({
+    name: 'Приседания с штангой на спине',
+    muscleGroup: ''
+  })
+
+
+  const {fetchMonth, month} = useContext(FirebaseContext)
+
+
+  useEffect(() => {
+    fetchMonth(`${date.getFullYear()}/${date.getMonth() + 1}`)
+  }, [date])
+
+
+
+
+  let ex;
+  if (month) {
+    ex = month.filter(({exercises}) => exercises.some(ex => {
+      return ex.name.name === exercise.name
+    })).map(day => {
+      return {
+        ...day,
+        exercises: day.exercises
+          .filter(({name}) => name.name === exercise.name)
+          .reduce((acc, cur) => acc.concat(cur.sets), [])
+          .reduce((acc, cur) => acc.weight > cur.weight ? acc : cur)
+      }
+    }).map(({date, weight, exercises}) => ({
+      date: new Date(date).getTime(),
+      dateString: date,
+      weight,
+      reps: exercises.reps,
+      maxWeight: exercises.weight
+    })).sort((a, b) => a.date - b.date)
+
+    console.log(ex)
+    // ex = month.flatMap(({date, exercises}) => {
+
+    //   const a = exercises.map(({sets}) => {
+    //     const maxWeightSet = sets.reduce((acc, cur) => {
+    //       return acc.weight > cur.weight ? acc : cur
+    //     })
+
+    //   return {
+    //     date,
+    //     exercises: exercises
+    //   }
+    // })
+
+    // ex = ex.filter(ex => ex.name.name === exercise.name)
+
+    // ex = ex.map(({sets, id}) => {
+    //   const maxWeightSet = sets.reduce((acc, cur) => {
+    //     return acc.weight > cur.weight ? acc : cur
+    //   })
+
+    //   return {
+    //     date: getDayString(new Date(id), true),
+    //     set: maxWeightSet
+    //   }
+    // })
+  }
+
+
+
   return (
     <div className="progress">
       <h1>Progress</h1>
+      <section>
+        <label>
+          Choose month
+          <input
+            type="month"
+            name="month"
+            value={getDayString(date)}
+            onChange={(e) => setDate(new Date(e.target.value))}
+          />
+        </label>
+        <br/>
+        <button
+          onClick={() => {setIsExercisesVisible(true)}}
+        >
+          Choose exercise
+        </button>
+        {
+          isExercisesVisible &&
+            <ExercisesList
+              changeVisible={setIsExercisesVisible}
+              onSelectExercise={setExercise}
+            />
+        }
+        <span>{exercise.name}</span>
+
+        {/* <pre>
+          {
+            JSON.stringify(month, null, 2)
+          }
+        </pre> */}
+
+      </section>
       <div className="chart">
-        {renderLineChart}
+        {
+          ex && <LinearChart data={ex} />
+        }
       </div>
     </div>
   )

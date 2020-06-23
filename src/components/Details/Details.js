@@ -45,20 +45,20 @@ export const Details = () => {
 
   }, [])
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const getJson = async () => {
-      const response = await fetch('./exercises.json', {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      })
-      const data = await response.json()
+  //   const getJson = async () => {
+  //     const response = await fetch('./exercises.json', {
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //     })
+  //     const data = await response.json()
 
-      setDb(data)
-    }
-    getJson()
-  }, [])
+  //     setDb(data)
+  //   }
+  //   getJson()
+  // }, [])
 
   if (loading) {
     return <Loader />
@@ -88,7 +88,7 @@ export const Details = () => {
 
           <AddExercise onClickHandler={() => setShowEx(true)} />
 
-          {db && showEx && <ExercisesList db={db} onSelectExercise={addExercise} setShowEx={setShowEx} />}
+          {showEx && <ExercisesList db={db} onSelectExercise={addExercise} changeVisible={setShowEx} />}
 
         </div>
 
