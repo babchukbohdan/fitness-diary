@@ -29,7 +29,7 @@ export const Month = () => {
   }
 
   return (
-    <div className='month'>
+    <div className='month wrap'>
       <DateInput setDate={setDate} date={date} />
 
       <DayNames />

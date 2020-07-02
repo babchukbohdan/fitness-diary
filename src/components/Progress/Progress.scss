@@ -1,8 +1,38 @@
 .progress {
   width: calc(100% - 300px);
-  max-height: 100vh;
-}
-.chart {
-  width: 80%;
-  height: 500px;
+  min-height: 100vh;
+  padding: 0 10px;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__filter {
+    margin-bottom: 10px;
+
+    .filter__item {
+      display: flex;
+    }
+  }
+
+  &__label {
+    margin-right: 10px;
+
+  }
+
+  &__input {
+    cursor: pointer;
+  }
+
+  #progress__month {
+
+  }
+
+  #progress__exercise {
+  }
+
+  &__chart {
+    width: 80%;
+    height: 500px;
+  }
 }

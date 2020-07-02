@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+.wrap {
+  width: calc(100% - 300px);
+  margin: 0 auto;
+}
+
 .btn {
   border: none;
   border-radius: 10px;

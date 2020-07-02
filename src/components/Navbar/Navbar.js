@@ -3,10 +3,24 @@ import { NavLink } from 'react-router-dom'
 import './Navbar.scss'
 import bg from './bg.jpg'
 import avatar from './avatar.png'
+import { ReactComponent as ArrowIcon } from "./upload-2.svg";
+import { useState } from 'react'
 
 export const Navbar = () => {
+
+  const [smallWidth, setSmallWidth] = useState(false)
   return (
-    <div className="navbar">
+    <div className={smallWidth ? "navbar small" : "navbar"}>
+
+      <button
+        className="navbar__toggle"
+        onClick={() => {
+          setSmallWidth(!smallWidth)
+        }}
+      >
+        <ArrowIcon className="icon" />
+      </button>
+
       <ul className="navbar__list">
         <li className="navbar__item">
           <div className="navbar__user">
@@ -22,44 +36,44 @@ export const Navbar = () => {
 
         <li className="navbar__item">
           <NavLink to="/" exact className="navbar__link">
-            <img className="navbar__icon icon" src="./img/icons/calendar.svg" alt=""/>
-            Callendar
+            <img className="navbar__icon icon" src="./img/icons/calendar.svg" alt="Callendar"/>
+            <span className="navbar__page">Callendar</span>
           </NavLink>
         </li>
 
         <li className="navbar__item">
 
           <NavLink to="/details" className="navbar__link">
-            <img className="navbar__icon icon" src="./img/icons/gym.svg" alt=""/>
-            Today training
+            <img className="navbar__icon icon" src="./img/icons/gym.svg" alt="Today training"/>
+            <span className="navbar__page">Today training</span>
           </NavLink>
         </li>
 
         <li className="navbar__item">
           <NavLink to="/settings" className="navbar__link">
-            <img className="navbar__icon icon" src="./img/icons/settings.svg" alt=""/>
-            Settings
+            <img className="navbar__icon icon" src="./img/icons/settings.svg" alt="Settings"/>
+            <span className="navbar__page">Settings</span>
           </NavLink>
         </li>
 
         <li className="navbar__item">
           <NavLink to="/progress" className="navbar__link">
-            <img className="navbar__icon icon" src="./img/icons/progress-black.svg" alt=""/>
-            Progress
+            <img className="navbar__icon icon" src="./img/icons/progress-black.svg" alt="Progress"/>
+            <span className="navbar__page">Progress</span>
           </NavLink>
         </li>
 
         <li className="navbar__item">
           <NavLink to="/copyright" className="navbar__link">
-            <img className="navbar__icon icon" src="./img/icons/copyright.svg" alt=""/>
-            Copyright
+            <img className="navbar__icon icon" src="./img/icons/copyright.svg" alt="Copyright"/>
+            <span className="navbar__page">Copyright</span>
           </NavLink>
         </li>
 
         <li className="navbar__item">
           <NavLink to="/todo" className="navbar__link">
-            <img className="navbar__icon icon" src="./img/icons/todo.png" alt=""/>
-            Todo List
+            <img className="navbar__icon icon" src="./img/icons/todo.png" alt="Todo List"/>
+            <span className="navbar__page">Todo List</span>
           </NavLink>
         </li>
 

@@ -1,7 +1,45 @@
 .navbar {
   width: 300px;
-  border: 1px solid black;
+  border-right: 1px solid black;
   min-height: 100vh;
+  position: relative;
+
+  &__toggle {
+    z-index: 1;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    height: max-content;
+    padding: 5px;
+
+    border: none;
+    border-radius: 4px;
+
+    background: none;
+
+    font-size: 0;
+    transition: background-color .3s ease;
+
+    cursor: pointer;
+
+    svg {
+      fill: white;
+      transform: rotate(-90deg);
+
+      width: 20px;
+      height: 20px;
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
   &__list {
     list-style-type: none;
     display: list-item;
@@ -51,6 +89,13 @@
     color: white;
   }
 
+  &__page {
+    color: rgba(0,0,0,0.87);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 48px;
+  }
+
   &__link {
     height: 48px;
     padding: 0 32px;
@@ -58,17 +103,61 @@
     display: flex;
     align-items: center;
 
-    color: rgba(0,0,0,0.87);
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 48px;
     text-decoration: none;
+
 
     &:focus, &:active {
       color: tomato;
     }
     &:hover {
       background-color: rgba(0,0,0,0.05);
+    }
+  }
+}
+
+
+
+.small {
+  width: 46px;
+
+  .navbar__toggle {
+    position: static;
+    padding: 12.5px;
+
+    transition: none;
+
+    svg {
+      fill: black;
+      transform: rotate(90deg);
+
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  .navbar__page, .navbar__background, .navbar__name, .navbar__email {
+    display: none;
+  }
+
+  .navbar__user {
+    padding: 0;
+    margin: 0;
+    height: 45px;
+    .navbar__avatar {
+      width: 45px;
+      height: 45px;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+
+  .navbar__item {
+    a {
+      padding: 0 10px;
     }
   }
 }

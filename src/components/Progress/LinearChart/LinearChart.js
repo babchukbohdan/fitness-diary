@@ -10,9 +10,6 @@ export const LinearChart = ({data}) => {
     const {
       x, y, stroke, value,
     } = props;
-    // const count = Math.floor(Math.random() * 100)
-    // console.log(count)
-
     return <text x={x} y={y} dy={count++ % 2 === 0 ? -10 : +17 } fill={stroke} fontSize={12} textAnchor="middle">{value}</text>;
   }
 
@@ -28,7 +25,7 @@ export const LinearChart = ({data}) => {
     >
       <Line
         type="monotone"
-        dataKey="weight"
+        dataKey="bodyWeight"
         unit="kg"
         strokeWidth={4}
         stroke="#82ca9d"
@@ -41,7 +38,7 @@ export const LinearChart = ({data}) => {
 
       <Line
         type="monotone"
-        dataKey="maxWeight"
+        dataKey="exerciseWeight"
         unit="kg"
         strokeWidth={4}
         stroke="#8884d8"
@@ -82,13 +79,12 @@ export const LinearChart = ({data}) => {
         hide={false}
         width={100}
         height={100}
-        padding={{ bottom: 20, top: 20 }}
+        padding={{ top: 20, bottom: 20 }}
 
         orientation='left'
         type='number'
         domain={[dataMin => Math.floor(dataMin), dataMax => Math.ceil(dataMax)]}
         interval={0}
-        // padding={{ top: 20, bottom: 20 }}
         // minTickGap={1000}
         // allowDataOverflow={true}
         axisLine={true}
@@ -97,8 +93,7 @@ export const LinearChart = ({data}) => {
         mirror={false}
         reversed={false}
         // label="Height"
-        // scale='pow'
-        unit=''
+        scale='linear'
         name='lol'
         allowDuplicatedCategory={true}
         allowDecimals={true}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import './ExercisesList.scss'
 
 export const ExercisesList = ({onSelectExercise, changeVisible}) => {
@@ -8,9 +8,9 @@ export const ExercisesList = ({onSelectExercise, changeVisible}) => {
   const [muscleGroups, setMuscleGroups] = useState(null)
   const [db, setDb] = useState(null)
 
-
   useEffect(() => {
     const getJson = async () => {
+      console.log('fetching exercises list')
       const response = await fetch('./exercises.json', {
         headers: {
           'Content-Type': 'application/json'

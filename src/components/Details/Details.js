@@ -32,7 +32,6 @@ export const Details = () => {
           const todayTraining = res.filter((day) => {
             return day.date === state.date
           })[0]
-          console.log(todayTraining, 'todayTraining');
           if (todayTraining) pushState({...todayTraining})
 
         })
@@ -67,7 +66,7 @@ export const Details = () => {
 
 
   return (
-    <div className="details">
+    <div className="details wrap">
 
       <div className="details__header">
         <DetailsInfoList
