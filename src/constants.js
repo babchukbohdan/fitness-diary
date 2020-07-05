@@ -1,9 +1,13 @@
+import { ReactComponent as DateIcon } from "./images/date.svg";
+import { ReactComponent as WeightIcon } from "./images/weight.svg";
+import { ReactComponent as SleepIcon } from "./images/sleep.svg";
+
 export const baseUrl = 'https://fitness-diary-f96e8.firebaseio.com'
 export const dayNames = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'НД']
 export const header = [
   {
     beforeInput: 'Date',
-    img: true,
+    Img: DateIcon,
     attr: {
       name: 'date',
       type: "date",
@@ -13,7 +17,7 @@ export const header = [
   {
     afterInput: 'kg',
     beforeInput: 'Weight',
-    img: true,
+    Img: WeightIcon,
     attr: {
       name: 'weight',
       type: "number",
@@ -24,7 +28,7 @@ export const header = [
   {
     afterInput: 'hours',
     beforeInput: 'Sleep',
-    img: true,
+    Img: SleepIcon,
     attr: {
       name: 'sleep',
       type: "number",

@@ -1,4 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
+import {TransitionGroup, CSSTransition} from 'react-transition-group'
+
 import { Exercise } from './Exercise/Exercise'
 import { FirebaseContext } from '../../context/firebase/firebaseContext'
 import { TodayContext } from '../../context/today/todayContext'
@@ -61,15 +63,24 @@ export const Details = () => {
       </div>
 
       <div className="details__main">
-        <div className="details__exercises">
-          {exercises.map((item, i) => {
-            return <Exercise key={item.id} exercise={item} />
-          })}
+        <div className="details__exercises" >
+          <TransitionGroup component="div">
+
+            {exercises.map((item, i) => (
+              <CSSTransition
+                key={item.id}
+                classNames={'fromUp'}
+                timeout={2300}
+              >
+                <Exercise  exercise={item} />
+              </CSSTransition>
+            ))}
+          </TransitionGroup>
 
 
           <AddExercise onClickHandler={() => setShowEx(true)} />
 
-          {showEx && <ExercisesList onSelectExercise={addExercise} changeVisible={setShowEx} />}
+          {showEx && <ExercisesList onSelectExercise={addExercise} changeVisible={setShowEx} visible={showEx} />}
 
         </div>
 

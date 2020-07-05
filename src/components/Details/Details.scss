@@ -20,9 +20,13 @@
 
   &__exercises {
     padding: 0 10px;
+
+    --animation-duration: .4s;
+    --exercise-margin-top: 15px;
   }
 
   &__addexercise {
+    fill: var(--svg-color);
     .icon {
       margin-right: 10px;
     }
@@ -32,5 +36,97 @@
     display: flex;
     justify-content: center;
     margin: 20px auto;
+  }
+}
+
+.set__animate-exit-active {
+  animation: set 1.8s ease-out forwards;
+
+  .exercise__addset {
+    border: 1px solid #000;
+  }
+}
+.set__animate-enter-active {
+  animation: set 1.8s ease-in alternate-reverse;
+}
+
+@keyframes set {
+  0% {
+    opacity: 1;
+    // min-width: 0;
+    // transform: translateX(0);
+    // width: 127.75px;
+    // margin-left: 0;
+    transform-origin: left;
+  }
+
+
+
+
+  100% {
+    transform: translateX(-137.75px) scaleX(0);
+    // width: 0;
+    opacity: 0;
+    // margin: 0;
+    // margin-left: -137.75px;
+  }
+}
+
+.muscles__animate-enter {
+  opacity: 0;
+}
+
+.muscles__animate-enter-active {
+  opacity: 1;
+  transition: opacity 12.75s ease-out;
+}
+
+.muscles__animate-exit-active {
+  opacity: 0;
+  transition: opacity 12.75s ease-out;
+}
+
+
+.fromUp-enter-active {
+  animation: fromUp var(--animation-duration) ease-out alternate-reverse;
+  * {
+    animation: fadeIn var(--animation-duration) ease-out forwards;
+  }
+
+}
+.fromUp-exit-active {
+  animation: fromUp var(--animation-duration) ease-out forwards;
+  * {
+    animation: fadeIn var(--animation-duration) ease-out alternate-reverse;
+  }
+}
+
+@keyframes fromUp {
+  0% {
+    transform: translateY(0);
+    height: 70px;
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(var(--exercise-margin-top));
+    height: 0;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  85% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

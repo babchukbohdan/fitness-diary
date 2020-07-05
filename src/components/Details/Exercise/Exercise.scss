@@ -2,7 +2,8 @@
   display: flex;
   align-items: center;
 
-  margin-top: 15px;
+  margin-top: var(--exercise-margin-top);
+  // margin-top: 15px;
   padding: 5px;
 
   // border: 1px solid #ced4da;
@@ -55,12 +56,15 @@
     margin-block-start: 3px;
   }
 
+
+
   &__addset{
     display: flex;
+    fill: var(--svg-color);
   }
 
   &__close {
-    display: flex;
     align-self: stretch;
+    @extend .exercise__addset
   }
 }

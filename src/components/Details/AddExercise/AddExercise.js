@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from '../../UI/Icon/Icon'
+import { ReactComponent as AddExerciseIcon } from "../../../images/add.svg";
+
 
 export const AddExercise = ({onClickHandler}) => {
   return (
@@ -8,7 +9,7 @@ export const AddExercise = ({onClickHandler}) => {
         onClick={onClickHandler}
         className="btn-big btn"
       >
-        <Icon clazz="details__icon" name="add" path="add.svg" />
+        <AddExerciseIcon className="details__icon icon" name="add" />
         Add exercise
       </button>
     </div>

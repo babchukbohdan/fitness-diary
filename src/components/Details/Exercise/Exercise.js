@@ -1,8 +1,11 @@
 import React, { useContext } from 'react'
+import {TransitionGroup, CSSTransition} from 'react-transition-group'
 import { Set } from '../Set/Set'
 import { TodayContext } from '../../../context/today/todayContext'
+import { ReactComponent as AddSetIcon } from "../../../images/copy.svg";
+import { ReactComponent as DeleteExerciseIcon } from "../../../images/bin.svg";
+
 import './Exercise.scss'
-import { Icon } from '../../UI/Icon/Icon'
 
 export const Exercise = ({exercise}) => {
 
@@ -20,24 +23,33 @@ export const Exercise = ({exercise}) => {
 
       <div className="exercise__container">
 
-        <div className="exercise__sets">
+        <TransitionGroup
+          component="div"
+          className="exercise__sets"
+        >
           {
-            sets.map((set, i) => {
-              return <Set
-                weight={set.weight}
-                reps={set.reps}
-                index={i}
+            sets.map((set, i) => (
+              <CSSTransition
                 key={set.id}
-                id={set.id}
-                exerciseId={id}
-              />
-            })
+                classNames={'set__animate'}
+                timeout={1800}
+              >
+                <Set
+                  weight={set.weight}
+                  reps={set.reps}
+                  index={i}
+
+                  id={set.id}
+                  exerciseId={id}
+                />
+              </CSSTransition>
+            ))
           }
-        </div>
+        </TransitionGroup>
 
         <div className="exercise__addset">
           <button className="btn" onClick={() => addSet(id)}>
-            <Icon name="add set" path="copy.svg" />
+            <AddSetIcon className="exercise__addset icon" name="add set" />
             {/* Add<br/>set */}
           </button>
         </div>
@@ -46,7 +58,7 @@ export const Exercise = ({exercise}) => {
 
       <div className="exercise__close">
         <button className="btn" onClick={() => removeExercise(id)}>
-          <Icon name="remove exercise" path="bin.svg" />
+          <DeleteExerciseIcon className="exercise__close icon" name="remove exercise" />
           {/* Remove<br/>exercise */}
         </button>
       </div>

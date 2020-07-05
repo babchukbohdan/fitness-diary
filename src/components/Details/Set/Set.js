@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { TodayContext } from '../../../context/today/todayContext'
+import { ReactComponent as DeleteSetIcon } from "../../../images/close.svg";
 import './Set.scss'
 
 export const Set = ({exerciseId, id, index, weight, reps}) => {
@@ -48,10 +49,10 @@ export const Set = ({exerciseId, id, index, weight, reps}) => {
           className="set__btn"
           onClick={() => replaceSet(exerciseId, id)}
         >
-          <img
+          <DeleteSetIcon
             className="set__icon icon"
             src="./img/icons/close.svg"
-            alt="weight"
+            alt="delete set"
           />
           {/* &times; */}
         </button>
