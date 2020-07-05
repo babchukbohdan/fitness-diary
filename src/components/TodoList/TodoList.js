@@ -16,7 +16,7 @@ export const TodoList = () => {
   ]
 
   return (
-    <div className="todo">
+    <div className="todo wrap">
       <h3 className="todo__title">Todo List</h3>
       <ul className="todo__list">
         {

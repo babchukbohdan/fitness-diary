@@ -7,14 +7,14 @@
 
   padding: 10px;
 
-  border: 1px solid #000;
   border-left: none;
+
+  background-color: var(--navbar-bg-color);
 
   &__item {
     display: flex;
     align-items: center;
 
-    color: rgba(0, 0, 0, 0.87);
     font-size: 14px;
     font-weight: 500;
 
@@ -23,11 +23,29 @@
     border-radius: 5px;
 
     &:hover {
-      background-color: rgba(0, 0, 0, 0.1);
+      background-color: var(--hover-bg-color);
+    }
+
+    input {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--overlay-bg-color);
+
+      padding: 2.5px 0 2.5px 5px;
+
+      &:focus {
+        outline-offset: -1px;
+        outline: 1px solid var(--text-color);
+      }
     }
 
     input[type=number] {
       width: 50px;
+    }
+
+    input[type="time"]::-webkit-calendar-picker-indicator {
+      background-color: #fff;
+      border-radius: 5px;
     }
   }
   &__icon {

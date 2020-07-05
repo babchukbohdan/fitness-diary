@@ -1,0 +1,46 @@
+.theme {
+  display: flex;
+  width: 100%;
+}
+
+.dark {
+
+
+  --section-bg-color: #181818;
+  --navbar-bg-color:#212121;
+
+  --hover-bg-color: #383838;
+  --border-color: #181818;
+  --overlay-bg-color: rgba(255, 255, 255, 0.1);
+
+  --text-color: rgb(242,242,242);
+  --text-link-color: #909090;
+  --text-link-active-color: tomato;
+
+  --svg-color: #909090;
+
+  background-color: var(--section-bg-color);
+  // color: var(--text-color);
+
+  // .navbar__icon, .navbar__avatar {
+  //   fill: white;
+  // }
+}
+
+.light {
+  --section-bg-color: #f9f9f9;
+  --navbar-bg-color: white;
+//f2f2f2
+  --hover-bg-color: rgb(230,230,234);
+  --border-color: #181818;
+  --overlay-bg-color: rgba(0, 0, 0, 0.2);
+
+
+  --text-color: rgba(0,0,0,0.87);
+  --text-link-color: rgb(83, 83, 95);
+  --text-link-active-color: tomato;
+
+  --svg-color: rgb(14, 14, 16);
+
+  background-color: var(--section-bg-color);
+}

@@ -22,6 +22,17 @@
 
   &__input {
     cursor: pointer;
+    background: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--overlay-bg-color);
+
+    &:focus {
+      outline-offset: -1px;
+      outline: 1px solid var(--text-color);
+    }
+    &::-webkit-calendar-picker-indicator {
+      background-color: white;
+    }
   }
 
   #progress__month {
@@ -34,5 +45,16 @@
   &__chart {
     width: 80%;
     height: 500px;
+  }
+
+  .recharts-default-tooltip {
+    background-color: var(--navbar-bg-color) !important;
+    border: 1px solid var(--overlay-bg-color) !important;
+  }
+
+  .recharts-label,
+  .recharts-legend-item-text {
+    fill: var(--text-link-color);
+    color: var(--text-link-color);
   }
 }

@@ -5,8 +5,11 @@
 }
 
 .wrap {
-  width: calc(100% - 300px);
+  width: calc(100% - var(--navbar-width));
   margin: 0 auto;
+
+  // background-color: var(--section-bg-color);
+  color: var(--text-color);
 }
 
 .btn {
@@ -16,6 +19,7 @@
   background-color: transparent;
 
   cursor: pointer;
+  color: var(--text-link-color);
 
   padding: 10px;
 
@@ -23,7 +27,7 @@
 
   &:hover, &:focus {
     outline: none;
-    background-color: #eee;
+    background-color: var(--hover-bg-color);
   }
 }
 
@@ -42,4 +46,5 @@
 
 .icon {
   width: 25px;
+  height: 25px;
 }

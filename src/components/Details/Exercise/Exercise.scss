@@ -3,10 +3,13 @@
   align-items: center;
 
   margin-top: 15px;
-
-  border: 1px solid #ced4da;
-  border-radius: 10px;
   padding: 5px;
+
+  // border: 1px solid #ced4da;
+  border-radius: 10px;
+
+  background-color: var(--navbar-bg-color);
+  box-shadow: 3px 3px 2px var(--overlay-bg-color), -1px -1px 2px var(--overlay-bg-color);
 
   &__name {
     width: 100px;
@@ -23,10 +26,33 @@
     overflow-x: auto;
 
     flex-grow: 1;
+
+
+    &::-webkit-scrollbar {
+      height: 12px;
+      width: 12px;
+      background-color: var(--section-bg-color);
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb:horizontal {
+      border-radius: 10px;
+      box-shadow: inset 0 0 3px var(--section-bg-color), 1px 0 0px var(--section-bg-color), -1px 0 0px var(--section-bg-color);
+      background-color: var(--hover-bg-color);
+    }
+
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px var(--overlay-bg-color);
+      border-radius: 10px;
+      background-color: var(--section-bg-color);
+      border-radius: 10px;
+    }
   }
 
   &__sets {
     display: flex;
+    margin-block-end: 3px;
+    margin-block-start: 3px;
   }
 
   &__addset{

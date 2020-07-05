@@ -12,7 +12,6 @@ import { Submit } from './Submit/Submit'
 
 import './Details.scss'
 import { Loader } from '../UI/Loader/Loader'
-import { getDayString } from '../Month/utils'
 
 export const Details = () => {
   const {fetchMonth, addTrainingDay, month, loading} = useContext(FirebaseContext)
@@ -20,7 +19,6 @@ export const Details = () => {
   const {exercises, note, start, end} = state
 
 
-  const [db, setDb] = useState()
   const [showEx, setShowEx] = useState(false)
 
   useEffect(() => {
@@ -41,29 +39,13 @@ export const Details = () => {
       })[0]
       if (todayTraining) pushState({...todayTraining})
     }
-
+  // eslint-disable-next-line
   }, [])
 
-  // useEffect(() => {
-
-  //   const getJson = async () => {
-  //     const response = await fetch('./exercises.json', {
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //     })
-  //     const data = await response.json()
-
-  //     setDb(data)
-  //   }
-  //   getJson()
-  // }, [])
 
   if (loading) {
     return <Loader />
   }
-
-
 
   return (
     <div className="details wrap">
@@ -87,7 +69,7 @@ export const Details = () => {
 
           <AddExercise onClickHandler={() => setShowEx(true)} />
 
-          {showEx && <ExercisesList db={db} onSelectExercise={addExercise} changeVisible={setShowEx} />}
+          {showEx && <ExercisesList onSelectExercise={addExercise} changeVisible={setShowEx} />}
 
         </div>
 

@@ -11,7 +11,7 @@
   min-width: 112.75px;
 
   &__num {
-    border: 1px solid #ced4da;
+    border: 1px solid var(--overlay-bg-color);
     border-radius: .25rem;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
@@ -23,7 +23,7 @@
   }
 
   &__remove {
-    border: 1px solid #ced4da;
+    border: 1px solid var(--overlay-bg-color);
     border-radius: .25rem;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
@@ -38,12 +38,14 @@
 
     border: 0;
     transition: opacity .3s ease-out;
+
+    background-color: var(--hover-bg-color);
   }
 
 
   &__values {
-    border-top: 1px solid #ced4da;
-    border-bottom: 1px solid #ced4da;
+    border-top: 1px solid var(--overlay-bg-color);
+    border-bottom: 1px solid var(--overlay-bg-color);
 
     padding: 5px;
 
@@ -55,6 +57,15 @@
     input {
       display: inline;
       width: 50px;
+      background-color: transparent;
+      border: 1px solid var(--overlay-bg-color);
+
+      color: var(--text-color);
+
+      &:focus {
+        outline-offset: -1px;
+        outline: 1px solid var(--text-color);
+      }
     }
   }
 

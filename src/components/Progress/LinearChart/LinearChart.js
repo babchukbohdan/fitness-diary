@@ -5,13 +5,14 @@ import { getDayString } from '../../Month/utils';
 
 export const LinearChart = ({data}) => {
 
-  let count = 0
-  const CustomizedLabel = (props) => {
-    const {
-      x, y, stroke, value,
-    } = props;
-    return <text x={x} y={y} dy={count++ % 2 === 0 ? -10 : +17 } fill={stroke} fontSize={12} textAnchor="middle">{value}</text>;
-  }
+  // let count = 0
+
+  // const CustomizedLabel = (props) => {
+  //   const {
+  //     x, y, stroke, value,
+  //   } = props;
+  //   return <text x={x} y={y} dy={count++ % 2 === 0 ? -10 : +17 } fill={stroke} fontSize={12} textAnchor="middle">{value}</text>;
+  // }
 
 
 
@@ -21,7 +22,7 @@ export const LinearChart = ({data}) => {
       width={2000}
       height={500}
       data={data}
-      margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
+      margin={{ top: 5, right: 20, bottom: 35, left: 0 }}
     >
       <Line
         type="monotone"
@@ -30,10 +31,17 @@ export const LinearChart = ({data}) => {
         strokeWidth={4}
         stroke="#82ca9d"
         activeDot={{ strokeWidth: 2, r: 5 }}
-        label={<CustomizedLabel />}
+        // label={<CustomizedLabel />}
         isAnimationActive={true}
         animationBegin={300}
         animationDuration={3000}
+        label={
+          {
+            position: 'bottom',
+            offset: 10,
+            fontSize: 12
+          }
+        }
       />
 
       <Line
@@ -43,10 +51,17 @@ export const LinearChart = ({data}) => {
         strokeWidth={4}
         stroke="#8884d8"
         activeDot={{ strokeWidth: 2, r: 5 }}
-        label={<CustomizedLabel />}
+        // label={<CustomizedLabel />}
         isAnimationActive={true}
         animationBegin={300}
         animationDuration={3000}
+        label={
+          {
+            position: 'top',
+            offset: 10,
+            fontSize: 12
+          }
+        }
       />
       <Line
         type="monotone"
@@ -55,10 +70,17 @@ export const LinearChart = ({data}) => {
         strokeWidth={4}
         stroke="#d88484"
         activeDot={{ strokeWidth: 2, r: 5 }}
-        label={<CustomizedLabel />}
+        // label={<CustomizedLabel />}
         isAnimationActive={true}
         animationBegin={300}
         animationDuration={3000}
+        label={
+          {
+            position: 'top',
+            offset: 10,
+            fontSize: 12
+          }
+        }
       />
       <CartesianGrid
         stroke="#ccc"
@@ -72,8 +94,9 @@ export const LinearChart = ({data}) => {
         type='number'
         domain={['auto', 'auto']}
         tickFormatter={(tick) => {
-          return getDayString(new Date(tick), true).slice(5)
+          return getDayString(new Date(tick), true).slice(8)
         }}
+        label={{value: 'Date', position: 'bottom', offset: 0}}
       />
       <YAxis
         hide={false}

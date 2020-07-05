@@ -7,7 +7,7 @@
   left: 0;
   right: 0;
 
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: var(--overlay-bg-color);
 
   display: flex;
   justify-content: center;
@@ -25,7 +25,7 @@
 
   padding: 15px;
 
-  background-color: white;
+  background-color: var(--section-bg-color);
 
   &__types {
     display: flex;
@@ -41,7 +41,7 @@
       line-height: 1;
 
       &:hover {
-        background-color: #eee;
+        background-color: var(--hover-bg-color);
       }
 
       input {
@@ -49,8 +49,8 @@
       }
 
       &.active {
-        background-color: #555;
-        color: white;
+        background-color: var(--text-link-color);
+        color: var(--section-bg-color);
       }
     }
 
@@ -73,8 +73,8 @@
       line-height: 1;
 
       &:hover {
-        background-color: #555;
-        color: white;
+        background-color: var(--text-link-color);
+        color: var(--section-bg-color);
       }
     }
   }

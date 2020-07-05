@@ -21,6 +21,7 @@ export const Progress = () => {
 
   useEffect(() => {
     fetchMonth(`${date.getFullYear()}/${date.getMonth() + 1}`)
+    // eslint-disable-next-line
   }, [date])
 
 

@@ -25,6 +25,24 @@
   &__select {
     text-align: center;
     padding: 10px;
+
+    input {
+      padding: 2px 5px;
+      border: 1px solid var(--overlay-bg-color);
+
+      font-size: 15px;
+
+      background-color: transparent;
+      color: var(--text-color);
+
+    &:focus {
+      outline-offset: -1px;
+      outline: 1px solid var(--text-color);
+    }
+    &::-webkit-calendar-picker-indicator {
+      background-color: white;
+    }
+    }
   }
 
   &__daynames {
@@ -44,7 +62,7 @@
       font-size: 30px;
       color: whitesmoke;
 
-      background: var(--month-bg-gradient-rainbow);
+      background: var(--month-bg-gradient-black);
       background-attachment: fixed;
       background-repeat: no-repeat;
       background-position: right center;
@@ -74,7 +92,7 @@
     padding: 10px;
 
     line-height: 1;
-    background: var(--month-bg-gradient-rainbow);
+    background: var(--month-bg-gradient-black);
     // background-image: url('./bg-calendar2.jpg');
     // background-image: url('./bg-calendar2.webp');
     background-attachment: fixed;
