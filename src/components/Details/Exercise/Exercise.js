@@ -29,10 +29,11 @@ export const Exercise = ({exercise}) => {
         >
           {
             sets.map((set, i) => (
+
               <CSSTransition
                 key={set.id}
                 classNames={'set__animate'}
-                timeout={1800}
+                timeout={500}
               >
                 <Set
                   weight={set.weight}
@@ -43,6 +44,7 @@ export const Exercise = ({exercise}) => {
                   exerciseId={id}
                 />
               </CSSTransition>
+
             ))
           }
         </TransitionGroup>
