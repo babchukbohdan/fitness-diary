@@ -16,6 +16,18 @@ export const Copyright = () => {
          www.flaticon.com
         </a>
       </div>
+
+
+      <a
+        target="_blank"
+        href="https://icons8.ru/icons/set/prelum"
+        rel="noopener noreferrer"
+      >Muscles icons</a> от&nbsp;
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://icons8.ru"
+      >www.icons8.ru</a>
     </div>
   )
 }

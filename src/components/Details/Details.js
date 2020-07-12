@@ -16,10 +16,9 @@ import './Details.scss'
 import { Loader } from '../UI/Loader/Loader'
 
 export const Details = () => {
-  const {fetchMonth, addTrainingDay, month, loading} = useContext(FirebaseContext)
+  const {fetchMonth, addTrainingDay, month, loading, postingData} = useContext(FirebaseContext)
   const {state, addExercise, changeValue, pushState} = useContext(TodayContext)
   const {exercises, note, start, end} = state
-
 
   const [showEx, setShowEx] = useState(false)
 
@@ -57,7 +56,7 @@ export const Details = () => {
           items={header}
           state={state}
           changeValue={changeValue}
-          showTitle={false}
+          showTitle={true}
           showIcon={true}
         />
       </div>
@@ -80,13 +79,19 @@ export const Details = () => {
 
           <AddExercise onClickHandler={() => setShowEx(true)} />
 
-          {showEx && <ExercisesList onSelectExercise={addExercise} changeVisible={setShowEx} visible={showEx} />}
+          {showEx &&
+          <ExercisesList
+            onSelectExercise={addExercise}
+            changeVisible={setShowEx}
+            visible={showEx}
+            closeOnSelect={false}
+          />}
 
         </div>
 
         <Note value={note} changeValue={changeValue} />
 
-        <Submit value={state} postData={addTrainingDay} />
+        <Submit value={state} postData={addTrainingDay} loading={postingData} />
       </div>
 
       <div className="details__footer">

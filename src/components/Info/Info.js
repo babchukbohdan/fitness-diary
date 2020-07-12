@@ -4,6 +4,7 @@ import { baseUrl } from '../../constants'
 
 import './Info.scss'
 import { duration } from '../Details/utils'
+import { Loader } from '../UI/Loader/Loader'
 
 export const Info = (props) => {
   const {year, month, id} = props.match.params
@@ -21,7 +22,7 @@ export const Info = (props) => {
     setDayData(res.data)
   }
 
-  if (!dayData) return null
+  if (!dayData) return <Loader />
 
   const {exercises} = dayData
   const maxSetsLength = exercises.reduce((acc, item) => {
@@ -73,7 +74,7 @@ export const Info = (props) => {
             return <div className={`info__${item}`} key={i}>{item}: {dayData[item]}</div>
           })
         }
-        <div>duration: {duration(dayData.start, dayData.end)}</div>
+        <div>duration: {duration(dayData.start, dayData.end)}min</div>
         </div>
     </div>
   )

@@ -12,8 +12,10 @@ export const DateInput = ({setDate, date}) => {
         max="2100-12"
         value={getDayString(date)}
         onChange={(e) => {
+          console.log(new Date(Date.parse(e.target.value)), 'input date')
           setDate(new Date(Date.parse(e.target.value)))
         }}
+        onKeyDown={(e) => e.preventDefault()}
       />
     </div>
   )

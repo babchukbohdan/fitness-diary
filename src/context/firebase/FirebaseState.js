@@ -2,20 +2,24 @@ import React, { useReducer } from 'react'
 import axios from 'axios'
 import { FirebaseContext } from './firebaseContext'
 import { firebaseReducer } from './firebaseReducer'
-import { SHOW_LOADER, ADD_TRAINING, FETCH_MONTH, REMOVE_TRAINING, HIDE_LOADER } from '../types'
+import { SHOW_LOADER_FETCHING, ADD_TRAINING, FETCH_MONTH, REMOVE_TRAINING, HIDE_LOADER_FETCHING, SHOW_LOADER_POSTING, HIDE_LOADER_POSTING } from '../types'
 
 const url = 'https://fitness-diary-f96e8.firebaseio.com'
 
 export const FirebaseState = ({children}) => {
   const initialState = {
-    loading: true,
-    month: []
+    month: [],
+    postingData: false,
+    loading: false,
+    error: false
   }
 
   const [state, dispatch] = useReducer(firebaseReducer, initialState)
 
-  const showLoader = () => (dispatch({type: SHOW_LOADER}))
-  const hideLoader = () => (dispatch({type: HIDE_LOADER}))
+  const showFetchingLoader = () => (dispatch({type: SHOW_LOADER_FETCHING}))
+  const hideFetchingLoader = () => (dispatch({type: HIDE_LOADER_FETCHING}))
+  const showPostingLoader = () => (dispatch({type: SHOW_LOADER_POSTING}))
+  const hidePostingLoader = () => (dispatch({type: HIDE_LOADER_POSTING}))
 
   const getTrainingsFromFirebase = (path) => {
     console.log('fetching from firebase');
@@ -55,10 +59,10 @@ export const FirebaseState = ({children}) => {
 
   const fetchMonth = async (path) => {
     console.log('fetching month');
-    showLoader()
+    showFetchingLoader()
     const res = await getTrainingsFromFirebase(path)
     dispatchTrainings(res.data)
-    hideLoader()
+    hideFetchingLoader()
 
     if (!res.data) {
       return []
@@ -84,6 +88,7 @@ export const FirebaseState = ({children}) => {
   }
 
   const addTrainingDay = async (data, path) => {
+    showPostingLoader()
     if (!state.month.length) {
 
       getTrainingsFromFirebase(path)
@@ -111,6 +116,7 @@ export const FirebaseState = ({children}) => {
     } catch (e) {
       throw new Error(e.message)
     }
+    hidePostingLoader()
   }
 
   const removeTraining = async (date, path) => {
@@ -124,8 +130,9 @@ export const FirebaseState = ({children}) => {
 
   return (
     <FirebaseContext.Provider value={{
-      showLoader, addTrainingDay, fetchMonth,
+      showLoader: showFetchingLoader, addTrainingDay, fetchMonth,
       loading: state.loading,
+      postingData: state.postingData,
       month: state.month
     }}>
       {children}

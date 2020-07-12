@@ -1,7 +1,8 @@
 import React from 'react'
 
-import './Settings.scss'
 import { ThemeButton } from './ThemeButton'
+
+import './Settings.scss'
 
 export const Settings = () => {
 
@@ -13,7 +14,6 @@ export const Settings = () => {
         <span className="group-title">Dark theme:</span>
         <ThemeButton />
       </div>
-
     </div>
   )
 }

@@ -41,10 +41,6 @@
 
 .set__animate-exit-active {
   animation: set .5s ease-out forwards;
-
-  .exercise__addset {
-    border: 1px solid #000;
-  }
 }
 .set__animate-enter-active {
   animation: set .5s ease-in alternate-reverse;
@@ -52,24 +48,13 @@
 
 @keyframes set {
   0% {
-    opacity: 1;
-    // min-width: 0;
-    // transform: translateX(0);
-    // width: 127.75px;
     margin-left: 0;
   }
-
-  30% {
-
-    opacity: 0.5;
-    transform: scale(0.9);
+  1% {
+    opacity: .3;
   }
-
-
   100% {
-    // width: 0;
     opacity: 0;
-    // margin: 0;
     margin-left: -137.75px;
   }
 }
@@ -81,9 +66,11 @@
 .muscles__animate-enter-active {
   opacity: 1;
   transition: opacity 12.75s ease-out;
+  transform: scale(1);
 }
 
 .muscles__animate-exit-active {
+  transform: scale(0);
   opacity: 0;
   transition: opacity 12.75s ease-out;
 }

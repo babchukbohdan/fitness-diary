@@ -4,6 +4,8 @@
   margin: 20px 0 0 20px;
   max-width: 500px;
 
+  color: var(--text-link-color);
+
   &__title {
     text-align: center;
     padding: 10px;
@@ -13,7 +15,7 @@
   }
 
   &__item {
-    border: 1px solid rgb(170, 170, 170);
+    border: 1px solid var(--overlay-bg-color);
     border-radius: 10px;
 
     padding: 10px;

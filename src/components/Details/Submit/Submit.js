@@ -1,6 +1,7 @@
 import React from 'react'
+import { Loader } from '../../UI/Loader/Loader'
 
-export const Submit = ({value, postData}) => {
+export const Submit = ({value, postData, loading}) => {
 
   const today = new Date()
   const path = `${today.getFullYear()}/${today.getMonth() + 1}`
@@ -17,11 +18,15 @@ export const Submit = ({value, postData}) => {
 
   return (
     <div className="details__save">
-      <button className="btn btn-big"
-        onClick={() => {
-          submitHandler(value, path)
-        }}
-      >Save</button>
+      {
+        loading
+          ? <Loader />
+          : <button className="btn btn-big"
+              onClick={() => {
+                submitHandler(value, path)
+              }}
+            >Save</button>
+      }
     </div>
   )
 }

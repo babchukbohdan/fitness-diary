@@ -12,9 +12,25 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+
+  &__btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    .icon {
+      width: 20px;
+      height: 20px;
+
+      fill: var(--text-link-color);
+    }
+  }
 }
 
 .muscles {
+  position: relative;
+
   min-width: 500px;
 
   border-radius: 10px;
@@ -24,10 +40,11 @@
   align-items: center;
 
   padding: 15px;
+  padding-right: 40px;
 
   background-color: var(--section-bg-color);
 
-
+  animation: showList .5s ease 0s 1 forwards;
 
 
   &__types {
@@ -72,7 +89,7 @@
     li {
       cursor: pointer;
       padding: 5px 10px;
-      border-radius: 5px;
+      // border-radius: 5px;
       line-height: 1;
 
       &:hover {
@@ -80,5 +97,16 @@
         color: var(--section-bg-color);
       }
     }
+  }
+}
+
+@keyframes showList {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
   }
 }

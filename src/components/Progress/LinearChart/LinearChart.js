@@ -1,6 +1,8 @@
 import React from 'react'
 import {ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { getDayString } from '../../Month/utils';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 
 export const LinearChart = ({data}) => {
@@ -83,7 +85,6 @@ export const LinearChart = ({data}) => {
         }
       />
       <CartesianGrid
-        stroke="#ccc"
         strokeDasharray="5 5"
       />
       <XAxis
@@ -102,7 +103,7 @@ export const LinearChart = ({data}) => {
         hide={false}
         width={100}
         height={100}
-        padding={{ top: 20, bottom: 20 }}
+        padding={{ top: 30, bottom: 20 }}
 
         orientation='left'
         type='number'

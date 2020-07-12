@@ -91,6 +91,7 @@ export const Progress = () => {
             <ExercisesList
               changeVisible={setIsExercisesVisible}
               onSelectExercise={setExercise}
+              closeOnSelect={true}
             />
         }
 

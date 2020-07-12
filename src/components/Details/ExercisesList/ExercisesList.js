@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import {CSSTransition} from 'react-transition-group'
+import { ReactComponent as CloseIcon } from "../../../images/close.svg";
+
 import './ExercisesList.scss'
 
-export const ExercisesList = ({onSelectExercise, changeVisible, visible}) => {
+export const ExercisesList = ({onSelectExercise, changeVisible, closeOnSelect}) => {
 
 
   const [muscleGroup, setMuscleGroup] = useState('legs')
@@ -31,13 +33,15 @@ export const ExercisesList = ({onSelectExercise, changeVisible, visible}) => {
   }
 
   const clickHandler = (e) => {
-    changeVisible(false)
+    if (closeOnSelect) {
+      changeVisible(false)
+    }
+    // changeVisible(false)
     onSelectExercise({
       name: e.target.textContent,
       muscleGroup
     })
   }
-  console.log(!(!db || !muscleGroups), 'visible')
 
   if (!db || !muscleGroups) {
     return null
@@ -56,6 +60,12 @@ export const ExercisesList = ({onSelectExercise, changeVisible, visible}) => {
         }
       }}>
         <div className="muscles">
+          <button
+            className="btn overlay__btn"
+            onClick={() => changeVisible(false)}
+          >
+            <CloseIcon className="icon" />
+          </button>
           <div className="muscles__types">
             {
               muscleGroups.map((type, i) => {

@@ -4,8 +4,9 @@ import { Loader } from '../UI/Loader/Loader'
 import { DayNames } from './DayNames/DayNames'
 import { Days } from './Days/Days'
 import { DateInput } from './DateInput/DateInput'
-import './Month.scss'
 import { getDayString } from './utils'
+
+import './Month.scss'
 
 export const Month = () => {
   const [date, setDate] = useState(new Date())

@@ -52,9 +52,20 @@
     border: 1px solid var(--overlay-bg-color) !important;
   }
 
-  .recharts-label,
+  .recharts-label {
+    fill: var(--text-link-color);
+  }
   .recharts-legend-item-text {
-    fill: var(--text-color);
-    color: var(--text-color);
+    color: var(--text-link-color);
+  }
+
+  .recharts-cartesian-grid {
+    line {
+      stroke: var(--overlay-bg-color);
+    }
+  }
+
+  .recharts-cartesian-axis-line {
+    stroke: var(--text-link-color);
   }
 }

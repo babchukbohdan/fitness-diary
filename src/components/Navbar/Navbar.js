@@ -15,10 +15,9 @@ import './Navbar.scss'
 import { ThemeButton } from '../Settings/ThemeButton';
 
 export const Navbar = () => {
-
   const [smallWidth, setSmallWidth] = useState(false)
   return (
-    <div className={smallWidth ? "navbar small" : "navbar"}>
+    <div className={smallWidth ? "navbar navbar--small" : "navbar navbar--big"}>
 
       <button
         className="navbar__toggle"
@@ -36,15 +35,14 @@ export const Navbar = () => {
               <img src={bg} alt="bg"/>
             </div> */}
               <AvatarIcon className="navbar__avatar"/>
-              <p className="navbar__name">John Doe <ThemeButton/> </p>
-              <p className="navbar__email">john.doe@gmail.com</p>
+              <p><span className="navbar__name">John Doe</span> <ThemeButton/></p>
+              <p><span className="navbar__email">john.doe@gmail.com</span> </p>
           </div>
         </li>
 
 
         <li className="navbar__item">
           <NavLink to="/" exact className="navbar__link">
-            {/* <object type="image/svg+xml" aria-label="Callendar" className="navbar__icon icon" data="./img/icons/calendar.svg" /> */}
             <CalendarIcon className="navbar__icon icon" />
             <span className="navbar__page">Callendar</span>
           </NavLink>
@@ -53,7 +51,6 @@ export const Navbar = () => {
         <li className="navbar__item">
 
           <NavLink to="/details" className="navbar__link">
-            {/* <object type="image/svg+xml" aria-label="training" className="navbar__icon icon" data="./img/icons/gym.svg" /> */}
             <TodayTrainingIcon className="navbar__icon icon" />
             <span className="navbar__page">Today training</span>
           </NavLink>
@@ -61,7 +58,6 @@ export const Navbar = () => {
 
         <li className="navbar__item">
           <NavLink to="/progress" className="navbar__link">
-            {/* <object type="image/svg+xml" aria-label="Progress" className="navbar__icon icon" data="./img/icons/progress-black.svg" /> */}
             <ProgressIcon className="navbar__icon icon" />
             <span className="navbar__page">Progress</span>
           </NavLink>
@@ -69,7 +65,6 @@ export const Navbar = () => {
 
         <li className="navbar__item">
           <NavLink to="/settings" className="navbar__link">
-            {/* <object type="image/svg+xml" aria-label="Settings" className="navbar__icon icon" data="./img/icons/settings.svg" /> */}
             <SettingsIcon className="navbar__icon icon" />
             <span className="navbar__page">Settings</span>
           </NavLink>
@@ -77,7 +72,6 @@ export const Navbar = () => {
 
         <li className="navbar__item">
           <NavLink to="/copyright" className="navbar__link">
-            {/* <object type="image/svg+xml" aria-label="Copyright" className="navbar__icon icon" data="./img/icons/copyright.svg" /> */}
             <CopyrightIcon className="navbar__icon icon" />
             <span className="navbar__page">Copyright</span>
           </NavLink>
@@ -85,8 +79,6 @@ export const Navbar = () => {
 
         <li className="navbar__item">
           <NavLink to="/todo" className="navbar__link">
-            {/* <object className="navbar__icon icon" type="image/svg+xml" data="./img/icons/todo.svg" /> */}
-
             <TodoIcon className="navbar__icon icon" />
             <span className="navbar__page">Todo List</span>
           </NavLink>

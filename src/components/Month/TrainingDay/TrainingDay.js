@@ -12,12 +12,12 @@ export const TrainingDay = ({day}) => {
     <>
       <Link
         to={`info/${url}/${id}`}
-        className="month__date"
+        className="month__link"
       >
-        {dateNum}
+        <span className="month__date">{dateNum}</span>
+        <MuscleGroups uniqueMuscleGroups={uniqueMuscleGroups} />
       </Link>
 
-      <MuscleGroups uniqueMuscleGroups={uniqueMuscleGroups} />
     </>
   )
 }
