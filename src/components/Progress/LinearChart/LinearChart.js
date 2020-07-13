@@ -1,8 +1,6 @@
 import React from 'react'
 import {ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { getDayString } from '../../Month/utils';
-import { useEffect } from 'react';
-import { useState } from 'react';
 
 
 export const LinearChart = ({data}) => {
