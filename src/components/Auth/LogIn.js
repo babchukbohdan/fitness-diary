@@ -4,8 +4,9 @@ import app from "../../context/auth/base"
 import { useCallback } from 'react'
 import { useContext } from 'react'
 import { AuthContext } from '../../context/auth/authContext'
+import './Login.scss'
 
-const SignUp = ({history}) => {
+const Login = ({history}) => {
   const handleLogin = useCallback(async (e) => {
       e.preventDefault()
       const {email, password} = e.target.elements
@@ -25,25 +26,25 @@ const SignUp = ({history}) => {
   const {user} = useContext(AuthContext)
 
   if (user) {
-    return <Redirect to="/" />
+    return <Redirect to="/user" />
   }
 
   return (
-    <div>
-      <h1>Log in</h1>
-      <form onSubmit={handleLogin}>
-        <label htmlFor="">
+    <div className="login">
+      <h1 className="login__title">Login</h1>
+      <form className="login__form" onSubmit={handleLogin}>
+        <label htmlFor="" className="login__label">
           Email
-          <input type="email" name="email" placeholder="Email" />
+          <input className="login__email" type="email" name="email" placeholder="Email" />
         </label>
-        <label htmlFor="">
+        <label className="login__label" htmlFor="">
           Password
-          <input type="password" name="password" placeholder="Password" />
+          <input className="login__password" type="password" name="password" placeholder="Password" />
         </label>
-        <button type="submit">Sign Up</button>
+        <button className="login__submit" type="submit">Login</button>
       </form>
     </div>
   )
 }
 
-export default withRouter(SignUp)
+export default withRouter(Login)

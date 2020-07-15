@@ -2,7 +2,7 @@ import { ReactComponent as DateIcon } from "./images/date.svg";
 import { ReactComponent as WeightIcon } from "./images/weight.svg";
 import { ReactComponent as SleepIcon } from "./images/sleep.svg";
 
-export const baseUrl = 'https://fitness-diary-f96e8.firebaseio.com'
+export const baseUrl = process.env.REACT_APP_FIREBASE_DATABASE
 export const dayNames = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'НД']
 export const header = [
   {
@@ -62,4 +62,13 @@ export const footer = [
   //     readOnly: true
   //   }
   // },
+]
+
+
+export const links = [
+  {
+    to: '/callendar',
+    title: 'Callendar',
+    Icon: ''
+  }
 ]

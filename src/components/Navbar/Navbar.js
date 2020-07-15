@@ -35,14 +35,13 @@ export const Navbar = () => {
       <ul className="navbar__list">
         <li className="navbar__item">
           <NavLink to="/user" className="navbar__user">
-            {/* <div className="navbar__background">
-              <img src={bg} alt="bg"/>
-            </div> */}
-              <AvatarIcon className="navbar__avatar"/>
-              <p><span className="navbar__name">John Doe</span></p>
-              {
-                user && <p><span className="navbar__email">{user.email}</span></p>
-              }
+            <AvatarIcon className="navbar__avatar"/>
+            <p><span className="navbar__name">John Doe</span></p>
+            {
+              user
+                ? <p><span className="navbar__email">{user.email}</span></p>
+                : <p><span className="navbar__email">john.doe@gmail.com</span></p>
+            }
           </NavLink>
         </li>
 
@@ -51,48 +50,52 @@ export const Navbar = () => {
         </li>
 
 
-        <li className="navbar__item">
-          <NavLink to="/callendar" className="navbar__link">
-            <CalendarIcon className="navbar__icon icon" />
-            <span className="navbar__page">Callendar</span>
-          </NavLink>
-        </li>
+        {
+          user &&
+          <>
+            <li className="navbar__item">
+              <NavLink to="/callendar" className="navbar__link">
+                <CalendarIcon className="navbar__icon icon" />
+                <span className="navbar__page">Callendar</span>
+              </NavLink>
+            </li>
 
-        <li className="navbar__item">
+            <li className="navbar__item">
+              <NavLink to="/details" className="navbar__link">
+                <TodayTrainingIcon className="navbar__icon icon" />
+                <span className="navbar__page">Today training</span>
+              </NavLink>
+            </li>
 
-          <NavLink to="/details" className="navbar__link">
-            <TodayTrainingIcon className="navbar__icon icon" />
-            <span className="navbar__page">Today training</span>
-          </NavLink>
-        </li>
+            <li className="navbar__item">
+              <NavLink to="/progress" className="navbar__link">
+                <ProgressIcon className="navbar__icon icon" />
+                <span className="navbar__page">Progress</span>
+              </NavLink>
+            </li>
 
-        <li className="navbar__item">
-          <NavLink to="/progress" className="navbar__link">
-            <ProgressIcon className="navbar__icon icon" />
-            <span className="navbar__page">Progress</span>
-          </NavLink>
-        </li>
+            <li className="navbar__item">
+              <NavLink to="/settings" className="navbar__link">
+                <SettingsIcon className="navbar__icon icon" />
+                <span className="navbar__page">Settings</span>
+              </NavLink>
+            </li>
 
-        <li className="navbar__item">
-          <NavLink to="/settings" className="navbar__link">
-            <SettingsIcon className="navbar__icon icon" />
-            <span className="navbar__page">Settings</span>
-          </NavLink>
-        </li>
+            <li className="navbar__item">
+              <NavLink to="/copyright" className="navbar__link">
+                <CopyrightIcon className="navbar__icon icon" />
+                <span className="navbar__page">Copyright</span>
+              </NavLink>
+            </li>
 
-        <li className="navbar__item">
-          <NavLink to="/copyright" className="navbar__link">
-            <CopyrightIcon className="navbar__icon icon" />
-            <span className="navbar__page">Copyright</span>
-          </NavLink>
-        </li>
-
-        <li className="navbar__item">
-          <NavLink to="/todo" className="navbar__link">
-            <TodoIcon className="navbar__icon icon" />
-            <span className="navbar__page">Todo List</span>
-          </NavLink>
-        </li>
+            <li className="navbar__item">
+              <NavLink to="/todo" className="navbar__link">
+                <TodoIcon className="navbar__icon icon" />
+                <span className="navbar__page">Todo List</span>
+              </NavLink>
+            </li>
+          </>
+        }
 
         {
           !user &&

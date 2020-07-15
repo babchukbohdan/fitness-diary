@@ -30,16 +30,17 @@ function App() {
             <ThemeState>
               <Router>
                 <Theme>
+                  <Navbar />
                   <Switch>
-                    <PrivateRoute path='/' exact component={Navbar} />
-                    <Route path='/user' component={User} />
-                    <Route path='/callendar' component={Month} />
-                    <Route path='/details' component={Details} />
-                    <Route path='/info/:year/:month/:id' component={Info} />
-                    <Route path='/progress' component={Progress} />
-                    <Route path='/settings' component={Settings} />
-                    <Route path='/todo' component={TodoList} />
-                    <Route path='/copyright' component={Copyright} />
+                    {/* <PrivateRoute path='/' exact component={} /> */}
+                    <PrivateRoute path='/user' component={User} />
+                    <PrivateRoute path='/callendar' component={Month} />
+                    <PrivateRoute path='/details' component={Details} />
+                    <PrivateRoute path='/info/:year/:month/:id' component={Info} />
+                    <PrivateRoute path='/progress' component={Progress} />
+                    <PrivateRoute path='/settings' component={Settings} />
+                    <PrivateRoute path='/todo' component={TodoList} />
+                    <PrivateRoute path='/copyright' component={Copyright} />
                     <Route path='/auth' component={Auth} />
                   </Switch>
                 </Theme>

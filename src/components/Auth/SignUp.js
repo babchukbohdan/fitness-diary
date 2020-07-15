@@ -2,8 +2,7 @@ import React from 'react'
 import { withRouter, Redirect } from 'react-router'
 import app from "../../context/auth/base"
 import { useCallback } from 'react'
-import { useContext } from 'react'
-import { AuthContext } from '../../context/auth/authContext'
+import './SignUp.scss'
 
 const SignUp = ({history}) => {
   const handleSignUp = useCallback(async (e) => {
@@ -22,25 +21,19 @@ const SignUp = ({history}) => {
     }, [history]
   )
 
-  const {user} = useContext(AuthContext)
-
-  if (!user) {
-    return <Redirect to="/auth" />
-  }
-
   return (
-    <div>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSignUp}>
-        <label htmlFor="">
+    <div className="signup">
+      <h1 className="signup__title">Sign Up</h1>
+      <form className="signup__form" onSubmit={handleSignUp}>
+        <label className="signup__label" htmlFor="">
           Email
-          <input type="email" name="email" placeholder="Email" />
+          <input className="signup__email" type="email" name="email" placeholder="Email" />
         </label>
-        <label htmlFor="">
+        <label className="signup__label" htmlFor="">
           Password
-          <input type="password" name="password" placeholder="Password" />
+          <input className="signup__password" type="password" name="password" placeholder="Password" />
         </label>
-        <button type="submit">Sign Up</button>
+        <button className="signup__submit" type="submit">Sign Up</button>
       </form>
     </div>
   )

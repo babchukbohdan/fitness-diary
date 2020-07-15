@@ -1,0 +1,32 @@
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: first baseline;
+
+  padding: 10px;
+
+  background-color: tomato;
+
+  &__title {
+    margin-right: 10px;
+  }
+
+  &__form {
+    display: flex;
+  }
+
+  &__label {
+    display: flex;
+    flex-direction: column;
+
+    margin-right: 10px;
+  }
+
+  &__email, &__password, &__submit {
+    padding: 5px;
+  }
+
+  &__submit {
+    align-self: flex-end;
+  }
+}

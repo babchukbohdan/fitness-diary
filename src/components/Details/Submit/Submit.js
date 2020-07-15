@@ -7,12 +7,14 @@ export const Submit = ({value, postData, loading}) => {
   const path = `${today.getFullYear()}/${today.getMonth() + 1}`
 
   const submitHandler = (data, path) => {
+    data = {...data}
+    delete data.id
     postData(data, path)
       .then(() => {
-        console.log('add training day');
+        console.log('added training day');
       })
       .catch((e) => {
-        console.log('Error server post methos');
+        console.log('Error server post method');
       })
   }
 

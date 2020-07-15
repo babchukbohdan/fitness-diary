@@ -63,10 +63,22 @@
     display: block;
 
     padding: 17px 32px 15px 32px;
-    margin-bottom: 8px;
 
     font-size: 14px;
     color: var(--text-link-color);
+
+    &:hover {
+      background-color: var(--hover-bg-color);
+    }
+
+    &:focus, &.active {
+      color: var(--text-link-active-color);
+      background-color: var(--hover-bg-color);
+
+      svg {
+        fill: var(--text-link-active-color);
+      }
+    }
   }
 
   &__background {
@@ -115,7 +127,7 @@
     color: var(--text-link-color);
 
 
-    &:focus, &.active {
+    &.active {
       color: var(--text-link-active-color);
       background-color: var(--hover-bg-color);
 

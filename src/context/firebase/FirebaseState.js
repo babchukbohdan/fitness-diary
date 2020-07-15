@@ -2,9 +2,10 @@ import React, { useReducer } from 'react'
 import axios from 'axios'
 import { FirebaseContext } from './firebaseContext'
 import { firebaseReducer } from './firebaseReducer'
-import { SHOW_LOADER_FETCHING, ADD_TRAINING, FETCH_MONTH, REMOVE_TRAINING, HIDE_LOADER_FETCHING, SHOW_LOADER_POSTING, HIDE_LOADER_POSTING } from '../types'
+import { SHOW_LOADER_FETCHING, ADD_TRAINING, FETCH_MONTH, REMOVE_TRAINING, HIDE_LOADER_FETCHING, SHOW_LOADER_POSTING, HIDE_LOADER_POSTING, RESET } from '../types'
+import { useContext } from 'react'
+import { AuthContext } from '../auth/authContext'
 
-const url = 'https://fitness-diary-f96e8.firebaseio.com'
 
 export const FirebaseState = ({children}) => {
   const initialState = {
@@ -14,12 +15,23 @@ export const FirebaseState = ({children}) => {
     error: false
   }
 
+
   const [state, dispatch] = useReducer(firebaseReducer, initialState)
+  const {user} = useContext(AuthContext)
+  const url = `${process.env.REACT_APP_FIREBASE_DATABASE}` // /${user?.uid}
 
   const showFetchingLoader = () => (dispatch({type: SHOW_LOADER_FETCHING}))
   const hideFetchingLoader = () => (dispatch({type: HIDE_LOADER_FETCHING}))
   const showPostingLoader = () => (dispatch({type: SHOW_LOADER_POSTING}))
   const hidePostingLoader = () => (dispatch({type: HIDE_LOADER_POSTING}))
+  const resetState = () => {
+    dispatch({
+      type: FETCH_MONTH,
+      payload: []
+    })
+    console.log('reset state')
+  }
+
 
   const getTrainingsFromFirebase = (path) => {
     console.log('fetching from firebase');
@@ -94,7 +106,7 @@ export const FirebaseState = ({children}) => {
       getTrainingsFromFirebase(path)
         .then(res => dispatchTrainings(res.data))
         .then((month) => {
-          removeSameExercise(month, path, data)
+          // removeSameExercise(month, path, data)
         })
     }
 
@@ -102,6 +114,7 @@ export const FirebaseState = ({children}) => {
     removeSameExercise(state.month, path, data)
 
     try {
+      console.log('posting to ',`${url}/${path}.json`)
       const res = await axios.post(`${url}/${path}.json`, data)
 
       const payload = {
@@ -130,7 +143,7 @@ export const FirebaseState = ({children}) => {
 
   return (
     <FirebaseContext.Provider value={{
-      showLoader: showFetchingLoader, addTrainingDay, fetchMonth,
+      showFetchingLoader, addTrainingDay, fetchMonth, resetState,
       loading: state.loading,
       postingData: state.postingData,
       month: state.month

@@ -1,12 +1,12 @@
 import React from 'react'
 import SignUp from './SignUp'
-import LogIn from './LogIn'
+import Login from './Login'
 
 export const Auth = () => {
   return (
-    <div>
+    <div className="wrap">
+      <Login />
       <SignUp />
-      <LogIn />
     </div>
   )
 }
