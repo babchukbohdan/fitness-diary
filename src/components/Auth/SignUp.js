@@ -1,23 +1,17 @@
-import React from 'react'
-import { withRouter, Redirect } from 'react-router'
-import app from "../../context/auth/base"
-import { useCallback } from 'react'
+import React, {useCallback, useContext} from 'react'
+import { withRouter } from 'react-router-dom'
+import { AuthContext } from '../../context/auth/authContext'
+
 import './SignUp.scss'
 
 const SignUp = ({history}) => {
-  const handleSignUp = useCallback(async (e) => {
+  const {signUp} = useContext(AuthContext)
+
+  const handleSignUp = useCallback( async (e) => {
       e.preventDefault()
-      const {email, password} = e.target.elements
-
-      try {
-        await app
-          .auth()
-          .createUserWithEmailAndPassword(email.value, password.value)
-
-        history.push("/")
-      } catch (error) {
-        alert(error)
-      }
+      const {email, password, name} = e.target.elements
+      await signUp(email.value, password.value, name.value)
+      // eslint-disable-next-line
     }, [history]
   )
 
@@ -25,6 +19,10 @@ const SignUp = ({history}) => {
     <div className="signup">
       <h1 className="signup__title">Sign Up</h1>
       <form className="signup__form" onSubmit={handleSignUp}>
+        <label className="signup__label" htmlFor="">
+          Name
+          <input className="signup__name" type="text" name="name" placeholder="Name" />
+        </label>
         <label className="signup__label" htmlFor="">
           Email
           <input className="signup__email" type="email" name="email" placeholder="Email" />

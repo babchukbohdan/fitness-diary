@@ -12,7 +12,7 @@ export const Info = (props) => {
 
   const [dayData, setDayData] = useState(null)
   const {user} = useContext(AuthContext)
-  const baseUrl = `${process.env.REACT_APP_FIREBASE_DATABASE}/${user?.uid}`
+  const baseUrl = `${process.env.REACT_APP_FIREBASE_DATABASE}`  // /${user?.uid}
 
   useEffect(() => {
     getData()

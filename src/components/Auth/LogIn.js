@@ -1,29 +1,21 @@
 import React from 'react'
 import { withRouter, Redirect } from 'react-router'
-import app from "../../context/auth/base"
 import { useCallback } from 'react'
 import { useContext } from 'react'
 import { AuthContext } from '../../context/auth/authContext'
 import './Login.scss'
 
 const Login = ({history}) => {
-  const handleLogin = useCallback(async (e) => {
+  const {user, login} = useContext(AuthContext)
+
+  const handleLogin = useCallback( (e) => {
       e.preventDefault()
       const {email, password} = e.target.elements
-
-      try {
-        await app
-          .auth()
-          .signInWithEmailAndPassword(email.value, password.value)
-
-        history.push("/")
-      } catch (error) {
-        alert(error)
-      }
+      login(email.value, password.value)
+      // eslint-disable-next-line
     }, [history]
   )
 
-  const {user} = useContext(AuthContext)
 
   if (user) {
     return <Redirect to="/user" />

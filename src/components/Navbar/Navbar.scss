@@ -166,16 +166,13 @@
 
 
   .navbar__name,
-  .navbar__email {
+  .navbar__email,
+  .navbar__page {
     display: none;
   }
   .switch {
-    display: block;
-    transform: translate(-4px,9px);
-  }
-
-  .navbar__page {
-    display: none;
+    display: inline-table;
+    transform: translate(-4px);
   }
 
   .navbar__user {
@@ -195,13 +192,11 @@
 
 
 
-  .navbar__item {
-    a {
-      padding: 0 10px;
-    }
+  .navbar__link {
+    padding: 0 10px;
+  }
 
-    svg {
-      margin: 0;
-    }
+  .navbar__icon {
+    margin: 0;
   }
 }

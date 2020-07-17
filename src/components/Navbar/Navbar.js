@@ -19,7 +19,10 @@ import { AuthContext } from '../../context/auth/authContext';
 
 export const Navbar = () => {
   const [smallWidth, setSmallWidth] = useState(false)
-  const {user} = useContext(AuthContext)
+  const {user, getName} = useContext(AuthContext)
+
+  console.log(user, 'user in Navbar')
+  console.log(user?.displayName, 'user displayName in Navbar')
   return (
     <div className={smallWidth ? "navbar navbar--small" : "navbar navbar--big"}>
 
@@ -36,17 +39,27 @@ export const Navbar = () => {
         <li className="navbar__item">
           <NavLink to="/user" className="navbar__user">
             <AvatarIcon className="navbar__avatar"/>
-            <p><span className="navbar__name">John Doe</span></p>
+
             {
               user
-                ? <p><span className="navbar__email">{user.email}</span></p>
-                : <p><span className="navbar__email">john.doe@gmail.com</span></p>
+                ? (<>
+                    <p><span className="navbar__name">{user.displayName}</span></p>
+                    <p><span className="navbar__name">{getName()}</span></p>
+                    <p><span className="navbar__email">{user.email}</span></p>
+                  </>)
+                : (<>
+                    <p><span className="navbar__name">John Doe</span></p>
+                    <p><span className="navbar__email">john.doe@gmail.com</span></p>
+                  </>)
             }
           </NavLink>
         </li>
 
         <li className="navbar__item">
-          <span className="navbar__link">Change &nbsp;<ThemeButton/></span>
+          <span className="navbar__link">
+            <span className="navbar__page">Change &nbsp;</span>
+            <ThemeButton/>
+          </span>
         </li>
 
 
