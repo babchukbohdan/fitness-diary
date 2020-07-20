@@ -12,6 +12,7 @@ export const Note = ({value, changeValue}) => {
         name="note"
         onChange={inputHandler}
         value={value}
+        spellCheck={false}
       ></textarea>
     </div>
   )

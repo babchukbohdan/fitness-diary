@@ -22,12 +22,22 @@ export const Copyright = () => {
         target="_blank"
         href="https://icons8.ru/icons/set/prelum"
         rel="noopener noreferrer"
-      >Muscles icons</a> от&nbsp;
+      >Muscles icons</a> made by&nbsp;
       <a
         target="_blank"
         rel="noopener noreferrer"
         href="https://icons8.ru"
-      >www.icons8.ru</a>
+      >www.icons8.ru&nbsp;</a>
+
+      <div>
+        Spinner made by
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://icons8.ru"
+        >https://loading.io/</a>
+      </div>
+
     </div>
   )
 }

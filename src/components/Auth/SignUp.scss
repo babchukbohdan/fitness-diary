@@ -1,32 +1,109 @@
 .signup {
   // display: flex;
   align-items: center;
-  justify-content: first baseline;
+  justify-content: baseline;
+  max-width: 500px;
 
   padding: 10px;
+  margin: auto;
 
-  background-color: deepskyblue;
+  // border: 1px solid #000;
+  // background-color: deepskyblue;
 
   &__title {
-    margin-right: 10px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  &__group {
+    margin: 0 0 20px 0;
+    position: relative;
   }
 
   &__form {
-    display: flex;
   }
 
   &__label {
-    display: flex;
-    flex-direction: column;
-
-    margin-right: 10px;
+    display: block;
+    margin-bottom: 3px;
   }
 
-  &__email, &__password, &__submit {
-    padding: 5px;
+  &__email, &__password {
+    padding: 10px;
+    width: 100%;
+
+    border: 1px solid var(--overlay-bg-color);
+
+    background-color: transparent;
+    color: var(--text-color);
+    caret-color: var(--text-color);
   }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px var(--section-bg-color) inset !important;
+    -webkit-text-fill-color: var(--text-color) !important;
+  }
+
+  &__email[type=email]:not(:placeholder-shown):invalid {
+    color: red;
+    outline-color: red;
+  }
+
+  &__password {
+
+  }
+
 
   &__submit {
-    align-self: flex-end;
+    // display: inline-block;
+    padding: 10px;
+
+    border: 1px solid var(--overlay-bg-color);
+    border-radius: 0;
+    color: var(--text-color);
+  }
+
+
+
+  .toggle-pass-btn {
+    width: 25px;
+    height: 37px;
+
+    position: absolute;
+    right: 10px;
+    bottom: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+    border: none;
+
+    transition: opacity .2s ease;
+    background: transparent;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__password:placeholder-shown + .toggle-pass-btn {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+    fill: var(--overlay-bg-color);
+
+    &.active {
+      fill: var(--svg-color);
+    }
   }
 }

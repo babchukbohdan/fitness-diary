@@ -1,8 +1,8 @@
 import React from 'react'
 import { Loader } from '../../UI/Loader/Loader'
+import { Spinner } from '../../UI/Spinner/Spinner'
 
 export const Submit = ({value, postData, loading}) => {
-
   const today = new Date()
   const path = `${today.getFullYear()}/${today.getMonth() + 1}`
 
@@ -20,15 +20,16 @@ export const Submit = ({value, postData, loading}) => {
 
   return (
     <div className="details__save">
-      {
-        loading
-          ? <Loader />
-          : <button className="btn btn-big"
-              onClick={() => {
-                submitHandler(value, path)
-              }}
-            >Save</button>
-      }
+
+      <button
+        className="btn btn-big"
+        onClick={() => {
+          submitHandler(value, path)
+        }}
+      >
+        Save {loading &&  <Spinner />}
+      </button>
+
     </div>
   )
 }

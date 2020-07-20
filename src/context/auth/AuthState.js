@@ -23,12 +23,9 @@ export const AuthState = ({children}) => {
     }
   }
 
-  const signUp = async (email, pass, name) => {
+  const signUp = async (email, pass) => {
     try {
       await auth.createUserWithEmailAndPassword(email, pass)
-      await auth.currentUser.updateProfile({
-        displayName: name
-      })
     } catch (error) {
       alert(error)
     }

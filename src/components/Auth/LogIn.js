@@ -9,13 +9,14 @@ const Login = ({history}) => {
   const {user, login} = useContext(AuthContext)
 
   const handleLogin = useCallback( (e) => {
+      console.log(e.target.elements)
       e.preventDefault()
-      const {email, password} = e.target.elements
+      const {email} = e.target.elements
+      const password = e.target.elements['current-password']
       login(email.value, password.value)
       // eslint-disable-next-line
     }, [history]
   )
-
 
   if (user) {
     return <Redirect to="/user" />
@@ -27,13 +28,24 @@ const Login = ({history}) => {
       <form className="login__form" onSubmit={handleLogin}>
         <label htmlFor="" className="login__label">
           Email
-          <input className="login__email" type="email" name="email" placeholder="Email" />
+          <input
+            className="login__email"
+            type="email"
+            name="email"
+            placeholder=" "
+            autoComplete="email"
+          />
         </label>
         <label className="login__label" htmlFor="">
           Password
-          <input className="login__password" type="password" name="password" placeholder="Password" />
+          <input
+            className="login__password"
+            type="password"
+            name="current-password"
+            autoComplete="current-password"
+          />
         </label>
-        <button className="login__submit" type="submit">Login</button>
+        <button className="login__submit btn" type="submit">Login</button>
       </form>
     </div>
   )

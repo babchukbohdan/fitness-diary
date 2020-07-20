@@ -14,9 +14,10 @@ export const User = () => {
 
 
   return (
-    <div>
+    <div className="wrap" >
       <h1>User Settings</h1>
       <button
+        className="btn"
         onClick={clickHandler}
       >Sign out</button>
     </div>

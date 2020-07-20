@@ -2,15 +2,28 @@ import React, {useCallback, useContext} from 'react'
 import { withRouter } from 'react-router-dom'
 import { AuthContext } from '../../context/auth/authContext'
 
+import {ReactComponent as EyeIcon} from '../../images/eye.svg'
 import './SignUp.scss'
+import { useState } from 'react'
 
 const SignUp = ({history}) => {
   const {signUp} = useContext(AuthContext)
+  const [passType, setPassType] = useState('password')
+
+  const passTypeHandler = (e) => {
+    if (passType === 'password') {
+      setPassType('text')
+    } else {
+      setPassType('password')
+    }
+  }
+
 
   const handleSignUp = useCallback( async (e) => {
       e.preventDefault()
-      const {email, password, name} = e.target.elements
-      await signUp(email.value, password.value, name.value)
+      const {email} = e.target.elements
+      const password = e.target.elements['new-password']
+      await signUp(email.value, password.value)
       // eslint-disable-next-line
     }, [history]
   )
@@ -19,19 +32,67 @@ const SignUp = ({history}) => {
     <div className="signup">
       <h1 className="signup__title">Sign Up</h1>
       <form className="signup__form" onSubmit={handleSignUp}>
-        <label className="signup__label" htmlFor="">
-          Name
-          <input className="signup__name" type="text" name="name" placeholder="Name" />
-        </label>
-        <label className="signup__label" htmlFor="">
-          Email
-          <input className="signup__email" type="email" name="email" placeholder="Email" />
-        </label>
-        <label className="signup__label" htmlFor="">
-          Password
-          <input className="signup__password" type="password" name="password" placeholder="Password" />
-        </label>
-        <button className="signup__submit" type="submit">Sign Up</button>
+        <section className='signup__group' >
+          <label className="signup__label" htmlFor="signup__email">
+            Email
+          </label>
+          <input
+            id='signup__email'
+            className="signup__email"
+            type="email"
+            name="email"
+            inputMode="email"
+            autoComplete='email'
+            autoFocus
+            required
+            placeholder='john.doe@gmail.com'
+          />
+        </section>
+
+        <section className='signup__group' >
+          <label className="signup__label" htmlFor="signup__password">
+            Password
+          </label>
+          <input
+            id='signup__password'
+            className="signup__password"
+            type={passType}
+            minLength={6}
+            maxLength={20}
+            placeholder='Enter 6 - 20 characters'
+            name="new-password"
+            autoComplete="new-password"
+            required
+          />
+
+          <button
+            className="toggle-pass-btn"
+            type="button"
+            aria-label={
+              passType === 'password'
+                ? "Show password as plain text. Warning: this will display your password on the screen."
+                : "Hide password"
+            }
+            onClick={passTypeHandler}
+          >
+            <EyeIcon
+              className={
+                passType === 'password'
+                ? 'signup__icon'
+                : 'signup__icon active'
+              }
+            />
+            {/* Show password */}
+          </button>
+        </section>
+
+
+
+
+        <button
+          className="signup__submit btn"
+          type="submit"
+        >Sign Up</button>
       </form>
     </div>
   )

@@ -5,7 +5,7 @@
 
   padding: 10px;
 
-  background-color: tomato;
+  // background-color: tomato;
 
   &__title {
     margin-right: 10px;
@@ -20,13 +20,36 @@
     flex-direction: column;
 
     margin-right: 10px;
+    font-size: 11px;
   }
 
-  &__email, &__password, &__submit {
+  &__email, &__password {
     padding: 5px;
+
+    background-color: transparent;
+    border: 1px solid var(--overlay-bg-color);
+
+    background-color: transparent;
+    color: var(--text-color);
+    caret-color: var(--text-color);
   }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px var(--section-bg-color) inset !important;
+    -webkit-text-fill-color: var(--text-color) !important;
+  }
+
 
   &__submit {
     align-self: flex-end;
+    padding: 5px;
+
+
+    border: 1px solid var(--overlay-bg-color);
+    border-radius: 0;
+    color: var(--text-color);
   }
 }

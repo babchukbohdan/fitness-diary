@@ -43,12 +43,11 @@ export const Navbar = () => {
             {
               user
                 ? (<>
-                    <p><span className="navbar__name">{user.displayName}</span></p>
-                    <p><span className="navbar__name">{getName()}</span></p>
+                    {/* <p><span className="navbar__name">{user.displayName}</span></p> */}
                     <p><span className="navbar__email">{user.email}</span></p>
                   </>)
                 : (<>
-                    <p><span className="navbar__name">John Doe</span></p>
+                    {/* <p><span className="navbar__name">John Doe</span></p> */}
                     <p><span className="navbar__email">john.doe@gmail.com</span></p>
                   </>)
             }
