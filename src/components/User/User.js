@@ -1,5 +1,5 @@
-import React from 'react'
-import { useContext } from 'react'
+import React, { useContext } from 'react'
+
 import { FirebaseContext } from '../../context/firebase/firebaseContext'
 import { AuthContext } from '../../context/auth/authContext'
 
@@ -20,6 +20,8 @@ export const User = () => {
         className="btn"
         onClick={clickHandler}
       >Sign out</button>
+
+
     </div>
   )
 }
