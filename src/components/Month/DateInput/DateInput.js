@@ -22,7 +22,7 @@ export const DateInput = ({setDate, date}) => {
   }
   return (
     <div className="month__select">
-      <label htmlFor="date">
+      {/* <label htmlFor="date">
         <input
           id="date"
           type="month"
@@ -37,7 +37,7 @@ export const DateInput = ({setDate, date}) => {
           onKeyDown={(e) => e.preventDefault()}
         />
         <DateIcon className="icon" />
-      </label>
+      </label> */}
 
       <Calendar
         locale={ru}
@@ -56,6 +56,7 @@ export const DateInput = ({setDate, date}) => {
           setDate(new Date(Date.parse(e.value)))
         }}
       />
+
     </div>
   )
 }

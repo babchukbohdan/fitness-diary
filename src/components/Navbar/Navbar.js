@@ -19,10 +19,15 @@ import { AuthContext } from '../../context/auth/authContext';
 
 export const Navbar = () => {
   const [smallWidth, setSmallWidth] = useState(false)
-  const {user, getName} = useContext(AuthContext)
+  const {user} = useContext(AuthContext)
+  const isUserVerified = user?.emailVerified
 
-  console.log(user, 'user in Navbar')
-  console.log(user?.displayName, 'user displayName in Navbar')
+  if (user) {
+    // console.log(user)
+
+
+  }
+
   return (
     <div className={smallWidth ? "navbar navbar--small" : "navbar navbar--big"}>
 
@@ -41,7 +46,7 @@ export const Navbar = () => {
             <AvatarIcon className="navbar__avatar"/>
 
             {
-              user
+              isUserVerified
                 ? (<>
                     {/* <p><span className="navbar__name">{user.displayName}</span></p> */}
                     <p><span className="navbar__email">{user.email}</span></p>
@@ -63,7 +68,7 @@ export const Navbar = () => {
 
 
         {
-          user &&
+          isUserVerified &&
           <>
             <li className="navbar__item">
               <NavLink to="/callendar" className="navbar__link">

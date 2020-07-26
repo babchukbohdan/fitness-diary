@@ -9,7 +9,6 @@ const Login = ({history}) => {
   const {user, login} = useContext(AuthContext)
 
   const handleLogin = useCallback( (e) => {
-      console.log(e.target.elements)
       e.preventDefault()
       const {email} = e.target.elements
       const password = e.target.elements['current-password']
@@ -18,7 +17,7 @@ const Login = ({history}) => {
     }, [history]
   )
 
-  if (user) {
+  if (user?.emailVerified) {
     return <Redirect to="/user" />
   }
 

@@ -69,6 +69,7 @@
 
     &:hover {
       background-color: var(--hover-bg-color);
+      color: inherit;
     }
 
     &:focus, &.active {
@@ -126,6 +127,10 @@
     text-decoration: none;
     color: var(--text-link-color);
 
+    &:hover {
+      background-color: var(--hover-bg-color);
+      color: inherit;
+    }
 
     &.active {
       color: var(--text-link-active-color);
@@ -134,9 +139,6 @@
       svg {
         fill: var(--text-link-active-color);
       }
-    }
-    &:hover {
-      background-color: var(--hover-bg-color);
     }
   }
 }

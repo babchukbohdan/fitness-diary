@@ -26,45 +26,98 @@
     text-align: center;
     padding: 10px;
 
-    label {
-      position: relative;
-    }
-
-    .icon {
-      position: absolute;
-      top: 3px;
-      right: 8px;
-
-
-      width: 17px;
-      height: 17px;
-      // padding: 2px 3px;
-      fill: var(--svg-color);
-
-      user-select: inherit;
-    }
-
-    input {
-      padding: 2px 5px;
-      border: 1px solid var(--overlay-bg-color);
-
-      font-size: 15px;
-
+    .p-inputtext {
       background-color: var(--navbar-bg-color);
       color: var(--text-color);
 
-    &:focus {
-      outline-offset: -1px;
-      outline: 1px solid var(--text-color);
+      border-color: var(--overlay-bg-color);
+
+      &:enabled:focus {
+        outline: 0 none;
+        outline-offset: 0;
+        box-shadow: 0 0 0 0.2em var(--text-color);
+        border-color: var(--text-color);
+      }
     }
-    &::-webkit-calendar-picker-indicator {
-      // background: var(--navbar-bg-color);
-      // background: transparent;
-      // display: none;
-      opacity: 0;
-      z-index: 1;
+
+    .p-calendar-button {
+      color: var(--text-link-color);
+      background-color: var(--overlay-bg-color);
+      border-color: var(--overlay-bg-color);
+      transition: color .3s ease;
+
+      &:enabled:hover {
+        color: var(--text-link-active-color);
+        background-color: var(--overlay-bg-color);
+        border-color: var(--overlay-bg-color);
+      }
     }
+
+    .p-datepicker-monthpicker {
+      border: 1px solid var(--overlay-bg-color) !important;
+      transform: translateY(-1px);
     }
+    .p-datepicker-monthpicker,
+    .p-datepicker-header {
+      background-color: var(--navbar-bg-color) !important;
+      color: var(--text-color) !important;
+    }
+
+    .p-monthpicker-month {
+      color: var(--text-color) !important;
+
+      &:hover {
+        background-color: var(--hover-bg-color) !important;
+      }
+    }
+
+    .pi-chevron-left,
+    .pi-chevron-right {
+      color: var(--hover-bg-color);
+    }
+
+    // Styles for custom input
+
+
+    // label {
+    //   position: relative;
+    // }
+
+    // .icon {
+    //   position: absolute;
+    //   top: 3px;
+    //   right: 8px;
+
+
+    //   width: 17px;
+    //   height: 17px;
+    //   // padding: 2px 3px;
+    //   fill: var(--svg-color);
+
+    //   user-select: inherit;
+    // }
+
+    // input {
+    //   padding: 2px 5px;
+    //   border: 1px solid var(--overlay-bg-color);
+
+    //   font-size: 15px;
+
+    //   background-color: var(--navbar-bg-color);
+    //   color: var(--text-color);
+
+    //   &:focus {
+    //     outline-offset: -1px;
+    //     outline: 1px solid var(--text-color);
+    //   }
+    //   &::-webkit-calendar-picker-indicator {
+    //     // background: var(--navbar-bg-color);
+    //     // background: transparent;
+    //     // display: none;
+    //     opacity: 0;
+    //     z-index: 1;
+    //   }
+    // }
   }
 
   &__daynames {
@@ -150,6 +203,10 @@
 
     color: var(--text-link-color);
     text-decoration: none;
+
+    &:hover {
+      color: var(--text-link-color);
+    }
   }
 
   &__muscles {

@@ -7,8 +7,9 @@ import './SignUp.scss'
 import { useState } from 'react'
 
 const SignUp = ({history}) => {
-  const {signUp} = useContext(AuthContext)
+  const {signUp, user, resetPassword} = useContext(AuthContext)
   const [passType, setPassType] = useState('password')
+  const [emailForReset, setEmailForReset] = useState('')
 
   const passTypeHandler = (e) => {
     if (passType === 'password') {
@@ -23,7 +24,7 @@ const SignUp = ({history}) => {
       e.preventDefault()
       const {email} = e.target.elements
       const password = e.target.elements['new-password']
-      await signUp(email.value, password.value)
+      signUp(email.value, password.value)
       // eslint-disable-next-line
     }, [history]
   )
@@ -94,6 +95,25 @@ const SignUp = ({history}) => {
           type="submit"
         >Sign Up</button>
       </form>
+
+
+      <input
+        className="signup__email"
+        type="email"
+        name="email"
+        value={emailForReset}
+        onChange={(e) => {
+          setEmailForReset(e.target.value)
+          console.log(e.target.value, 'emailForReset')
+        }}
+      />
+      <button
+          className="btn"
+          type="button"
+          onClick={() => {
+            resetPassword(emailForReset)
+          }}
+        >reset password</button>
     </div>
   )
 }
