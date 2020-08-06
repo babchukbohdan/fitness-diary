@@ -66,6 +66,10 @@
     .p-monthpicker-month {
       color: var(--text-color) !important;
 
+      &.p-highlight {
+        background-color: var(--hover-bg-color) !important;
+      }
+
       &:hover {
         background-color: var(--hover-bg-color) !important;
       }

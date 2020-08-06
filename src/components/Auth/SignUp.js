@@ -5,11 +5,11 @@ import { AuthContext } from '../../context/auth/authContext'
 import {ReactComponent as EyeIcon} from '../../images/eye.svg'
 import './SignUp.scss'
 import { useState } from 'react'
+import { Password } from './Password/Password'
 
 const SignUp = ({history}) => {
   const {signUp, user, resetPassword} = useContext(AuthContext)
   const [passType, setPassType] = useState('password')
-  const [emailForReset, setEmailForReset] = useState('')
 
   const passTypeHandler = (e) => {
     if (passType === 'password') {
@@ -33,7 +33,7 @@ const SignUp = ({history}) => {
     <div className="signup">
       <h1 className="signup__title">Sign Up</h1>
       <form className="signup__form" onSubmit={handleSignUp}>
-        <section className='signup__group' >
+        <section className='signup__group'>
           <label className="signup__label" htmlFor="signup__email">
             Email
           </label>
@@ -95,25 +95,7 @@ const SignUp = ({history}) => {
           type="submit"
         >Sign Up</button>
       </form>
-
-
-      <input
-        className="signup__email"
-        type="email"
-        name="email"
-        value={emailForReset}
-        onChange={(e) => {
-          setEmailForReset(e.target.value)
-          console.log(e.target.value, 'emailForReset')
-        }}
-      />
-      <button
-          className="btn"
-          type="button"
-          onClick={() => {
-            resetPassword(emailForReset)
-          }}
-        >reset password</button>
+      <Password name="new-password" id="sign-up__password" />
     </div>
   )
 }
