@@ -20,86 +20,14 @@
     position: relative;
   }
 
+  .email__input {
+    width: calc(100% - 20px);
+  }
+
   &__form {
   }
 
-  &__label {
-    display: block;
-    margin-bottom: 3px;
-  }
-
-  &__email, &__password {
-    padding: 10px;
-    width: 100%;
-
-    border: 1px solid var(--overlay-bg-color);
-
-    background-color: transparent;
-    color: var(--text-color);
-    caret-color: var(--text-color);
-
-    &:active {
-      outline: none;
-    }
-  }
-
-  &__email[type=email]:not(:placeholder-shown):invalid {
-    color: red;
-    outline-color: red;
-  }
-
-  &__password {
-
-  }
-
-
   &__submit {
-    // display: inline-block;
-    padding: 10px;
-
     border: 1px solid var(--overlay-bg-color);
-    border-radius: 0;
-    color: var(--text-color);
-  }
-
-
-
-  .toggle-pass-btn {
-    width: 25px;
-    height: 37px;
-
-    position: absolute;
-    right: 10px;
-    bottom: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 0;
-    border: none;
-
-    transition: opacity .2s ease;
-    background: transparent;
-    cursor: pointer;
-
-    &:focus {
-      outline: none;
-    }
-  }
-
-  &__password:placeholder-shown + .toggle-pass-btn {
-    opacity: 0;
-    visibility: hidden;
-  }
-
-  &__icon {
-    width: 20px;
-    height: 20px;
-    fill: var(--overlay-bg-color);
-
-    &.active {
-      fill: var(--svg-color);
-    }
   }
 }

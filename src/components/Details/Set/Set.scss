@@ -63,12 +63,21 @@
 
   &__weight, &__reps {
     input {
-      display: inline;
-      width: 45px;
-      background-color: transparent;
-      border: 1px solid var(--overlay-bg-color);
+      // display: inline;
+
+      padding: 1px 5px;
+      width: calc(4ch + 10px);
+
+      // border: 1px solid var(--overlay-bg-color);
+      border-radius: 0;
+      // border: 0;
+      // border-bottom: 1px solid var(--overlay-bg-color);
+
+      text-align: start;
+
 
       color: var(--text-color);
+      background-color: transparent;
 
       &:focus {
         outline-offset: -1px;

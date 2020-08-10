@@ -3,7 +3,7 @@ import { ThemeContext } from './themeContext'
 
 export const ThemeState = ({children}) => {
 
-  const [theme, setTheme] = useState('light')
+  const [theme, setTheme] = useState('dark')
 
 
   return (

@@ -1,10 +1,10 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useContext } from 'react'
 import axios from 'axios'
 import { FirebaseContext } from './firebaseContext'
 import { firebaseReducer } from './firebaseReducer'
-import { SHOW_LOADER_FETCHING, ADD_TRAINING, FETCH_MONTH, REMOVE_TRAINING, HIDE_LOADER_FETCHING, SHOW_LOADER_POSTING, HIDE_LOADER_POSTING } from '../types'
-import { useContext } from 'react'
 import { AuthContext } from '../auth/authContext'
+import { NotificationContext } from '../Notification/notificationContext'
+import { SHOW_LOADER_FETCHING, ADD_TRAINING, FETCH_MONTH, REMOVE_TRAINING, HIDE_LOADER_FETCHING, SHOW_LOADER_POSTING, HIDE_LOADER_POSTING } from '../types'
 
 
 export const FirebaseState = ({children}) => {
@@ -18,23 +18,40 @@ export const FirebaseState = ({children}) => {
 
   const [state, dispatch] = useReducer(firebaseReducer, initialState)
   const {user} = useContext(AuthContext)
+  const {showNotification} = useContext(NotificationContext)
   const url = `${process.env.REACT_APP_FIREBASE_DATABASE}` // /${user?.uid}
 
   const showFetchingLoader = () => (dispatch({type: SHOW_LOADER_FETCHING}))
   const hideFetchingLoader = () => (dispatch({type: HIDE_LOADER_FETCHING}))
   const showPostingLoader = () => (dispatch({type: SHOW_LOADER_POSTING}))
   const hidePostingLoader = () => (dispatch({type: HIDE_LOADER_POSTING}))
+
   const resetState = () => {
     dispatch({
       type: FETCH_MONTH,
       payload: []
     })
-    console.log('reset state')
+    showNotification({
+      closable: true,
+      sticky: false,
+      life: 3000,
+      severity: 'info',
+      summary: `App state reseted`,
+      detail: ``
+    })
   }
 
 
   const getTrainingsFromFirebase = (path) => {
-    console.log('fetching from firebase');
+    showNotification({
+      closable: true,
+      sticky: false,
+      life: 10000,
+      severity: 'info',
+      summary: `Fetching from firebase`,
+      detail: `Path ${path}`
+    })
+
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(axios.get(`${url}/${path}.json`))
@@ -70,7 +87,7 @@ export const FirebaseState = ({children}) => {
 
 
   const fetchMonth = async (path) => {
-    console.log('fetching month');
+
     showFetchingLoader()
     const res = await getTrainingsFromFirebase(path)
     dispatchTrainings(res.data)
@@ -90,13 +107,12 @@ export const FirebaseState = ({children}) => {
 
   const removeSameExercise = (month, path, data) => {
     const same = month.find(day => day.date === data.date)
-    console.log('finding same');
     if (same) {
-      console.log('same fined');
       const pathWithId = `${path}/${same.id}`
       removeTraining(same.date, pathWithId)
-    } else console.log('same not fined');
+    } else {
 
+    }
   }
 
   const addTrainingDay = async (data, path) => {
@@ -114,8 +130,16 @@ export const FirebaseState = ({children}) => {
     removeSameExercise(state.month, path, data)
 
     try {
-      console.log('posting to ',`${url}/${path}.json`)
       const res = await axios.post(`${url}/${path}.json`, data)
+
+      showNotification({
+        closable: true,
+        sticky: false,
+        life: 9000,
+        severity: 'success',
+        summary: `Training saved`,
+        detail: ``
+      })
 
       const payload = {
         ...data,
@@ -126,15 +150,34 @@ export const FirebaseState = ({children}) => {
         type: ADD_TRAINING,
         payload
       })
-    } catch (e) {
-      throw new Error(e.message)
+    } catch (error) {
+      showNotification({
+        closable: true,
+        sticky: true,
+        severity: 'error',
+        summary: `Server error`,
+        detail: `Error server post method: ${error}`
+      })
+
+      throw new Error(error.message)
     }
     hidePostingLoader()
   }
 
   const removeTraining = async (date, path) => {
-    console.log('removing');
-    await axios.delete(`${url}/${path}.json`)
+    try {
+      await axios.delete(`${url}/${path}.json`)
+    } catch (error) {
+      showNotification({
+        closable: true,
+        sticky: false,
+        life: 9000,
+        severity: 'error',
+        summary: `Can't remove training`,
+        detail: `Problem ${error}.`
+      })
+    }
+
     dispatch({
       type: REMOVE_TRAINING,
       payload: date

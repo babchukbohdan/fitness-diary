@@ -22,6 +22,7 @@ export const Set = ({exerciseId, id, index, weight, reps}) => {
 
         <div className="set__weight">
           <input
+          className="input"
             name="weight"
             type="number"
             min="1"
@@ -33,6 +34,7 @@ export const Set = ({exerciseId, id, index, weight, reps}) => {
 
         <div className="set__reps">
           <input
+          className="input"
             name="reps"
             type="number"
             min="1"

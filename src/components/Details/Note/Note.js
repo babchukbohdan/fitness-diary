@@ -7,8 +7,11 @@ export const Note = ({value, changeValue}) => {
   }
   return (
     <div className="note">
-      <h5>Note:</h5>
+      <h5
+        className="note__title"
+      >Note:</h5>
       <textarea
+        className="input"
         name="note"
         onChange={inputHandler}
         value={value}

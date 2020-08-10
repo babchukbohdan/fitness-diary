@@ -35,9 +35,13 @@
       &:enabled:focus {
         outline: 0 none;
         outline-offset: 0;
-        box-shadow: 0 0 0 0.2em var(--text-color);
-        border-color: var(--text-color);
+        box-shadow: 0 0 0 0.2em var(--hover-bg-color);
+        border-color: var(--hover-bg-color);
       }
+    }
+
+    .p-button:enabled:focus {
+      @extend .p-inputtext:enabled:focus
     }
 
     .p-calendar-button {

@@ -21,7 +21,7 @@ export const Password = ({name, id}) => {
       <div className="password__container">
         <input
           id={id}
-          className='password__input'
+          className='password__input input'
           type={passType}
           minLength={6}
           maxLength={20}
@@ -51,7 +51,6 @@ export const Password = ({name, id}) => {
           {/* Show password */}
         </button>
       </div>
-      <span>Forgot password?</span>
     </>
   )
 }

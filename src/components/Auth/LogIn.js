@@ -4,15 +4,25 @@ import { useCallback } from 'react'
 import { useContext } from 'react'
 import { AuthContext } from '../../context/auth/authContext'
 import './Login.scss'
+import { Email } from './Email/Email'
+import { Password } from './Password/Password'
+import { useState } from 'react'
+import { ResetPass } from './ResetPass'
+import { NotificationContext } from '../../context/Notification/notificationContext'
 
 const Login = ({history}) => {
-  const {user, login} = useContext(AuthContext)
+  const {user, login, resetPassword} = useContext(AuthContext)
+  const {showNotification} = useContext(NotificationContext)
 
-  const handleLogin = useCallback( (e) => {
+  const [isResetPassword, setIsResetPassword] = useState(false)
+
+  const handleLogin = useCallback( async (e) => {
       e.preventDefault()
       const {email} = e.target.elements
       const password = e.target.elements['current-password']
-      login(email.value, password.value)
+      login(email.value, password.value).then(() => {
+
+      })
       // eslint-disable-next-line
     }, [history]
   )
@@ -21,31 +31,38 @@ const Login = ({history}) => {
     return <Redirect to="/user" />
   }
 
+  const loginForm = (
+    <form className="login__form" onSubmit={handleLogin}>
+      <section className="login__group">
+        <Email id="login__email" />
+      </section>
+
+      <section className="login__group">
+        <Password name="current-password" id="login__password" />
+        <button
+          className="reset-password"
+          type="button"
+          onClick={() => {setIsResetPassword(true)}}
+        >Reset password</button>
+      </section>
+
+        <button className="login__submit btn btn--small btn--border" type="submit">Login</button>
+    </form>
+  )
+
   return (
     <div className="login">
-      <h1 className="login__title">Login</h1>
-      <form className="login__form" onSubmit={handleLogin}>
-        <label htmlFor="" className="login__label">
-          Email
-          <input
-            className="login__email"
-            type="email"
-            name="email"
-            placeholder=" "
-            autoComplete="email"
-          />
-        </label>
-        <label className="login__label" htmlFor="">
-          Password
-          <input
-            className="login__password"
-            type="password"
-            name="current-password"
-            autoComplete="current-password"
-          />
-        </label>
-        <button className="login__submit btn" type="submit">Login</button>
-      </form>
+      <h1 className="login__title">
+        {isResetPassword ? 'Reset Password' : 'Login'}
+      </h1>
+      {
+        isResetPassword
+          ? <ResetPass
+              hideReset={() => {setIsResetPassword(false)}}
+              resetPassword={resetPassword}
+            />
+          : loginForm
+      }
     </div>
   )
 }

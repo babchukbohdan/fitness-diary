@@ -56,7 +56,7 @@ export const Details = () => {
           items={header}
           state={state}
           changeValue={changeValue}
-          showTitle={true}
+          showTitle={false}
           showIcon={true}
         />
       </div>
