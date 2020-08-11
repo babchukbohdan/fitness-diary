@@ -41,7 +41,7 @@
 
   &--border {
     border: 1px solid var(--overlay-bg-color);
-    border-radius: var(--input-border-radius, 5px);
+    border-radius: var(--input-border-radius, 3px);
   }
 
   &-big {
@@ -70,19 +70,21 @@
   padding: 10px;
 
   border: 1px solid var(--overlay-bg-color);
-  border-radius: var(--input-border-radius);
-
 
   background-color: transparent;
   color: var(--text-color);
   caret-color: var(--text-color);
   transition: border-color 0.2s, box-shadow 0.2s;
 
+  &--bd-radius {
+    border-radius: var(--input-border-radius);
+  }
+
   &:enabled:focus {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: 0 0 0 0.2em var(--hover-bg-color);
-    border-color: var(--hover-bg-color);
+    outline: 0 none ;
+    outline-offset: 0 ;
+    box-shadow: 0 0 0 0.2em var(--hover-bg-color) ;
+    border-color: var(--hover-bg-color) ;
   }
 }
 

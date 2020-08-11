@@ -43,11 +43,17 @@
     transition: opacity .3s ease-out;
 
     background-color: var(--hover-bg-color);
+    cursor: pointer;
+
+    &:hover .set__icon {
+      fill: var(--text-color);
+    }
   }
 
   &__icon {
     fill: var(--svg-color);
     width: 12px;
+    transition: fill ease .25s;
   }
 
 
@@ -69,14 +75,15 @@
       width: calc(4ch + 10px);
 
       // border: 1px solid var(--overlay-bg-color);
-      border-radius: 0;
+      border-radius: 3px;
       // border: 0;
       // border-bottom: 1px solid var(--overlay-bg-color);
 
-      text-align: start;
+      text-align: center;
 
 
-      color: var(--text-color);
+      color: var(--text-link-color);
+      // color: var(--text-color);
       background-color: transparent;
 
       &:focus {

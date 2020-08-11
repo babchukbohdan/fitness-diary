@@ -1,10 +1,16 @@
 import React from 'react'
 import { DetailsInfo } from '../DetailsInfo/DetailsInfo'
 import './DetailsInfoList.scss'
+import { getTimeString } from '../../Month/utils'
 
-export const DetailsInfoList = ({state, changeValue, items, showTitle, children, showIcon}) => {
+export const DetailsInfoList = ({state, changeValue, items, showTitle, showIcon, children}) => {
   const inputHandler = (e) => {
-    changeValue(e.target.name, e.target.value)
+    if (e.target.name === "start" || e.target.name === "end") {
+      const res = getTimeString(e.target.value)
+      changeValue(e.target.name, res)
+    } else {
+      changeValue(e.target.name, e.target.value)
+    }
   }
   return (
     <ul className="info">

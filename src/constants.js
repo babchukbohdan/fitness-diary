@@ -2,6 +2,8 @@ import { ReactComponent as DateIcon } from "./images/date.svg";
 import { ReactComponent as WeightIcon } from "./images/weight.svg";
 import { ReactComponent as SleepIcon } from "./images/sleep.svg";
 
+import { Calendar } from 'primereact/calendar';
+
 export const baseUrl = process.env.REACT_APP_FIREBASE_DATABASE
 export const dayNames = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'НД']
 export const header = [
@@ -40,14 +42,16 @@ export const header = [
 
 export const footer = [
   {
-    beforeInput: 'Start',
+    Component: Calendar,
+    beforeInput: 'Start:',
     attr: {
       type: "time",
       name: "start"
     }
   },
   {
-    beforeInput: 'End',
+    Component: Calendar,
+    beforeInput: 'End:',
     attr: {
       name: 'end',
       type: "time",

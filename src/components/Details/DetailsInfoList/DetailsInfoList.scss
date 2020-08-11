@@ -24,19 +24,52 @@
     border-radius: 5px;
 
     &:hover {
-      background-color: var(--hover-bg-color);
+      // background-color: var(--hover-bg-color);
     }
 
-    input {
+    .p-calendar-timeonly, .info__duration {
+      margin-inline-start: 10px;
+      padding: 0;
+    }
+
+    .PANEL__NAME {
+      background-color: var(--navbar-bg-color);
+      color: var(--text-color);
+      border: 1px solid var(--overlay-bg-color) !important;
+      transform: translateX(-25%);
+
+      .p-link {
+        color: var(--text-link-color);
+
+        &:enabled:hover {
+          color: var(--text-link-active-color);
+        }
+      }
+    }
+
+    input, .info__duration {
+      padding: 5px;
+
+      border-radius: 3px;
+      border-color: var(--overlay-bg-color);
+
       background-color: transparent;
       color: var(--text-link-color);
-      border: 1px solid var(--overlay-bg-color);
+    }
 
-      padding: 2.5px 0 2.5px 5px;
+    .p-inputtext {
+      max-width: calc(5ch + 10px);
+      cursor: pointer;
 
-      &:focus {
-        outline-offset: -1px;
-        outline: 1px solid var(--text-color);
+      &:enabled:hover {
+        border-color: var(--overlay-bg-color);
+      }
+
+      &:enabled:focus {
+        outline: 0 none;
+        outline-offset: 0;
+        box-shadow: 0 0 0 0.2em var(--hover-bg-color);
+        border-color: var(--hover-bg-color);
       }
     }
 

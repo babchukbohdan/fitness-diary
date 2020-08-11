@@ -5,7 +5,9 @@ import { ExercisesList } from '../Details/ExercisesList/ExercisesList';
 import './Progress.scss'
 import { getDayString } from '../Month/utils';
 import { FirebaseContext } from '../../context/firebase/firebaseContext';
-
+import { Calendar } from 'primereact/calendar';
+import { DateInput } from '../Month/DateInput/DateInput';
+import {Message} from 'primereact/message';
 
 export const Progress = () => {
   const [isExercisesVisible, setIsExercisesVisible] = useState(false)
@@ -49,8 +51,6 @@ export const Progress = () => {
 
   }
 
-
-
   return (
     <div className="progress wrap">
       <h1 className="progress__title">Progress</h1>
@@ -61,15 +61,17 @@ export const Progress = () => {
             htmlFor="progress__month"
           >
             Choose month:
-          </label>
-          <input
+
+          {/* <input
             id="progress__month"
             className="progress__input"
             type="month"
             name="month"
             value={getDayString(date)}
             onChange={(e) => setDate(new Date(e.target.value))}
-          />
+          /> */}
+          </label>
+            <DateInput setDate={setDate} date={date} id='progress__month' />
         </div>
         <div className="filter__item">
           <label
@@ -78,13 +80,13 @@ export const Progress = () => {
           >
             Choose exercise:
           </label>
-          <span
+          <button
             id="progress__exercise"
-            className="progress__input"
+            className="progress__input btn btn--border"
             onClick={() => {setIsExercisesVisible(true)}}
           >
             {exercise.name}
-          </span>
+          </button>
         </div>
         {
           isExercisesVisible &&
@@ -99,7 +101,9 @@ export const Progress = () => {
       </section>
       <section className="progress__chart">
         {
-          ex && <LinearChart data={ex} />
+          ex.length > 0
+            ? <LinearChart data={ex} />
+            : <Message severity="warn" text="No any trainings in this month"></Message>
         }
       </section>
     </div>

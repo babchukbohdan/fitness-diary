@@ -68,7 +68,6 @@ export const Info = (props) => {
               )
             })
           }
-      </div>
       <div className="diary__info">
 
         {
@@ -79,6 +78,7 @@ export const Info = (props) => {
         }
         <div>duration: {duration(dayData.start, dayData.end)}min</div>
         </div>
+      </div>
     </div>
   )
 }

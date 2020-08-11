@@ -7,7 +7,7 @@ import 'primereact/resources/themes/nova-colored/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css'
 
-export const DateInput = ({setDate, date}) => {
+export const DateInput = ({setDate, date, id}) => {
   const ru = {
     firstDayOfWeek: 1,
     dayNames: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
@@ -40,6 +40,7 @@ export const DateInput = ({setDate, date}) => {
       </label> */}
 
       <Calendar
+        inputId={id}
         locale={ru}
         value={date}
         readOnlyInput={true}

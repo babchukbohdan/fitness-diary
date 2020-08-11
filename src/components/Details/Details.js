@@ -101,7 +101,7 @@ export const Details = () => {
           changeValue={changeValue}
           showTitle={true}
         >
-          <li className="info__item">Duration: {duration(start, end)} min</li>
+          <li className="info__item">Duration: <span className="info__duration input">{duration(start, end)} min</span></li>
         </DetailsInfoList>
       </div>
 

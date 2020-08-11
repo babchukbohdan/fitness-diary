@@ -24,7 +24,7 @@ export const User = () => {
       <div>
         Name
         <input
-          className="input"
+          className="input input--bd-radius"
           type="text"
           value={userProfile || ''}
           onChange={(e) => {

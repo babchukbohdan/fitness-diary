@@ -40,7 +40,8 @@
       }
     }
 
-    .p-button:enabled:focus {
+    .p-button:enabled:focus,
+    .p-link:enabled:focus {
       @extend .p-inputtext:enabled:focus
     }
 
@@ -50,7 +51,8 @@
       border-color: var(--overlay-bg-color);
       transition: color .3s ease;
 
-      &:enabled:hover {
+      &:enabled:hover,
+      .p-link:hover {
         color: var(--text-link-active-color);
         background-color: var(--overlay-bg-color);
         border-color: var(--overlay-bg-color);
@@ -82,6 +84,10 @@
     .pi-chevron-left,
     .pi-chevron-right {
       color: var(--hover-bg-color);
+      transition: color .3s ease;
+      &:hover {
+        color: var(--text-link-active-color);
+      }
     }
 
     // Styles for custom input
