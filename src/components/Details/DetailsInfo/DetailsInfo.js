@@ -21,7 +21,8 @@ export const DetailsInfo = ({item, inputHandler, data, showTitle, showIcon}) => 
       {
         Component
           ? <Component
-              panelClassName='PANEL__NAME'
+              readOnlyInput={true}
+              panelClassName='time-panel'
               inputClassName="input"
               name={attr.name}
               timeOnly={true}

@@ -27,12 +27,18 @@
       // background-color: var(--hover-bg-color);
     }
 
-    .p-calendar-timeonly, .info__duration {
+    .info__duration {
+      min-width: calc(8ch + 10px);
+      text-align: center;
+      @extend .p-calendar-timeonly, input
+    }
+
+    .p-calendar-timeonly {
       margin-inline-start: 10px;
       padding: 0;
     }
 
-    .PANEL__NAME {
+    .time-panel {
       background-color: var(--navbar-bg-color);
       color: var(--text-color);
       border: 1px solid var(--overlay-bg-color) !important;
@@ -47,7 +53,7 @@
       }
     }
 
-    input, .info__duration {
+    input {
       padding: 5px;
 
       border-radius: 3px;
@@ -60,6 +66,7 @@
     .p-inputtext {
       max-width: calc(5ch + 10px);
       cursor: pointer;
+      text-align: center;
 
       &:enabled:hover {
         border-color: var(--overlay-bg-color);
@@ -75,11 +82,6 @@
 
     input[type=number] {
       width: 50px;
-    }
-
-    input[type="time"]::-webkit-calendar-picker-indicator {
-      background-color: #fff;
-      border-radius: 5px;
     }
   }
   &__icon {

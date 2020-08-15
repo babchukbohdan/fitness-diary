@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import {TransitionGroup, CSSTransition} from 'react-transition-group'
+import {TabView, TabPanel} from 'primereact/tabview';
 
 import { Exercise } from './Exercise/Exercise'
 import { FirebaseContext } from '../../context/firebase/firebaseContext'
@@ -16,6 +17,7 @@ import './Details.scss'
 import { Loader } from '../UI/Loader/Loader'
 
 export const Details = () => {
+  const [activeIndex, setActiveIndex] = useState(1)
   const {fetchMonth, addTrainingDay, month, loading, postingData} = useContext(FirebaseContext)
   const {state, addExercise, changeValue, pushState} = useContext(TodayContext)
   const {exercises, note, start, end} = state
@@ -51,59 +53,73 @@ export const Details = () => {
   return (
     <div className="details wrap">
 
-      <div className="details__header">
-        <DetailsInfoList
-          items={header}
-          state={state}
-          changeValue={changeValue}
-          showTitle={false}
-          showIcon={true}
-        />
-      </div>
+
 
       <div className="details__main">
-        <div className="details__exercises" >
-          <TransitionGroup component="div">
 
-            {exercises.map((item, i) => (
-              <CSSTransition
-                key={item.id}
-                classNames={'fromUp'}
-                timeout={2300}
+        <TabView className="details__tabs">
+          <TabPanel header="Training">
+            <div className="details__header">
+              <DetailsInfoList
+                items={header}
+                state={state}
+                changeValue={changeValue}
+                showTitle={false}
+                showIcon={true}
+              />
+            </div>
+            <div className="details__exercises" >
+              <TransitionGroup component="div">
+
+                {exercises.map((item, i) => (
+                  <CSSTransition
+                    key={item.id}
+                    classNames={'fromUp'}
+                    timeout={2300}
+                  >
+                    <Exercise  exercise={item} />
+                  </CSSTransition>
+                ))}
+              </TransitionGroup>
+
+
+              <AddExercise onClickHandler={() => setShowEx(true)} />
+
+              {showEx &&
+              <ExercisesList
+                onSelectExercise={addExercise}
+                changeVisible={setShowEx}
+                visible={showEx}
+                closeOnSelect={false}
+              />}
+
+            </div>
+
+            <Note value={note} changeValue={changeValue} />
+
+            <Submit value={state} postData={addTrainingDay} loading={postingData} />
+            <div className="details__footer">
+              <DetailsInfoList
+                items={footer}
+                state={state}
+                changeValue={changeValue}
+                showTitle={true}
               >
-                <Exercise  exercise={item} />
-              </CSSTransition>
-            ))}
-          </TransitionGroup>
+                <li className="info__item">Duration: <span className="info__duration input">{duration(start, end)} min</span></li>
+              </DetailsInfoList>
+            </div>
+          </TabPanel>
+          <TabPanel header="Diet & sportfood">
+              Content II
+          </TabPanel>
+          <TabPanel header="Pharma">
+              Content III
+          </TabPanel>
+        </TabView>
 
-
-          <AddExercise onClickHandler={() => setShowEx(true)} />
-
-          {showEx &&
-          <ExercisesList
-            onSelectExercise={addExercise}
-            changeVisible={setShowEx}
-            visible={showEx}
-            closeOnSelect={false}
-          />}
-
-        </div>
-
-        <Note value={note} changeValue={changeValue} />
-
-        <Submit value={state} postData={addTrainingDay} loading={postingData} />
       </div>
 
-      <div className="details__footer">
-        <DetailsInfoList
-          items={footer}
-          state={state}
-          changeValue={changeValue}
-          showTitle={true}
-        >
-          <li className="info__item">Duration: <span className="info__duration input">{duration(start, end)} min</span></li>
-        </DetailsInfoList>
-      </div>
+
 
     </div>
   )

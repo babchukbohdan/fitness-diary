@@ -23,6 +23,10 @@
   .email__input {
     width: calc(100% - 20px);
   }
+  .email__input,
+  .password__input {
+    transition: none;
+  }
 
   &__form {
   }

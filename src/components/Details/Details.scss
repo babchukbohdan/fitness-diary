@@ -2,6 +2,43 @@
   display: flex;
   flex-direction: column;
 
+
+  &__tabs.p-tabview {
+
+    .p-tabview-panels {
+      background: none;
+      border: none;
+    }
+
+    a[role="tab"] {
+      background-color: var(--navbar-bg-color) !important;
+      border: 1px solid var(--navbar-bg-color) !important;
+      color: var(--text-color) !important;
+      transition: background-color 0.2s, box-shadow 0.2s;
+
+      &:focus {
+      outline: 0 none !important;
+      outline-offset: 0 !important;
+      box-shadow: 0 0 0 0.2em var(--hover-bg-color) !important;
+  // border-color: var(--hover-bg-color) !important;
+      }
+    }
+
+    .p-highlight a[role="tab"] {
+      background-color: var(--hover-bg-color) !important;
+      border: 1px solid var(--hover-bg-color) !important;
+      color: var(--text-color) !important;
+    }
+
+    .p-highlight:hover a[role="tab"] {
+      background-color: var(--hover-bg-color) !important;
+      border: 1px solid var(--hover-bg-color) !important;
+      color: var(--text-color) !important;
+    }
+  }
+
+
+
   &__header {
     // border-bottom: 1px solid var(--text-link-color);
     // border-left: 1px solid var(--text-link-color);

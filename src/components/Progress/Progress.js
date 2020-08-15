@@ -3,9 +3,7 @@ import { LinearChart } from './LinearChart/LinearChart';
 import { ExercisesList } from '../Details/ExercisesList/ExercisesList';
 
 import './Progress.scss'
-import { getDayString } from '../Month/utils';
 import { FirebaseContext } from '../../context/firebase/firebaseContext';
-import { Calendar } from 'primereact/calendar';
 import { DateInput } from '../Month/DateInput/DateInput';
 import {Message} from 'primereact/message';
 
