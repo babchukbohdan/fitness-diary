@@ -1,0 +1,22 @@
+
+{
+  "template": {
+    "name": "text",
+    "sport": ["gym", "yoga", "weigth lifting"],
+    "muscleGroup": ["спина", "ноги", "бицепс", "трицепс", "трапеция", "шея", "грудь", "пресс", "дельты"],
+    "type": ["strength", "cardio", "static"],
+    "equipment": ["barbell", "dumbbells", "kettlebells", "cardio machine", "strength machine", "hammer strength machine", "smith machine", "wall ball", "foam roller"]
+  },
+  "exercises": {
+    "legs": ["Приседания с штангой на спине"],
+    "back": ["Тяга штанги в наклоне", "Гиперэкстензия"],
+    "chest": ["Жим штанги лёжа"],
+    "shoulders": ["Жим штанги сидя"],
+    "trapezius": ["Шраги"],
+    "triceps": ["Французский жим"],
+    "biceps": ["Подьем штанги на бицепс"],
+    "abs": ["Скручивания в тренажере"],
+    "neck": [],
+    "cardio": ["Бег", "Элипс", "Велотренажер", "Скандинавская ходьба"]
+  }
+}

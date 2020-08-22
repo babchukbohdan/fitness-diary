@@ -5,16 +5,15 @@ import {TabView, TabPanel} from 'primereact/tabview';
 import { Exercise } from './Exercise/Exercise'
 import { FirebaseContext } from '../../context/firebase/firebaseContext'
 import { TodayContext } from '../../context/today/todayContext'
-import { ExercisesList } from './ExercisesList/ExercisesList'
 import { DetailsInfoList } from './DetailsInfoList/DetailsInfoList'
 import { header, footer } from '../../constants'
 import { duration } from './utils'
-import { AddExercise } from './AddExercise/AddExercise'
 import { Note } from './Note/Note'
 import { Submit } from './Submit/Submit'
 
 import './Details.scss'
 import { Loader } from '../UI/Loader/Loader'
+import { SelectMuscle } from '../UI/SelectMuscle/SelectMuscle';
 
 export const Details = () => {
   const [activeIndex, setActiveIndex] = useState(1)
@@ -22,7 +21,6 @@ export const Details = () => {
   const {state, addExercise, changeValue, pushState} = useContext(TodayContext)
   const {exercises, note, start, end} = state
 
-  const [showEx, setShowEx] = useState(false)
 
   useEffect(() => {
     // if (month.length && month[0].date.substr(0, 7) === getDayString(new Date())) return
@@ -77,21 +75,19 @@ export const Details = () => {
                     classNames={'fromUp'}
                     timeout={2300}
                   >
-                    <Exercise  exercise={item} />
+                    <Exercise exercise={item} />
                   </CSSTransition>
                 ))}
               </TransitionGroup>
 
-
-              <AddExercise onClickHandler={() => setShowEx(true)} />
-
-              {showEx &&
-              <ExercisesList
-                onSelectExercise={addExercise}
-                changeVisible={setShowEx}
-                visible={showEx}
-                closeOnSelect={false}
-              />}
+              <div className="details__addexercise">
+                <SelectMuscle
+                  closeOnSelect={false}
+                  btnText='Add exercise'
+                  onSelectExercise={addExercise}
+                  btnClasses="btn btn-big btn--border"
+                />
+              </div>
 
             </div>
 

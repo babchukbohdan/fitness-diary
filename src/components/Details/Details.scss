@@ -64,7 +64,7 @@
 
   &__addexercise {
     fill: var(--svg-color);
-    .icon {
+    & > .icon {
       margin-right: 10px;
     }
   }

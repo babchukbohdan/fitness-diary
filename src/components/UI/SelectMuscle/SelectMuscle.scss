@@ -43,8 +43,9 @@
   padding-right: 40px;
 
   background-color: var(--section-bg-color);
-
-  animation: showList .5s ease 0s 1 forwards;
+  color: var(--text-link-color);
+  font-weight: 600;
+  // animation: showList .5s ease 0s 1 forwards;
 
 
   &__types {
@@ -98,6 +99,13 @@
       }
     }
   }
+}
+
+.showlist-enter-active {
+  animation: showList .5s ease 0s 1 forwards;
+}
+.showlist-exit-active {
+  animation: showList .5s ease 0s 1 alternate-reverse;
 }
 
 @keyframes showList {

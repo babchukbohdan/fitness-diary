@@ -1,35 +1,33 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { LinearChart } from './LinearChart/LinearChart';
-import { ExercisesList } from '../Details/ExercisesList/ExercisesList';
-
+// import { Chart } from 'primereact/chart';
+import { Chart } from 'primereact/chart';
 import './Progress.scss'
 import { FirebaseContext } from '../../context/firebase/firebaseContext';
 import { DateInput } from '../Month/DateInput/DateInput';
 import {Message} from 'primereact/message';
+import { SelectMuscle } from '../UI/SelectMuscle/SelectMuscle';
 
 export const Progress = () => {
-  const [isExercisesVisible, setIsExercisesVisible] = useState(false)
   const [date, setDate] = useState((new Date(2020, 5)))
   const [exercise, setExercise] = useState({
     name: 'Приседания с штангой на спине',
     muscleGroup: 'legs'
   })
+  const [dataForChart, setDataForChart] = useState(null)
 
 
   const {fetchMonth, month} = useContext(FirebaseContext)
 
 
   useEffect(() => {
+    setDataForChart(null)
     fetchMonth(`${date.getFullYear()}/${date.getMonth() + 1}`)
     // eslint-disable-next-line
   }, [date])
 
-
-
-
-  let ex;
-  if (month) {
-    ex = month.filter(({exercises}) => exercises.some(ex => {
+  useEffect(() => {
+    const ex = month.filter(({exercises}) => exercises.some(ex => {
       return ex.name.name === exercise.name
     })).map(day => {
       return {
@@ -46,8 +44,32 @@ export const Progress = () => {
       reps: exercises.reps,
       exerciseWeight: exercises.weight
     })).sort((a, b) => a.date - b.date)
+    console.log(ex, 'data to chart')
+    setDataForChart(ex)
+  }, [exercise, month])
 
-  }
+
+  // let ex;
+  // if (month) {
+
+    const data = {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [
+          {
+              label: 'First Dataset',
+              data: [65, 59, 80, 81, 56, 55, 40],
+              fill: false,
+              borderColor: '#4bc0c0'
+          },
+          {
+              label: 'Second Dataset',
+              data: [28, 48, 40, 19, 86, 27, 90],
+              fill: false,
+              borderColor: '#565656'
+          }
+      ]
+  };
+  // }
 
   return (
     <div className="progress wrap">
@@ -78,31 +100,24 @@ export const Progress = () => {
           >
             Choose exercise:
           </label>
-          <button
-            id="progress__exercise"
-            className="progress__input btn btn--border"
-            onClick={() => {setIsExercisesVisible(true)}}
-          >
-            {exercise.name}
-          </button>
+          <SelectMuscle
+            closeOnSelect={true}
+            showExerciseInBtn={true}
+            onSelectExercise={setExercise}
+            btnId="progress__exercise"
+            btnClasses='progress__input btn btn--border'
+            btnText={exercise.name}
+          />
         </div>
-        {
-          isExercisesVisible &&
-            <ExercisesList
-              changeVisible={setIsExercisesVisible}
-              onSelectExercise={setExercise}
-              closeOnSelect={true}
-            />
-        }
-
 
       </section>
       <section className="progress__chart">
         {
-          ex.length > 0
-            ? <LinearChart data={ex} />
-            : <Message severity="warn" text="No any trainings in this month"></Message>
+          dataForChart
+            ? <LinearChart data={dataForChart} />
+            : <Message severity="warn" text="Yoy haven't training in this month"/>
         }
+        <Chart data={data} type="line" />
       </section>
     </div>
   )

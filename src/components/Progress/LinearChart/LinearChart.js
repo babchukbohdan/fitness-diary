@@ -1,5 +1,6 @@
 import React from 'react'
 import {ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+// remove recharts or chart.js
 import { getDayString } from '../../Month/utils';
 
 

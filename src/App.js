@@ -5,6 +5,7 @@ import { AuthState } from './context/auth/AuthState';
 import { FirebaseState } from './context/firebase/FirebaseState';
 import { TodayState } from './context/today/TodayState';
 import { ThemeState } from './context/theme/ThemeState';
+import { NotificationState } from './context/Notification/NotificationState';
 
 import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
 
@@ -21,7 +22,6 @@ import { Auth } from './components/Auth/Auth';
 import { User } from './components/User/User';
 
 import './App.scss';
-import { NotificationState } from './context/Notification/NotificationState';
 
 function App() {
   return (

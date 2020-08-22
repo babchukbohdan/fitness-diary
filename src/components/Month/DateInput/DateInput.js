@@ -3,8 +3,8 @@ import { getDayString } from '../utils'
 import {ReactComponent as DateIcon} from '../../../images/calendar.svg'
 
 import { Calendar } from 'primereact/calendar';
-import 'primereact/resources/themes/nova-colored/theme.css';
 import 'primereact/resources/primereact.min.css';
+import 'primereact/resources/themes/nova-dark/theme.css';
 import 'primeicons/primeicons.css'
 
 export const DateInput = ({setDate, date, id}) => {

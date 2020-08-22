@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import {CSSTransition} from 'react-transition-group'
+import {CSSTransition, TransitionGroup} from 'react-transition-group'
 import { ReactComponent as CloseIcon } from "../../../images/close.svg";
 
-import './ExercisesList.scss'
+import './SelectMuscle.scss'
 
-export const ExercisesList = ({onSelectExercise, changeVisible, closeOnSelect}) => {
+export const SelectMuscle = ({btnId = '', btnClasses, showExerciseInBtn = false, onSelectExercise, closeOnSelect = true, btnText = 'Choose Exercise'}) => {
 
 
-  const [muscleGroup, setMuscleGroup] = useState('legs')
-  const [muscleGroups, setMuscleGroups] = useState(null)
   const [db, setDb] = useState(null)
+  const [muscleGroups, setMuscleGroups] = useState(null)
+  const [activeMuscleGroup, setActiveMuscleGroup] = useState('legs')
+  const [choosenExercise, setChoosenExercise] = useState(null)
+  const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
     const getJson = async () => {
@@ -29,47 +31,40 @@ export const ExercisesList = ({onSelectExercise, changeVisible, closeOnSelect}) 
 
 
   const radioHandler = (e) => {
-    setMuscleGroup(e.target.value)
+    setActiveMuscleGroup(e.target.value)
   }
 
   const clickHandler = (e) => {
     if (closeOnSelect) {
-      changeVisible(false)
+      setIsVisible(false)
     }
     // changeVisible(false)
+    setChoosenExercise(e.target.textContent)
+
     onSelectExercise({
       name: e.target.textContent,
-      muscleGroup
+      muscleGroup: activeMuscleGroup
     })
   }
 
-  if (!db || !muscleGroups) {
-    return null
-  }
-
-
-  return (
-    <CSSTransition
-      in={!(!db || !muscleGroups)}
-      timeout={800}
-      classNames={'fromUp'}
-    >
+  const ExercisesListing = () => {
+    return (
       <div className="overlay" onClick={(e) => {
         if (e.target.classList.contains('overlay')) {
-          changeVisible(false)
+          setIsVisible(false)
         }
       }}>
         <div className="muscles">
           <button
             className="btn overlay__btn"
-            onClick={() => changeVisible(false)}
+            onClick={() => setIsVisible(false)}
           >
             <CloseIcon className="icon" />
           </button>
           <div className="muscles__types">
             {
               muscleGroups.map((type, i) => {
-                const isActive = muscleGroup === type
+                const isActive = activeMuscleGroup === type
                 return (
                   <label key={type} className={isActive ? 'active' : null}>
                     <input
@@ -88,7 +83,7 @@ export const ExercisesList = ({onSelectExercise, changeVisible, closeOnSelect}) 
           <div className="muscles__exercises">
             <ul>
               {
-                db.exercises[muscleGroup].map((exercise, i) =>
+                db.exercises[activeMuscleGroup].map((exercise, i) =>
                 <li
                   key ={exercise}
                   onClick={clickHandler}
@@ -99,6 +94,20 @@ export const ExercisesList = ({onSelectExercise, changeVisible, closeOnSelect}) 
         </div>
 
       </div>
-    </CSSTransition>
+    )
+  }
+
+  return (
+    <>
+      <button
+        id={btnId}
+        className={btnClasses}
+        onClick={() => setIsVisible(true)}
+      >
+        {showExerciseInBtn ? choosenExercise || btnText : btnText}
+      </button>
+
+      {isVisible && <ExercisesListing />}
+    </>
   )
 }
