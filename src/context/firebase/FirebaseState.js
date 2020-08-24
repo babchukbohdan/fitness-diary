@@ -2,7 +2,6 @@ import React, { useReducer, useContext } from 'react'
 import axios from 'axios'
 import { FirebaseContext } from './firebaseContext'
 import { firebaseReducer } from './firebaseReducer'
-import { AuthContext } from '../auth/authContext'
 import { NotificationContext } from '../Notification/notificationContext'
 import { SHOW_LOADER_FETCHING, ADD_TRAINING, FETCH_MONTH, REMOVE_TRAINING, HIDE_LOADER_FETCHING, SHOW_LOADER_POSTING, HIDE_LOADER_POSTING } from '../types'
 
@@ -17,7 +16,6 @@ export const FirebaseState = ({children}) => {
 
 
   const [state, dispatch] = useReducer(firebaseReducer, initialState)
-  const {user} = useContext(AuthContext)
   const {showNotification} = useContext(NotificationContext)
   const url = `${process.env.REACT_APP_FIREBASE_DATABASE}` // /${user?.uid}
 

@@ -1,6 +1,5 @@
 import React from 'react'
-import { getDayString } from '../utils'
-import {ReactComponent as DateIcon} from '../../../images/calendar.svg'
+// import {ReactComponent as DateIcon} from '../../../images/calendar.svg'
 
 import { Calendar } from 'primereact/calendar';
 import 'primereact/resources/primereact.min.css';
@@ -53,7 +52,6 @@ export const DateInput = ({setDate, date, id}) => {
         view="month"
         showIcon={true}
         onSelect={(e) => {
-          console.log(new Date(Date.parse(e.value)), 'input date')
           setDate(new Date(Date.parse(e.value)))
         }}
       />

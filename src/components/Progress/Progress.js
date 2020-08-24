@@ -15,13 +15,14 @@ export const Progress = () => {
     muscleGroup: 'legs'
   })
   const [dataForChart, setDataForChart] = useState(null)
+  const [dataForChart2, setDataForChart2] = useState(null)
 
-
+  console.log(dataForChart, 'dataForChart')
+  console.log(dataForChart2, 'dataForChart2')
   const {fetchMonth, month} = useContext(FirebaseContext)
 
 
   useEffect(() => {
-    setDataForChart(null)
     fetchMonth(`${date.getFullYear()}/${date.getMonth() + 1}`)
     // eslint-disable-next-line
   }, [date])
@@ -44,32 +45,85 @@ export const Progress = () => {
       reps: exercises.reps,
       exerciseWeight: exercises.weight
     })).sort((a, b) => a.date - b.date)
-    console.log(ex, 'data to chart')
+    const ex2 = getData(ex)
     setDataForChart(ex)
+    setDataForChart2(ex2)
+
+
   }, [exercise, month])
 
 
-  // let ex;
-  // if (month) {
-
+  function getData(dataForChart) {
+    const labels = dataForChart.map(val => {
+      return new Date(val.date)
+    })
+    const bodyWeight = dataForChart.map(val => {
+      return val.bodyWeight
+    })
+    const exerciseWeight = dataForChart.map(val => {
+      return val.exerciseWeight
+    })
+    const reps = dataForChart.map(val => {
+      return val.reps
+    })
     const data = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      labels,
       datasets: [
-          {
-              label: 'First Dataset',
-              data: [65, 59, 80, 81, 56, 55, 40],
-              fill: false,
-              borderColor: '#4bc0c0'
-          },
-          {
-              label: 'Second Dataset',
-              data: [28, 48, 40, 19, 86, 27, 90],
-              fill: false,
-              borderColor: '#565656'
+
+        {
+          label: 'bodyWeight',
+          data: bodyWeight,
+          fill: false,
+          borderColor: '#82ca9d',
+          pointBackgroundColor: '#82ca9d',
+          tooltips: {
+            backgroundColor: '#82ca9d',
           }
+        },
+        {
+          label: 'exerciseWeight',
+          data: exerciseWeight,
+          fill: false,
+          borderColor: '#8884d8',
+          pointBackgroundColor: '#8884d8',
+          tooltips: {
+            backgroundColor: '#8884d8',
+          }
+        },
+        {
+          label: 'reps',
+          data: reps,
+          fill: false,
+          borderColor: '#d88484',
+          pointBackgroundColor: '#d88484',
+          tooltips: {
+            backgroundColor: '#d88484',
+          }
+        },
+
       ]
-  };
-  // }
+    }
+    console.log(data)
+    return data
+  }
+
+  // const data = {
+  //   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  //   datasets: [
+  //       {
+  //         label: 'First Dataset',
+  //         data: [65, 59, 80, 81, 56, 55, 40],
+  //         fill: false,
+  //         borderColor: '#4bc0c0'
+  //       },
+  //       {
+  //         label: 'Second Dataset',
+  //         data: [28, 48, 40, 19, 86, 27, 90],
+  //         fill: false,
+  //         borderColor: '#565656'
+  //       }
+  //   ]
+  // };
 
   return (
     <div className="progress wrap">
@@ -117,8 +171,89 @@ export const Progress = () => {
             ? <LinearChart data={dataForChart} />
             : <Message severity="warn" text="Yoy haven't training in this month"/>
         }
-        <Chart data={data} type="line" />
+
       </section>
+      {
+        dataForChart2 &&
+        <Chart
+          color={['#82ca9d', '#8884d8', '#d88484']}
+          data={dataForChart2}
+          type="line"
+          options={{
+            layout: {
+              padding: {
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  bottom: 50
+              }
+            },
+            scales: {
+              xAxes: [{
+                offset: true,
+                type: 'time',
+                time: {
+                    displayFormats: {
+                      quarter: 'MMM D'
+                    }
+                },
+                gridLines: {
+                  color: '#2b2b2b',
+                  borderDash: [5, 5],
+                  drawTicks: true,
+                  zeroLineWidth: 1,
+                  zeroLineColor: 'rgb(144, 144, 144)'
+                }
+                // labels: ['January', 'February', 'March', 'April', 'May', 'June']
+              }],
+              yAxes: [{
+                gridLines: {
+                  color: '#2b2b2b',
+                  borderDash: [5, 5],
+                  drawTicks: true,
+                  zeroLineWidth: 1,
+                  zeroLineColor: 'rgb(144, 144, 144)'
+                }
+              }]
+            },
+            ticks: {
+              display: false
+            },
+            title: {
+              display: true,
+              text: 'My Title',
+              fontSize: 16
+            },
+            legend: {
+              position: 'bottom',
+              labels: {
+                padding: 15
+              }
+            },
+            tooltips: {
+              intersect: false,
+              mode: 'index',
+              titleFontSize: 16,
+              bodyFontSize: 14,
+              bodySpacing: 4,
+              multiKeyBackground: 'none',
+              xPadding: 12,
+              yPadding: 12,
+            },
+            elements: {
+              point: {
+                pointStyle: 'circle',
+                radius: 5
+              },
+              line: {
+
+                borderWidth: 4,
+                borderCapStyle: 'round',
+              }
+            }
+          }}
+        />
+      }
     </div>
   )
 }

@@ -4,14 +4,11 @@ import axios from 'axios'
 import './Info.scss'
 import { duration } from '../Details/utils'
 import { Loader } from '../UI/Loader/Loader'
-import { useContext } from 'react'
-import { AuthContext } from '../../context/auth/authContext'
 
 export const Info = (props) => {
   const {year, month, id} = props.match.params
 
   const [dayData, setDayData] = useState(null)
-  const {user} = useContext(AuthContext)
   const baseUrl = `${process.env.REACT_APP_FIREBASE_DATABASE}`  // /${user?.uid}
 
   useEffect(() => {

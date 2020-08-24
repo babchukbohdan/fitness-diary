@@ -8,11 +8,9 @@ import { Email } from './Email/Email'
 import { Password } from './Password/Password'
 import { useState } from 'react'
 import { ResetPass } from './ResetPass'
-import { NotificationContext } from '../../context/Notification/notificationContext'
 
 const Login = ({history}) => {
   const {user, login, resetPassword} = useContext(AuthContext)
-  const {showNotification} = useContext(NotificationContext)
 
   const [isResetPassword, setIsResetPassword] = useState(false)
 
@@ -28,7 +26,7 @@ const Login = ({history}) => {
   )
 
   if (user?.emailVerified) {
-    return <Redirect to="/user" />
+    return <Redirect to="/progress" />
   }
 
   const loginForm = (

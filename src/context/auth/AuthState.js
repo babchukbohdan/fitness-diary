@@ -6,10 +6,11 @@ import { NotificationContext } from '../Notification/notificationContext'
 
 export const AuthState = ({children}) => {
   const auth = app.auth()
+  auth.useDeviceLanguage()
   const [user, setUser] = useState(auth.currentUser)
   const {showNotification} = useContext(NotificationContext)
-  auth.useDeviceLanguage()
-  console.log(user, 'user')
+
+
   // // const firestoreDB = app.firestore()
   // // console.log(firestoreDB, 'firestoreDB')
 
@@ -47,7 +48,7 @@ export const AuthState = ({children}) => {
           });
       }
     })
-  }, [])
+  }, [auth, showNotification])
 
   const login = async (email, pass) => {
     try {

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import {CSSTransition, TransitionGroup} from 'react-transition-group'
 import { ReactComponent as CloseIcon } from "../../../images/close.svg";
 
 import './SelectMuscle.scss'
@@ -14,19 +13,24 @@ export const SelectMuscle = ({btnId = '', btnClasses, showExerciseInBtn = false,
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
+    let isUnmounted = false
     const getJson = async () => {
-      console.log('fetching exercises list')
       const response = await fetch('./exercises.json', {
         headers: {
           'Content-Type': 'application/json'
         },
       })
       const data = await response.json()
-
-      setDb(data)
-      setMuscleGroups(Object.keys(data.exercises))
+      if (!isUnmounted) {
+        setDb(data)
+        setMuscleGroups(Object.keys(data.exercises))
+      }
     }
     getJson()
+
+    return () => {
+      isUnmounted = true
+    }
   }, [])
 
 

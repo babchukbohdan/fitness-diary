@@ -1,12 +1,9 @@
 import React from 'react'
 import { Spinner } from '../../UI/Spinner/Spinner'
-import { NotificationContext } from '../../../context/Notification/notificationContext'
-import { useContext } from 'react'
 
 export const Submit = ({value, postData, loading}) => {
   const today = new Date()
   const path = `${today.getFullYear()}/${today.getMonth() + 1}`
-  const {showNotification} = useContext(NotificationContext)
 
   const submitHandler = (data, path) => {
     data = {...data}

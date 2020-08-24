@@ -32,7 +32,7 @@ const handlers = {
 export const todayReducer = (state, action) => {
   const handle = handlers[action.type] || handlers.DEFAULT
   const newState = handle(state, action)
-  console.log(newState, 'today newState')
+  // console.log(newState, 'today newState')
   return newState
 }
 

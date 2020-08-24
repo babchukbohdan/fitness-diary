@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import {TransitionGroup, CSSTransition} from 'react-transition-group'
 import {TabView, TabPanel} from 'primereact/tabview';
 
@@ -16,7 +16,6 @@ import { Loader } from '../UI/Loader/Loader'
 import { SelectMuscle } from '../UI/SelectMuscle/SelectMuscle';
 
 export const Details = () => {
-  const [activeIndex, setActiveIndex] = useState(1)
   const {fetchMonth, addTrainingDay, month, loading, postingData} = useContext(FirebaseContext)
   const {state, addExercise, changeValue, pushState} = useContext(TodayContext)
   const {exercises, note, start, end} = state

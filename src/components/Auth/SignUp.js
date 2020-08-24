@@ -5,10 +5,9 @@ import { AuthContext } from '../../context/auth/authContext'
 import './SignUp.scss'
 import { Password } from './Password/Password'
 import { Email } from './Email/Email'
-import { ResetPass } from './ResetPass'
 
 const SignUp = ({history}) => {
-  const {signUp, resetPassword} = useContext(AuthContext)
+  const {signUp} = useContext(AuthContext)
 
   const handleSignUp = useCallback( async (e) => {
       e.preventDefault()
