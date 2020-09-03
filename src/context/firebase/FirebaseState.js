@@ -114,6 +114,7 @@ export const FirebaseState = ({children}) => {
   }
 
   const addTrainingDay = async (data, path) => {
+    console.log(data, 'posting data')
     showPostingLoader()
     if (!state.month.length) {
 

@@ -24,8 +24,18 @@
 
     border-radius: 5px;
 
+
+
     &:hover {
       // background-color: var(--hover-bg-color);
+    }
+
+    .input[type='date'] {
+      width: calc(11ch + 10px);
+
+      &::-webkit-calendar-picker-indicator {
+        display: none;
+      }
     }
 
     .info__duration {

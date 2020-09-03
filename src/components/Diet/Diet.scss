@@ -1,0 +1,16 @@
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.fromUp-enter-active {
+  animation: fadeIn .4s ease-out forwards;
+}
+.fromUp-exit-active {
+  animation: fadeIn .4s ease-out alternate-reverse;
+}

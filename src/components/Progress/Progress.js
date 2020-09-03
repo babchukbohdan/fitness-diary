@@ -7,9 +7,10 @@ import { FirebaseContext } from '../../context/firebase/firebaseContext';
 import { DateInput } from '../Month/DateInput/DateInput';
 import {Message} from 'primereact/message';
 import { SelectMuscle } from '../UI/SelectMuscle/SelectMuscle';
+import { PieChartCalories } from './PieChart/PieChart';
 
 export const Progress = () => {
-  const [date, setDate] = useState((new Date(2020, 5)))
+  const [date, setDate] = useState((new Date(2020, 8)))
   const [exercise, setExercise] = useState({
     name: 'Приседания с штангой на спине',
     muscleGroup: 'legs'
@@ -55,7 +56,10 @@ export const Progress = () => {
 
   function getData(dataForChart) {
     const labels = dataForChart.map(val => {
-      return new Date(val.date)
+      const date = new Date(val.date)
+      date.setHours(0)
+      // console.log(date, 'date');
+      return date
     })
     const bodyWeight = dataForChart.map(val => {
       return val.bodyWeight
@@ -165,6 +169,15 @@ export const Progress = () => {
         </div>
 
       </section>
+
+      <section className="progress__chart">
+        {
+          month
+          ? <PieChartCalories data={month} />
+          : <Message severity="warn" text="Yoy haven't training in this month"/>
+        }
+      </section>
+
       <section className="progress__chart">
         {
           dataForChart
@@ -173,6 +186,7 @@ export const Progress = () => {
         }
 
       </section>
+      <section className="progress__chart">
       {
         dataForChart2 &&
         <Chart
@@ -239,21 +253,32 @@ export const Progress = () => {
               multiKeyBackground: 'none',
               xPadding: 12,
               yPadding: 12,
+              callbacks: {
+                title: (item, data) => {
+                  const label = item[0].label.split(', ')
+                  return `${label[0]} ${label[1]}`
+                }
+              }
             },
             elements: {
               point: {
                 pointStyle: 'circle',
-                radius: 5
+                radius: 5,
+                hoverRadius: 6,
+                borderColor: '#fff'
               },
               line: {
-
                 borderWidth: 4,
                 borderCapStyle: 'round',
+              },
+              rectangle: {
+                backgroundColor: '#f00'
               }
             }
           }}
         />
       }
+      </section>
     </div>
   )
 }

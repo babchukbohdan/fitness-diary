@@ -1,0 +1,130 @@
+.calendar {
+  display: inline-block;
+  position: relative;
+  // transform: translateX(-100px);
+  &__input {
+    padding: 0.429em;
+    font-size: 14px;
+    background-color: var(--navbar-bg-color);
+    color: var(--text-color);
+
+    appearance: none;
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+    border: 1px solid var(--overlay-bg-color);
+    border-radius: 3px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 0 none;
+
+    &:focus {
+      outline: 0 none;
+      outline-offset: 0;
+      box-shadow: 0 0 0 0.2em var(--hover-bg-color);
+      border-color: var(--hover-bg-color);
+      transition: box-shadow .2s;
+
+      & .calendar__month-picker {
+        display: block;
+      }
+    }
+  }
+
+  &__icon {
+    width: 1.3em;
+    height: 1.3em;
+
+    fill: var(--svg-color);
+    transition: fill .3s ease;
+
+
+
+    &--arrow {
+      width: 17px;
+      height: 17px;
+      fill: var(--hover-bg-color);
+    }
+  }
+
+  &__month-picker {
+    z-index: 9999;
+    position: absolute;
+    width: 100%;
+    padding: 0.857em;
+    font-size: 14px;
+    background-color: var(--navbar-bg-color);
+    border: 1px solid var(--overlay-bg-color);
+
+    transform: translateY(-1px);
+
+    transition: transform .3s,opacity .3s;
+    // display: none;
+    opacity: 0;
+    &--visible {
+      opacity: 1;
+    }
+  }
+  &__header {
+    position: relative;
+    padding: 0.429em 0.857em 0.429em 0.857em;
+  }
+  &__btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    &--month {
+      position: absolute;
+      width: 2.357em;
+      height: 100%;
+      // padding: .429em;
+      background-color: var(--overlay-bg-color);
+      border: 1px solid var(--overlay-bg-color);
+      border-left: 0 none;
+      border-radius: 3px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+
+      &:enabled:focus {
+        @extend .calendar__input:focus
+      }
+    }
+    &--prev,
+    &--next {
+      width: 1.8em;
+      height: 1.8em;
+      position: absolute;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+
+    }
+    &--prev {
+      left: 0;
+      transform: rotate(180deg);
+    }
+    &--next {
+      right: 0;
+    }
+    &:hover .calendar__icon {
+      fill: var(--text-link-active-color);
+    }
+  }
+  &__year {
+
+  }
+  &__body {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  &__month {
+    display: inline-block;
+    padding: .5em;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--hover-bg-color);
+    }
+  }
+}

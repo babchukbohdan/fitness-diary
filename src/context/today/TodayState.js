@@ -2,12 +2,17 @@ import React, { useReducer } from 'react'
 import { TodayContext } from './todayContext'
 import { todayReducer } from './todayReducer'
 import { getDayString, getTimeString } from '../../components/Month/utils'
-import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REPLACE_SET, CHANGE_VALUE, INIT_STATE } from '../types'
+import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REPLACE_SET, CHANGE_VALUE, INIT_STATE, ADD__MEEL,
+  REMOVE__MEEL, CHANGE__MEEL } from '../types'
 
 export const TodayState = ({children}) => {
   const initialState = {
     date: getDayString(new Date(), true),
     exercises: [],
+    diet: {
+      meal: [],
+      nutrition: [],
+    },
     note: '',
     start: getTimeString(new Date()),
     end: getTimeString(new Date()),
@@ -83,7 +88,35 @@ export const TodayState = ({children}) => {
     })
   }
 
+  const addMeel = (type) => {
+    dispatch({
+      type: ADD__MEEL,
+      dietType: type,
+      payload: {
+        name: `Meel(${type})# ${random(99, 500)}`,
+        calorie: random(99, 500),
+        id: Date.now()
+      }
+    })
+  }
 
+  const removeMeel = (id, type) => {
+    dispatch({
+      type: REMOVE__MEEL,
+      dietType: type,
+      payload: id
+    })
+  }
+
+  const changeMeel = (id, newItem, type) => {
+    dispatch({
+      type: CHANGE__MEEL,
+      dietType: type,
+      payload: {
+        id, newItem
+      }
+    })
+  }
 
 
   return (
@@ -91,7 +124,8 @@ export const TodayState = ({children}) => {
       state: state, pushState,
       addExercise, removeExercise,
       addSet, replaceSet,
-      changeValue
+      changeValue,
+      addMeel, removeMeel, changeMeel
     }}>
       {children}
     </TodayContext.Provider>

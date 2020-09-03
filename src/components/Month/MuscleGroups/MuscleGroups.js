@@ -8,10 +8,10 @@ import { ReactComponent as neck } from "../../../images/muscleGroups/neck.svg";
 import { ReactComponent as shoulders } from "../../../images/muscleGroups/shoulders.svg";
 import { ReactComponent as trapezius } from "../../../images/muscleGroups/trapezius.svg";
 import { ReactComponent as triceps } from "../../../images/muscleGroups/triceps.svg";
-import { ReactComponent as undefined } from "../../../images/muscleGroups/undefined.svg";
+import { ReactComponent as cardio } from "../../../images/muscleGroups/cardio.svg";
 
 const muscleGroups = {
-  abs, back, biceps, chest, legs, neck, shoulders, trapezius, triceps, undefined
+  abs, back, biceps, chest, legs, neck, shoulders, trapezius, triceps, cardio
 }
 
 export const MuscleGroups = ({uniqueMuscleGroups}) => {

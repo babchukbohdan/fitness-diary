@@ -1,11 +1,16 @@
-import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REPLACE_SET, CHANGE_VALUE, INIT_STATE } from "../types"
+import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REPLACE_SET, CHANGE_VALUE, INIT_STATE, ADD__MEEL,  REMOVE__MEEL, CHANGE__MEEL } from "../types"
 
 const handlers = {
   [INIT_STATE]: (state, {payload}) => (payload),
-  [ADD_EXERCISE]: (state, {payload}) => ({
-    ...state,
-    exercises: [...state.exercises, payload],
-  }),
+  [ADD_EXERCISE]: (state, {payload}) => {
+    if (!state.exercises) {
+      state.exercises = []
+    }
+    return {
+      ...state,
+      exercises: [...state.exercises, payload],
+    }
+  },
   [REMOVE_EXERCISE]: (state, {payload}) => ({
     ...state,
     exercises: state.exercises.filter(({id}) => id !== payload)
@@ -26,13 +31,37 @@ const handlers = {
   [CHANGE_VALUE]: (state, {payload}) => ({
     ...state, [payload.key]: payload.value
   }),
+
+  [ADD__MEEL]: (state, { payload, dietType }) => {
+    if (!state.diet[dietType]) {
+      state.diet[dietType] = []
+    }
+    return {
+      ...state, diet: {...state.diet, [dietType]:[...state.diet[dietType], payload]}
+    }
+  },
+  [REMOVE__MEEL]: (state, { payload, dietType }) => ({
+    ...state, diet: {...state.diet, [dietType]:[...state.diet[dietType].filter(({ id }) => id !== payload)]}
+  }),
+  [CHANGE__MEEL]: (state, { payload, dietType }) => ({
+    ...state,
+    diet: {
+      ...state.diet,
+      [dietType]: [...state.diet[dietType]].map((item) => {
+      if (item.id === payload.id) {
+        return { ...item, ...payload.newItem }
+      }
+      return item
+    })}
+
+  }),
   DEFAULT: state => state
 }
 
 export const todayReducer = (state, action) => {
   const handle = handlers[action.type] || handlers.DEFAULT
   const newState = handle(state, action)
-  // console.log(newState, 'today newState')
+  console.log(newState, 'today newState')
   return newState
 }
 

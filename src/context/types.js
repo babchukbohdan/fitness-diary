@@ -13,3 +13,7 @@ export const REMOVE_EXERCISE = 'REMOVE_EXERCISE'
 export const ADD_SET = 'ADD_SET'
 export const REPLACE_SET = 'REPLACE_SET'
 export const CHANGE_VALUE = 'CHANGE_VALUE'
+
+export const ADD__MEEL = 'ADD__MEEL'
+export const REMOVE__MEEL = 'REMOVE__MEEL'
+export const CHANGE__MEEL = 'CHANGE__MEEL'

@@ -14,6 +14,8 @@ import { Submit } from './Submit/Submit'
 import './Details.scss'
 import { Loader } from '../UI/Loader/Loader'
 import { SelectMuscle } from '../UI/SelectMuscle/SelectMuscle';
+import { Diet } from '../Diet/Diet';
+import { getDayString } from '../Month/utils';
 
 export const Details = () => {
   const {fetchMonth, addTrainingDay, month, loading, postingData} = useContext(FirebaseContext)
@@ -22,8 +24,10 @@ export const Details = () => {
 
 
   useEffect(() => {
+    // console.log(month, 'month')
+    // console.log(month[0]?.date.substr(0, 7), 'date')
     // if (month.length && month[0].date.substr(0, 7) === getDayString(new Date())) return
-    if (!month.length) {
+    if (!month.length || month[0].date.substr(0, 7) !== getDayString(new Date())) {
       const date = new Date(Date.parse(state.date))
       fetchMonth(`${date.getFullYear()}/${date.getMonth() + 1}`)
         .then(res => {
@@ -52,7 +56,6 @@ export const Details = () => {
 
 
 
-      <div className="details__main">
 
         <TabView className="details__tabs">
           <TabPanel header="Training">
@@ -65,10 +68,11 @@ export const Details = () => {
                 showIcon={true}
               />
             </div>
+            <div className="details__main">
             <div className="details__exercises" >
               <TransitionGroup component="div">
 
-                {exercises.map((item, i) => (
+                {exercises && exercises.map((item, i) => (
                   <CSSTransition
                     key={item.id}
                     classNames={'fromUp'}
@@ -93,6 +97,7 @@ export const Details = () => {
             <Note value={note} changeValue={changeValue} />
 
             <Submit value={state} postData={addTrainingDay} loading={postingData} />
+            </div>
             <div className="details__footer">
               <DetailsInfoList
                 items={footer}
@@ -103,16 +108,17 @@ export const Details = () => {
                 <li className="info__item">Duration: <span className="info__duration input">{duration(start, end)} min</span></li>
               </DetailsInfoList>
             </div>
+
           </TabPanel>
-          <TabPanel header="Diet & sportfood">
-              Content II
+          <TabPanel header="Diet & nutrition">
+              <Diet />
           </TabPanel>
-          <TabPanel header="Pharma">
+          <TabPanel header="Pharmacology">
               Content III
           </TabPanel>
         </TabView>
 
-      </div>
+
 
 
 

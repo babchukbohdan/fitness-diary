@@ -10,10 +10,6 @@ export const AuthState = ({children}) => {
   const [user, setUser] = useState(auth.currentUser)
   const {showNotification} = useContext(NotificationContext)
 
-
-  // // const firestoreDB = app.firestore()
-  // // console.log(firestoreDB, 'firestoreDB')
-
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       setUser(user)

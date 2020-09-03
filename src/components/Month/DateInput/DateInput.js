@@ -37,7 +37,6 @@ export const DateInput = ({setDate, date, id}) => {
         />
         <DateIcon className="icon" />
       </label> */}
-
       <Calendar
         inputId={id}
         locale={ru}

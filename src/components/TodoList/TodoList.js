@@ -3,6 +3,7 @@ import './TodoList.scss'
 
 export const TodoList = () => {
   const initialState = [
+    "Создать хук для отмены загрузки данных если компонент удаляется",
     "Стилизовать DateInput Component",
     "Реализовать глобальные настройки приложения",
     "Добавить иконку меню",
