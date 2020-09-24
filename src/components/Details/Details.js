@@ -15,13 +15,12 @@ import './Details.scss'
 import { Loader } from '../UI/Loader/Loader'
 import { SelectMuscle } from '../UI/SelectMuscle/SelectMuscle';
 import { Diet } from '../Diet/Diet';
-import { getDayString } from '../Month/utils';
+import { getDayString, getTimeString } from '../Month/utils';
 
 export const Details = () => {
   const {fetchMonth, addTrainingDay, month, loading, postingData} = useContext(FirebaseContext)
   const {state, addExercise, changeValue, pushState} = useContext(TodayContext)
   const {exercises, note, start, end} = state
-
 
   useEffect(() => {
     // console.log(month, 'month')
@@ -76,7 +75,7 @@ export const Details = () => {
                   <CSSTransition
                     key={item.id}
                     classNames={'fromUp'}
-                    timeout={2300}
+                    timeout={400}
                   >
                     <Exercise exercise={item} />
                   </CSSTransition>
@@ -96,7 +95,27 @@ export const Details = () => {
 
             <Note value={note} changeValue={changeValue} />
 
-            <Submit value={state} postData={addTrainingDay} loading={postingData} />
+            <Submit btnText="Save" value={state} postData={addTrainingDay} loading={postingData} />
+            <Submit btnText="Save pure" value={{
+              date: getDayString(new Date(), true),
+              exercises: [],
+              diet: {
+                meal: [{
+                  name: ``,
+                  calorie: 0,
+                }],
+                nutrition: [{
+                  name: ``,
+                  calorie: 0,
+                }],
+              },
+              note: '',
+              start: getTimeString(new Date()),
+              end: getTimeString(new Date()),
+              weight: 77,
+              sleep: 8
+            }}
+            postData={addTrainingDay} loading={postingData} />
             </div>
             <div className="details__footer">
               <DetailsInfoList

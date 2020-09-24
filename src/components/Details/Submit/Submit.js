@@ -2,7 +2,7 @@ import React from 'react'
 import { Spinner } from '../../UI/Spinner/Spinner'
 import { useFirebaseContext } from '../../../context/firebase/firebaseContext'
 
-export const Submit = ({value, postData, loading}) => {
+export const Submit = ({value, postData, loading, btnText}) => {
 
   const today = new Date()
   const path = `${today.getFullYear()}/${today.getMonth() + 1}`
@@ -10,6 +10,7 @@ export const Submit = ({value, postData, loading}) => {
   const submitHandler = (data, path) => {
     data = {...data}
     delete data.id
+    console.log('posting data', data)
     postData(data, path)
       .then(() => {
 
@@ -23,12 +24,13 @@ export const Submit = ({value, postData, loading}) => {
     <div className="details__save">
 
       <button
+        disabled={loading}
         className="btn btn-big"
         onClick={() => {
           submitHandler(value, path)
         }}
       >
-        Save {loading &&  <Spinner />}
+        {btnText} {loading &&  <Spinner />}
       </button>
 
     </div>

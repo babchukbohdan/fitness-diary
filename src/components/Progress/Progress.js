@@ -172,9 +172,9 @@ export const Progress = () => {
 
       <section className="progress__chart">
         {
-          month
+          month[month.length - 1]?.diet
           ? <PieChartCalories data={month} />
-          : <Message severity="warn" text="Yoy haven't training in this month"/>
+          : <Message severity="warn" text="You haven't Calories data in this month"/>
         }
       </section>
 
@@ -182,7 +182,7 @@ export const Progress = () => {
         {
           dataForChart
             ? <LinearChart data={dataForChart} />
-            : <Message severity="warn" text="Yoy haven't training in this month"/>
+            : <Message severity="warn" text="You haven't training in this month"/>
         }
 
       </section>

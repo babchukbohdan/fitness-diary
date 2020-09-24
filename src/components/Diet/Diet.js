@@ -4,7 +4,7 @@ import { useTodayContext } from '../../context/today/todayContext'
 import { Submit } from '../Details/Submit/Submit'
 import { useFirebaseContext } from '../../context/firebase/firebaseContext'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-
+import './Diet.scss'
 export const Diet = () => {
 
   const {addTrainingDay, postingData} = useFirebaseContext()
@@ -14,9 +14,15 @@ export const Diet = () => {
     addMeel, removeMeel, changeMeel
   } = useTodayContext()
 
-  const totalMeal = state.diet.meal ? state.diet.meal.reduce((acc, val) => acc + +val.calorie, 0) : ''
-  const totalNutrition = state.diet.nutrition ? state.diet.nutrition.reduce((acc, val) => acc + +val.calorie, 0) : ''
+  const isHaveDiet = state.diet === undefined
+
+
+  const {meal, nutrition} = state.diet || {}
+
+  const totalMeal = meal ? meal.reduce((acc, val) => acc + +val.calorie, 0) : ''
+  const totalNutrition = nutrition ? nutrition.reduce((acc, val) => acc + +val.calorie, 0) : ''
   const total = totalMeal + totalNutrition
+
   return (
     <div className="diet">
       <div className="diet__total">
@@ -31,10 +37,10 @@ export const Diet = () => {
         <h2>Diet</h2>
         <TransitionGroup component="div">
         {
-          state.diet.meal && state.diet.meal.map(item =>
+          meal && meal.map(item =>
             <CSSTransition
               key={item.id}
-              classNames={'fadeIn'}
+              classNames={'fromUp'}
               timeout={400}
             >
               <Meal
@@ -54,7 +60,7 @@ export const Diet = () => {
       <div className="diet__meal">
         <h2>Sport nutrition</h2>
         {
-          state.diet.nutrition && state.diet.nutrition.map(item =>
+          nutrition && nutrition.map(item =>
             <Meal
               type="nutrition"
               key={'diet' + item.id}

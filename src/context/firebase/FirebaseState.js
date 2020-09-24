@@ -103,11 +103,16 @@ export const FirebaseState = ({children}) => {
     })
   }
 
-  const removeSameExercise = (month, path, data) => {
+  const removeSameExercise = async (month, path, data) => {
+    console.log('remove data = ', data)
+    console.log('month = ', month)
     const same = month.find(day => day.date === data.date)
+    console.log('same', same)
     if (same) {
       const pathWithId = `${path}/${same.id}`
-      removeTraining(same.date, pathWithId)
+      console.error('fined same training')
+      console.log(pathWithId, 'id')
+      await removeTraining(same.date, pathWithId)
     } else {
 
     }
@@ -126,7 +131,7 @@ export const FirebaseState = ({children}) => {
     }
 
 
-    removeSameExercise(state.month, path, data)
+    await removeSameExercise(state.month, path, data)
 
     try {
       const res = await axios.post(`${url}/${path}.json`, data)
@@ -175,12 +180,12 @@ export const FirebaseState = ({children}) => {
         summary: `Can't remove training`,
         detail: `Problem ${error}.`
       })
+    } finally {
+      dispatch({
+        type: REMOVE_TRAINING,
+        payload: date
+      })
     }
-
-    dispatch({
-      type: REMOVE_TRAINING,
-      payload: date
-    })
   }
 
   return (

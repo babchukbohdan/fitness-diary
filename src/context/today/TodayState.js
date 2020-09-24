@@ -4,6 +4,7 @@ import { todayReducer } from './todayReducer'
 import { getDayString, getTimeString } from '../../components/Month/utils'
 import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REPLACE_SET, CHANGE_VALUE, INIT_STATE, ADD__MEEL,
   REMOVE__MEEL, CHANGE__MEEL } from '../types'
+import { checkPropertysEqualToInterface } from '../../components/utils'
 
 export const TodayState = ({children}) => {
   const initialState = {
@@ -23,6 +24,7 @@ export const TodayState = ({children}) => {
   const [state, dispatch] = useReducer(todayReducer, initialState)
 
   const pushState = (data) => {
+    data = checkPropertysEqualToInterface(data, initialState)
     dispatch({
       type: INIT_STATE,
       payload: {...data}

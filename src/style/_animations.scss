@@ -1,0 +1,45 @@
+.fromUp-enter-active {
+  animation: fromUp var(--animation-duration) ease-out alternate-reverse;
+  * {
+    animation: fadeIn var(--animation-duration) ease-out forwards;
+  }
+
+}
+.fromUp-exit-active {
+  animation: fromUp var(--animation-duration) ease-out forwards;
+  * {
+    animation: fadeIn var(--animation-duration) ease-out alternate-reverse;
+  }
+}
+
+@keyframes fromUp {
+  0% {
+    transform: translateY(0);
+    height: 70px;
+    opacity: 1;
+    min-height: unset;
+  }
+
+  100% {
+    min-height: unset;
+    opacity: 0;
+    transform: translateY(var(--exercise-margin-top));
+    height: 0;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  85% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
