@@ -4,17 +4,32 @@
 
 
   &__tabs.p-tabview {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: var(--wrap-bg-color);
+
+    .p-tabview .p-tabview-nav li {
+      margin-right: .125em;
+    }
 
     .p-tabview-panels {
-      background: none;
+      background: var(--section-bg-color);
+      padding: 0;
       border: none;
+      height: 100%;
+    }
+
+    .p-tabview-panel {
+      height: 100%;
     }
 
     a[role="tab"] {
-      background-color: var(--navbar-bg-color) !important;
-      border: 1px solid var(--navbar-bg-color) !important;
+      background-color: var(--hover-bg-color) !important;
+      border: none !important;
       color: var(--text-color) !important;
       transition: background-color 0.2s, box-shadow 0.2s;
+      box-shadow: 2px 0px 0px var(--wrap-bg-color);
 
       &:focus {
       outline: 0 none !important;
@@ -25,24 +40,43 @@
     }
 
     .p-highlight a[role="tab"] {
-      background-color: var(--hover-bg-color) !important;
-      border: 1px solid var(--hover-bg-color) !important;
+      background-color: var(--section-bg-color) !important;
+      border: none !important;
       color: var(--text-color) !important;
     }
 
     .p-highlight:hover a[role="tab"] {
-      background-color: var(--hover-bg-color) !important;
-      border: 1px solid var(--hover-bg-color) !important;
+      background-color: var(--section-bg-color) !important;
+      border: none !important;
       color: var(--text-color) !important;
     }
   }
 
+  &__container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
 
+  .info {
+    background: none;
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.15),
+      0 0 2px rgba(0, 0, 0, 0.1);
+
+    input {
+      text-align: center;
+    }
+  }
 
   &__header {
     // border-bottom: 1px solid var(--text-link-color);
     // border-left: 1px solid var(--text-link-color);
-    box-shadow: 0 1px 2px rgba(0,0,0,.15),0 0 2px rgba(0,0,0,.1)
+    box-shadow: 0 1px 2px rgba(0,0,0,.15),0 0 2px rgba(0,0,0,.1);
+
+    .info {
+      background-color: var(--navbar-bg-color);
+    }
   }
 
   &__footer {
@@ -77,10 +111,6 @@
 
   &__save {
     height: 60px;
-
-    button:disabled {
-      color: darkblue;
-    }
   }
 }
 

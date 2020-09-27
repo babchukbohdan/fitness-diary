@@ -2,6 +2,11 @@ import { ReactComponent as DateIcon } from "./images/date.svg";
 import { ReactComponent as WeightIcon } from "./images/weight.svg";
 import { ReactComponent as SleepIcon } from "./images/sleep.svg";
 
+import { ReactComponent as TotalCaloriesIcon } from "./images/diet/calories.svg";
+import { ReactComponent as MealCaloriesIcon } from "./images/diet/food.svg";
+import { ReactComponent as NutritionCaloriesIcon } from "./images/diet/nutrition-dark.svg";
+
+
 import { Calendar } from 'primereact/calendar';
 
 export const baseUrl = process.env.REACT_APP_FIREBASE_DATABASE
@@ -10,6 +15,7 @@ export const header = [
   {
     beforeInput: 'Date',
     Img: DateIcon,
+    path: 'date',
     attr: {
       name: 'date',
       type: "date",
@@ -20,6 +26,7 @@ export const header = [
     afterInput: 'kg',
     beforeInput: 'Weight',
     Img: WeightIcon,
+    path: 'weight',
     attr: {
       name: 'weight',
       type: "number",
@@ -31,6 +38,7 @@ export const header = [
     afterInput: 'hours',
     beforeInput: 'Sleep',
     Img: SleepIcon,
+    path: 'sleep',
     attr: {
       name: 'sleep',
       type: "number",
@@ -40,10 +48,44 @@ export const header = [
   },
 ]
 
+export const detailsDiet = [
+  {
+    beforeInput: 'Total calories',
+    Img: TotalCaloriesIcon,
+    path: 'diet.meal',
+    attr: {
+      name: 'total calories',
+      type: "number",
+      min: '0',
+    }
+  },
+  {
+    beforeInput: 'Meal calories',
+    Img: MealCaloriesIcon,
+    path: 'diet.meal',
+    attr: {
+      name: 'meal',
+      type: "number",
+      min: '0',
+    }
+  },
+  {
+    beforeInput: 'Sport nutrition calories',
+    Img: NutritionCaloriesIcon,
+    path: 'diet.nutrition',
+    attr: {
+      name: 'nutrition',
+      type: "number",
+      min: '0',
+    }
+  },
+]
+
 export const footer = [
   {
     Component: Calendar,
     beforeInput: 'Start:',
+    path: 'start',
     attr: {
       type: "time",
       name: "start"
@@ -52,6 +94,7 @@ export const footer = [
   {
     Component: Calendar,
     beforeInput: 'End:',
+    path: 'end',
     attr: {
       name: 'end',
       type: "time",

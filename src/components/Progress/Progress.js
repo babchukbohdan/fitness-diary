@@ -29,7 +29,9 @@ export const Progress = () => {
   }, [date])
 
   useEffect(() => {
-    const ex = month.filter(({exercises}) => exercises.some(ex => {
+    let ex = month.filter(day => !!day?.exercises)
+    console.log('filtred month', ex)
+    ex = ex.filter(({exercises}) => exercises.some(ex => {
       return ex.name.name === exercise.name
     })).map(day => {
       return {
@@ -172,7 +174,7 @@ export const Progress = () => {
 
       <section className="progress__chart">
         {
-          month[month.length - 1]?.diet
+          month
           ? <PieChartCalories data={month} />
           : <Message severity="warn" text="You haven't Calories data in this month"/>
         }

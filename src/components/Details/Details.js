@@ -16,6 +16,7 @@ import { Loader } from '../UI/Loader/Loader'
 import { SelectMuscle } from '../UI/SelectMuscle/SelectMuscle';
 import { Diet } from '../Diet/Diet';
 import { getDayString, getTimeString } from '../Month/utils';
+import { Pharmacology } from './Pharmacology/Pharmacology';
 
 export const Details = () => {
   const {fetchMonth, addTrainingDay, month, loading, postingData} = useContext(FirebaseContext)
@@ -53,71 +54,21 @@ export const Details = () => {
   return (
     <div className="details wrap">
 
-
+      <div className="details__header">
+        <DetailsInfoList
+          items={header}
+          state={state}
+          changeValue={changeValue}
+          showTitle={false}
+          showIcon={true}
+        />
+      </div>
 
 
         <TabView className="details__tabs">
           <TabPanel header="Training">
-            <div className="details__header">
-              <DetailsInfoList
-                items={header}
-                state={state}
-                changeValue={changeValue}
-                showTitle={false}
-                showIcon={true}
-              />
-            </div>
-            <div className="details__main">
-            <div className="details__exercises" >
-              <TransitionGroup component="div">
 
-                {exercises && exercises.map((item, i) => (
-                  <CSSTransition
-                    key={item.id}
-                    classNames={'fromUp'}
-                    timeout={400}
-                  >
-                    <Exercise exercise={item} />
-                  </CSSTransition>
-                ))}
-              </TransitionGroup>
-
-              <div className="details__addexercise">
-                <SelectMuscle
-                  closeOnSelect={false}
-                  btnText='Add exercise'
-                  onSelectExercise={addExercise}
-                  btnClasses="btn btn-big btn--border"
-                />
-              </div>
-
-            </div>
-
-            <Note value={note} changeValue={changeValue} />
-
-            <Submit btnText="Save" value={state} postData={addTrainingDay} loading={postingData} />
-            <Submit btnText="Save pure" value={{
-              date: getDayString(new Date(), true),
-              exercises: [],
-              diet: {
-                meal: [{
-                  name: ``,
-                  calorie: 0,
-                }],
-                nutrition: [{
-                  name: ``,
-                  calorie: 0,
-                }],
-              },
-              note: '',
-              start: getTimeString(new Date()),
-              end: getTimeString(new Date()),
-              weight: 77,
-              sleep: 8
-            }}
-            postData={addTrainingDay} loading={postingData} />
-            </div>
-            <div className="details__footer">
+            <div className="details__container">
               <DetailsInfoList
                 items={footer}
                 state={state}
@@ -126,6 +77,66 @@ export const Details = () => {
               >
                 <li className="info__item">Duration: <span className="info__duration input">{duration(start, end)} min</span></li>
               </DetailsInfoList>
+              <div className="details__main">
+              <div className="details__exercises" >
+                <TransitionGroup component="div">
+
+                  {exercises && exercises.map((item, i) => (
+                    <CSSTransition
+                      key={item.id}
+                      classNames={'fromUp'}
+                      timeout={400}
+                    >
+                      <Exercise exercise={item} />
+                    </CSSTransition>
+                  ))}
+                </TransitionGroup>
+
+                <div className="details__addexercise">
+                  <SelectMuscle
+                    closeOnSelect={false}
+                    btnText='Add exercise'
+                    onSelectExercise={addExercise}
+                    btnClasses="btn btn-big btn--border"
+                  />
+                </div>
+
+              </div>
+
+              <Note value={note} changeValue={changeValue} />
+
+              <Submit btnText="Save" value={state} postData={addTrainingDay} loading={postingData} />
+              <Submit btnText="Save pure" value={{
+                date: getDayString(new Date(), true),
+                exercises: [],
+                diet: {
+                  meal: [{
+                    name: ``,
+                    calorie: 0,
+                  }],
+                  nutrition: [{
+                    name: ``,
+                    calorie: 0,
+                  }],
+                },
+                note: '',
+                start: getTimeString(new Date()),
+                end: getTimeString(new Date()),
+                weight: 77,
+                sleep: 8
+              }}
+              postData={addTrainingDay} loading={postingData} />
+              </div>
+              <div className="details__footer">
+                {/* <DetailsInfoList
+                  items={footer}
+                  state={state}
+                  changeValue={changeValue}
+                  showTitle={true}
+                >
+                  <li className="info__item">Duration: <span className="info__duration input">{duration(start, end)} min</span></li>
+                </DetailsInfoList> */}
+              </div>
             </div>
 
           </TabPanel>
@@ -133,14 +144,9 @@ export const Details = () => {
               <Diet />
           </TabPanel>
           <TabPanel header="Pharmacology">
-              Content III
+              <Pharmacology />
           </TabPanel>
         </TabView>
-
-
-
-
-
     </div>
   )
 }

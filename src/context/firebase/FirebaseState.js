@@ -104,14 +104,9 @@ export const FirebaseState = ({children}) => {
   }
 
   const removeSameExercise = async (month, path, data) => {
-    console.log('remove data = ', data)
-    console.log('month = ', month)
     const same = month.find(day => day.date === data.date)
-    console.log('same', same)
     if (same) {
       const pathWithId = `${path}/${same.id}`
-      console.error('fined same training')
-      console.log(pathWithId, 'id')
       await removeTraining(same.date, pathWithId)
     } else {
 
@@ -119,7 +114,6 @@ export const FirebaseState = ({children}) => {
   }
 
   const addTrainingDay = async (data, path) => {
-    console.log(data, 'posting data')
     showPostingLoader()
     if (!state.month.length) {
 

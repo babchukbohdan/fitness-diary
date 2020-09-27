@@ -5,16 +5,22 @@ import { Submit } from '../Details/Submit/Submit'
 import { useFirebaseContext } from '../../context/firebase/firebaseContext'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import './Diet.scss'
+import { DetailsInfoList } from '../Details/DetailsInfoList/DetailsInfoList'
+import { detailsDiet } from '../../constants'
+import { Note } from '../Details/Note/Note'
+import { DetailsInfo } from '../Details/DetailsInfo/DetailsInfo'
+import { getPropertyWithString } from '../Details/utils'
+import { getTimeString } from '../Month/utils'
 export const Diet = () => {
 
   const {addTrainingDay, postingData} = useFirebaseContext()
 
   const {
     state,
-    addMeel, removeMeel, changeMeel
+    addMeel, removeMeel, changeMeel, changeValue
   } = useTodayContext()
 
-  const isHaveDiet = state.diet === undefined
+  // const isHaveDiet = state.diet === undefined
 
 
   const {meal, nutrition} = state.diet || {}
@@ -22,28 +28,67 @@ export const Diet = () => {
   const totalMeal = meal ? meal.reduce((acc, val) => acc + +val.calorie, 0) : ''
   const totalNutrition = nutrition ? nutrition.reduce((acc, val) => acc + +val.calorie, 0) : ''
   const total = totalMeal + totalNutrition
+  const inputHandler = (e) => {
+    if (e.target.name === "start" || e.target.name === "end") {
+      // console.log('value', e.target.value)
+      const res = getTimeString(e.target.value)
+      changeValue(e.target.name, res)
+    } else {
+      changeValue(e.target.name, e.target.value)
+    }
+  }
+
 
   return (
     <div className="diet">
-      <div className="diet__total">
+      <ul className="info">
+      <DetailsInfo
+        data={total}
+        key={detailsDiet[0].attr.name}
+        item={detailsDiet[0]}
+        inputHandler={inputHandler}
+        showTitle={true}
+        showIcon={true}
+      />
+      <DetailsInfo
+        data={totalMeal}
+        key={detailsDiet[1].attr.name}
+        item={detailsDiet[1]}
+        inputHandler={inputHandler}
+        showTitle={true}
+        showIcon={true}
+      />
+      <DetailsInfo
+        data={totalNutrition}
+        key={detailsDiet[2].attr.name}
+        item={detailsDiet[2]}
+        inputHandler={inputHandler}
+        showTitle={true}
+        showIcon={true}
+      />
+
+      </ul>
+      {/* <DetailsInfoList items={detailsDiet} state={state} showIcon={true} showTitle={true} /> */}
+      {/* <div className="diet__total">
         Total calories
         <span className="input">{total}</span>
         Meel calories
         <span className="input">{totalMeal}</span>
         Sport nutrition calories
         <span className="input">{totalNutrition}</span>
-      </div>
-      <div className="diet__meal">
-        <h2>Diet</h2>
+      </div> */}
+      <div className="meal">
+        <h2 className="meal__title title">Diet</h2>
         <TransitionGroup component="div">
         {
-          meal && meal.map(item =>
+          meal && meal.map((item, index) =>
             <CSSTransition
               key={item.id}
               classNames={'fromUp'}
               timeout={400}
             >
               <Meal
+                index={index}
                 type="meal"
                 // key={'diet' + item.id}
                 item={item}
@@ -54,26 +99,41 @@ export const Diet = () => {
           )
         }
         </TransitionGroup>
-        <button onClick={() => addMeel('meal')} className="btn btn--border">Add meel</button>
+        <div className="details__addexercise">
+          <button onClick={() => addMeel('meal')} className="btn btn-big btn--border">Add meel</button>
+        </div>
       </div>
 
-      <div className="diet__meal">
-        <h2>Sport nutrition</h2>
+      <div className="meal">
+        <h2 className="meal__title title">Sport nutrition</h2>
+        <TransitionGroup component="div">
         {
-          nutrition && nutrition.map(item =>
-            <Meal
-              type="nutrition"
-              key={'diet' + item.id}
-              item={item}
-              changeItem={changeMeel}
-              removeItem={removeMeel}
-            />)
+          nutrition && nutrition.map((item, index) =>
+            <CSSTransition
+              key={item.id}
+              classNames={'fromUp'}
+              timeout={400}
+            >
+              <Meal
+                index={index}
+                type="nutrition"
+                key={'diet' + item.id}
+                item={item}
+                changeItem={changeMeel}
+                removeItem={removeMeel}
+              />
+            </CSSTransition>
+            )
         }
-        <button onClick={() => addMeel('nutrition')} className="btn btn--border">Add sportfood</button>
+        </TransitionGroup>
+        <div className="details__addexercise">
+          <button onClick={() => addMeel('nutrition')} className="btn btn-big btn--border">Add sportfood</button>
+        </div>
 
       </div>
 
-      <Submit value={state} postData={addTrainingDay} loading={postingData} />
+      <Note value changeValue />
+      <Submit value={state} postData={addTrainingDay} loading={postingData} btnText='Save' />
     </div>
   )
 }

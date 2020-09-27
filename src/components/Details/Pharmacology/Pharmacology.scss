@@ -1,0 +1,40 @@
+.pharmacology {
+  &__container {
+    flex: 1;
+  }
+  &__label {
+    // padding: 5px;
+    display: inline-block;
+    border: 1px solid var(--overlay-bg-color);
+    border-radius: 3px;
+    margin-inline-start: 8px;
+
+    // &:nth-child(1) {
+    //   border: none;
+    // }
+
+
+    .label-text {
+      padding: 0 5px;
+    }
+  }
+
+  &__input {
+    &[type='number'],
+    &[type='text'] {
+      text-align: center;
+
+      border-block-end: none;
+      border-block-start: none;
+      border-inline-end: none;
+    }
+    &[type='number'] {
+      max-width: calc(6ch + 10px);
+    }
+    &--right {
+      border-inline-start: none;
+      border-inline-end: inherit !important;
+    }
+  }
+
+}

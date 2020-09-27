@@ -6,6 +6,7 @@ import { ReactComponent as AddSetIcon } from "../../../images/copy.svg";
 import { ReactComponent as DeleteExerciseIcon } from "../../../images/bin.svg";
 
 import './Exercise.scss'
+import { DeleteBtn } from '../../UI/DeleteBtn/DeleteBtn';
 
 export const Exercise = ({exercise}) => {
 
@@ -59,10 +60,11 @@ export const Exercise = ({exercise}) => {
       </div>
 
       <div className="exercise__close">
-        <button className="btn" onClick={() => removeExercise(id)}>
-          <DeleteExerciseIcon className="exercise__close icon" name="remove exercise" />
-          {/* Remove<br/>exercise */}
-        </button>
+        <DeleteBtn
+          onClickHandler={() => removeExercise(id)}
+          btnClasses='btn'
+          iconClasses="exercise__close icon"
+        />
       </div>
 
     </div>

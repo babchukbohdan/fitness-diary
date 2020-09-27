@@ -2,6 +2,7 @@ import React from 'react'
 import { DetailsInfo } from '../DetailsInfo/DetailsInfo'
 import './DetailsInfoList.scss'
 import { getTimeString } from '../../Month/utils'
+import { getPropertyWithString } from '../utils'
 
 export const DetailsInfoList = ({state, changeValue, items, showTitle, showIcon, children}) => {
   const inputHandler = (e) => {
@@ -20,7 +21,7 @@ export const DetailsInfoList = ({state, changeValue, items, showTitle, showIcon,
           <DetailsInfo
             key={item.attr.name}
             item={item}
-            data={state[item.attr.name]}
+            data={getPropertyWithString(state, item.path) || null}
             inputHandler={inputHandler}
             showTitle={showTitle}
             showIcon={showIcon}

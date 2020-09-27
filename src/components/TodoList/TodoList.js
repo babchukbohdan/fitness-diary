@@ -3,6 +3,9 @@ import './TodoList.scss'
 
 export const TodoList = () => {
   const initialState = [
+    "Implement pharmacology tab, change today reducer and state",
+    "Make save btn disabled without changes in state",
+    "Fix note(create handler) in diet tab on today training page",
     "Создать хук для отмены загрузки данных если компонент удаляется",
     "Стилизовать DateInput Component",
     "Реализовать глобальные настройки приложения",

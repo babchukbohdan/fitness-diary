@@ -95,7 +95,7 @@ export const TodayState = ({children}) => {
       type: ADD__MEEL,
       dietType: type,
       payload: {
-        name: `Meel(${type})# ${random(99, 500)}`,
+        name: `${type}# ${random(99, 500)}`,
         calorie: random(99, 500),
         id: Date.now()
       }

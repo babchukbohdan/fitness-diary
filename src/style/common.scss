@@ -25,6 +25,11 @@ html {
   // background-color: var(--section-bg-color);
 }
 
+.title {
+  font-size: 2em;
+  font-weight: bold;
+}
+
 .btn {
   border: none;
   border-radius: 10px;
@@ -37,6 +42,10 @@ html {
   padding: 10px;
 
   transition: background .2s ease-out;
+
+  &:disabled {
+    color: var(--navbar-bg-color);
+  }
 
   &:hover, &:focus {
     background-color: var(--hover-bg-color);
@@ -87,12 +96,16 @@ html {
 
   background-color: transparent;
   color: var(--text-color);
-  caret-color: var(--text-color);
+  caret-color: var(--text-link-color);
   transition: border-color 0.2s, box-shadow 0.2s;
 
   &--bd-radius {
     border-radius: var(--input-border-radius);
+    &--small {
+      border-radius: var(--input-border-radius-small);
+    }
   }
+
 
   &:enabled:focus {
     outline: 0 none ;

@@ -4,8 +4,9 @@
 }
 
 .dark {
+  --wrap-bg-color: #111;
   --section-bg-color: #181818;
-  --navbar-bg-color:#212121;
+  --navbar-bg-color: #212121;
 
   --hover-bg-color: #383838;
   --border-color: #181818;
@@ -21,11 +22,12 @@
   // Progress chart
   --cartesian-grid-line-color: rgba(255,255,255, .1);
 
-  background-color: var(--section-bg-color);
+  background-color: var(--wrap-bg-color);
   color: var(--text-color);
 }
 
 .light {
+  --wrap-bg-color: #fff;
   --section-bg-color: #f9f9f9;
   --navbar-bg-color: white;
 
