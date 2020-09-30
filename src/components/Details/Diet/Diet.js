@@ -1,16 +1,16 @@
 import React from 'react'
 import { Meal } from './Meal'
-import { useTodayContext } from '../../context/today/todayContext'
-import { Submit } from '../Details/Submit/Submit'
-import { useFirebaseContext } from '../../context/firebase/firebaseContext'
+import { useTodayContext } from '../../../context/today/todayContext'
+import { Submit } from '../Submit/Submit'
+import { useFirebaseContext } from '../../../context/firebase/firebaseContext'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import './Diet.scss'
-import { DetailsInfoList } from '../Details/DetailsInfoList/DetailsInfoList'
-import { detailsDiet } from '../../constants'
-import { Note } from '../Details/Note/Note'
-import { DetailsInfo } from '../Details/DetailsInfo/DetailsInfo'
-import { getPropertyWithString } from '../Details/utils'
-import { getTimeString } from '../Month/utils'
+import { DetailsInfoList } from '../DetailsInfoList/DetailsInfoList'
+import { detailsDiet } from '../../../constants'
+import { Note } from '../Note/Note'
+import { DetailsInfo } from '../DetailsInfo/DetailsInfo'
+import { getPropertyWithString } from '../utils'
+import { getTimeString } from '../../Month/utils'
 export const Diet = () => {
 
   const {addTrainingDay, postingData} = useFirebaseContext()
@@ -23,7 +23,7 @@ export const Diet = () => {
   // const isHaveDiet = state.diet === undefined
 
 
-  const {meal, nutrition} = state.diet || {}
+  const {meal, nutrition, note} = state.diet || {}
 
   const totalMeal = meal ? meal.reduce((acc, val) => acc + +val.calorie, 0) : ''
   const totalNutrition = nutrition ? nutrition.reduce((acc, val) => acc + +val.calorie, 0) : ''
@@ -68,7 +68,7 @@ export const Diet = () => {
       />
 
       </ul>
-      {/* <DetailsInfoList items={detailsDiet} state={state} showIcon={true} showTitle={true} /> */}
+      {/* <DetailsInfoList changeValue={changeValue} items={detailsDiet} state={state} showIcon={true} showTitle={true} /> */}
       {/* <div className="diet__total">
         Total calories
         <span className="input">{total}</span>
@@ -78,7 +78,7 @@ export const Diet = () => {
         <span className="input">{totalNutrition}</span>
       </div> */}
       <div className="meal">
-        <h2 className="meal__title title">Diet</h2>
+        <h2 className="meal__title title">Meals</h2>
         <TransitionGroup component="div">
         {
           meal && meal.map((item, index) =>
@@ -131,8 +131,8 @@ export const Diet = () => {
         </div>
 
       </div>
+      <Note path='diet.note' value={note} changeValue={changeValue} />
 
-      <Note value changeValue />
       <Submit value={state} postData={addTrainingDay} loading={postingData} btnText='Save' />
     </div>
   )

@@ -45,7 +45,7 @@
   background-color: var(--section-bg-color);
   color: var(--text-link-color);
   font-weight: 600;
-  // animation: showList .5s ease 0s 1 forwards;
+  animation: showList .5s ease 0s 1 forwards;
 
 
   &__types {
@@ -98,23 +98,5 @@
         color: var(--section-bg-color);
       }
     }
-  }
-}
-
-.showlist-enter-active {
-  animation: showList .5s ease 0s 1 forwards;
-}
-.showlist-exit-active {
-  animation: showList .5s ease 0s 1 alternate-reverse;
-}
-
-@keyframes showList {
-  0% {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0px);
   }
 }

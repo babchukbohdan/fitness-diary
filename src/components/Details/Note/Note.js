@@ -1,9 +1,9 @@
 import React from 'react'
 import './Note.scss'
 
-export const Note = ({value, changeValue}) => {
+export const Note = ({path, value, changeValue}) => {
   const inputHandler = (e) => {
-    changeValue(e.target.name, e.target.value)
+    changeValue(path, e.target.value)
   }
   return (
     <div className="note">

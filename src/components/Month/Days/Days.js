@@ -6,18 +6,19 @@ export const Days = ({date, month}) => {
   const daysData = getDaysData(date, month)
   const today = getDayString(new Date(), true)
   const baseCSSClass = ["month__item"] // classnames for callendar day
-
   return (
     <div className="month__days">
         {
           daysData.map((day) => {
-            const { id, exercises, date } = day
+            const { id, training, info = {} } = day
+            const {date = ''} = info
+
             const clazz = [...baseCSSClass]
             if (date === today) {
               clazz.push('today')
             }
 
-            const isTraining = !!exercises
+            const isTraining = !!training
 
             const dateNum = new Date(date).getDate() || ''
 

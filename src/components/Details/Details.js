@@ -14,32 +14,39 @@ import { Submit } from './Submit/Submit'
 import './Details.scss'
 import { Loader } from '../UI/Loader/Loader'
 import { SelectMuscle } from '../UI/SelectMuscle/SelectMuscle';
-import { Diet } from '../Diet/Diet';
+import { Diet } from './Diet/Diet';
 import { getDayString, getTimeString } from '../Month/utils';
 import { Pharmacology } from './Pharmacology/Pharmacology';
+import axios from 'axios';
+import { mockTraining } from '../MockData/MockData';
 
 export const Details = () => {
   const {fetchMonth, addTrainingDay, month, loading, postingData} = useContext(FirebaseContext)
   const {state, addExercise, changeValue, pushState} = useContext(TodayContext)
-  const {exercises, note, start, end} = state
+
+  const {exercises, note, start, end} = state.training
+
+  console.log(state, 'todayState')
+  console.log(month, 'month')
 
   useEffect(() => {
     // console.log(month, 'month')
     // console.log(month[0]?.date.substr(0, 7), 'date')
     // if (month.length && month[0].date.substr(0, 7) === getDayString(new Date())) return
-    if (!month.length || month[0].date.substr(0, 7) !== getDayString(new Date())) {
-      const date = new Date(Date.parse(state.date))
+    if (!month.length || month[0].info.date.substr(0, 7) !== getDayString(new Date())) {
+      console.log('month = []')
+      const date = new Date(Date.parse(state.info.date))
       fetchMonth(`${date.getFullYear()}/${date.getMonth() + 1}`)
         .then(res => {
           const todayTraining = res.filter((day) => {
-            return day.date === state.date
+            return day.info.date === state.info.date
           })[0]
           if (todayTraining) pushState({...todayTraining})
 
         })
     } else {
       const todayTraining = month.filter((day) => {
-        return day.date === state.date
+        return day.info.date === state.info.date
       })[0]
       if (todayTraining) pushState({...todayTraining})
     }
@@ -50,6 +57,51 @@ export const Details = () => {
   if (loading) {
     return <Loader />
   }
+
+  // Delete start here
+
+    // -MIUptugszNfpIbe6oYw
+
+    // const a = axios.put(`https://fitness-diary-f96e8.firebaseio.com/2020/9/-MIGc3ZY6nzgPJybW-mg.json`, {name: 'TEST'})
+
+    // setTimeout(() => {
+    //   console.log(a,"res put")
+    // }, 5000)
+
+  // axios.post(`https://fitness-diary-f96e8.firebaseio.com/2020/5.json`, {
+  //   info: {
+  //     date: getDayString(new Date(), true),
+  //     weight: 77,
+  //     sleep: 8,
+  //   },
+  //   training: {
+  //     exercises: [{
+  //       id: Date.now(),
+  //       name: 'Prised',
+  //       sets: [{
+  //         weight: 100,
+  //         reps: 20,
+  //         id: Date.now(),
+  //       }],
+  //     }],
+  //     note: 'Change db',
+  //     start: getTimeString(new Date()),
+  //     end: getTimeString(new Date()),
+  //   },
+  //   diet: {
+  //     meal: [],
+  //     nutrition: [],
+  //     note: 'Change db'
+  //   },
+  //   pharmacology: {
+  //     medications: [],
+  //     note: 'Change db'
+  //   },
+  // })
+
+
+
+  // Delete end
 
   return (
     <div className="details wrap">
@@ -103,10 +155,10 @@ export const Details = () => {
 
               </div>
 
-              <Note value={note} changeValue={changeValue} />
+              <Note path='training.note' value={note} changeValue={changeValue} />
 
               <Submit btnText="Save" value={state} postData={addTrainingDay} loading={postingData} />
-              <Submit btnText="Save pure" value={{
+              {/* <Submit btnText="Save pure" value={{
                 date: getDayString(new Date(), true),
                 exercises: [],
                 diet: {
@@ -125,7 +177,7 @@ export const Details = () => {
                 weight: 77,
                 sleep: 8
               }}
-              postData={addTrainingDay} loading={postingData} />
+              postData={addTrainingDay} loading={postingData} /> */}
               </div>
               <div className="details__footer">
                 {/* <DetailsInfoList

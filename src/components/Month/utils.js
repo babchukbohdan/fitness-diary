@@ -41,7 +41,6 @@ export const getDaysData = (date, trainingsDays = []) => {
   const month = date.getMonth() // месяц
   const year = date.getFullYear() // год
 
-
   const firstDay = new Date(year, month).getDay() // день с которого начинается месяц
   const daysCount = new Date(year, month + 1, 0).getDate() // количество дней в месяце
 
@@ -49,19 +48,23 @@ export const getDaysData = (date, trainingsDays = []) => {
   // создает пустой массив в количестве firstDay
   const voidDays = new Array(getVoidDaysNumber(firstDay))
     .fill('')
-    .map((_, index) => ({id: 0 - index}))
+    .map((_, index) => ({id: 1 - index}))
 
   // создает массив данных для рендеринга по количеству дней в месяце (daysCount)
   let days = new Array(daysCount)
     .fill('')
     .map((_, index) => ({
       id: index + 1,
-      date: getDayString(new Date(year, month, index + 1), true),
+      info: {
+        date: getDayString(new Date(year, month, index + 1), true),
+      }
     }))
 
   trainingsDays.forEach(day => {
-    day.url = `${year}/${month + 1}`;
-    days[new Date(day.date).getDate() - 1] = day
+
+    const newDay = {...day}
+    newDay.url = `${year}/${month + 1}`;
+    days[new Date(day.info.date).getDate() - 1] = newDay
   });
 
   return voidDays.concat(days)

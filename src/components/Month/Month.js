@@ -13,7 +13,7 @@ export const Month = () => {
   const {loading, fetchMonth, month} = useContext(FirebaseContext)
 
   useEffect(() => {
-    if (month.length && month[0].date.substr(0, 7) === getDayString(date)) {
+    if (month.length && month[0].info.date.substr(0, 7) === getDayString(date)) {
       return
     } else {
       fetchMonth(`${date.getFullYear()}/${date.getMonth() + 1}`)

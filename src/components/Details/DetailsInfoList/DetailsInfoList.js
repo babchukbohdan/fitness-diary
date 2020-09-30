@@ -8,8 +8,8 @@ export const DetailsInfoList = ({state, changeValue, items, showTitle, showIcon,
   const inputHandler = (e) => {
     if (e.target.name === "start" || e.target.name === "end") {
       // console.log('value', e.target.value)
-      const res = getTimeString(e.target.value)
-      changeValue(e.target.name, res)
+      const value = getTimeString(e.target.value)
+      changeValue(e.target.name, value)
     } else {
       changeValue(e.target.name, e.target.value)
     }
@@ -17,16 +17,27 @@ export const DetailsInfoList = ({state, changeValue, items, showTitle, showIcon,
   return (
     <ul className="info">
       {
-        items.map(item => (
-          <DetailsInfo
-            key={item.attr.name}
-            item={item}
-            data={getPropertyWithString(state, item.path) || null}
-            inputHandler={inputHandler}
-            showTitle={showTitle}
-            showIcon={showIcon}
-          />
-        ))
+        items.map(item => {
+          const inputHandler = (e) => {
+            if (e.target.name === "start" || e.target.name === "end") {
+              // console.log('value', e.target.value)
+              const value = getTimeString(e.target.value)
+              changeValue(item.path, value)
+            } else {
+              changeValue(item.path, e.target.value)
+            }
+          }
+          return (
+            <DetailsInfo
+              key={item.attr.name}
+              item={item}
+              data={getPropertyWithString(state, item.path) || null}
+              inputHandler={inputHandler}
+              showTitle={showTitle}
+              showIcon={showIcon}
+            />
+          )
+        })
       }
       {children}
     </ul>

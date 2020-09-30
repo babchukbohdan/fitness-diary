@@ -15,7 +15,7 @@ export const header = [
   {
     beforeInput: 'Date',
     Img: DateIcon,
-    path: 'date',
+    path: 'info.date',
     attr: {
       name: 'date',
       type: "date",
@@ -26,7 +26,7 @@ export const header = [
     afterInput: 'kg',
     beforeInput: 'Weight',
     Img: WeightIcon,
-    path: 'weight',
+    path: 'info.weight',
     attr: {
       name: 'weight',
       type: "number",
@@ -38,7 +38,7 @@ export const header = [
     afterInput: 'hours',
     beforeInput: 'Sleep',
     Img: SleepIcon,
-    path: 'sleep',
+    path: 'info.sleep',
     attr: {
       name: 'sleep',
       type: "number",
@@ -57,6 +57,7 @@ export const detailsDiet = [
       name: 'total calories',
       type: "number",
       min: '0',
+      readOnly: true
     }
   },
   {
@@ -67,6 +68,7 @@ export const detailsDiet = [
       name: 'meal',
       type: "number",
       min: '0',
+      readOnly: true
     }
   },
   {
@@ -77,6 +79,7 @@ export const detailsDiet = [
       name: 'nutrition',
       type: "number",
       min: '0',
+      readOnly: true
     }
   },
 ]
@@ -85,7 +88,7 @@ export const footer = [
   {
     Component: Calendar,
     beforeInput: 'Start:',
-    path: 'start',
+    path: 'training.start',
     attr: {
       type: "time",
       name: "start"
@@ -94,7 +97,7 @@ export const footer = [
   {
     Component: Calendar,
     beforeInput: 'End:',
-    path: 'end',
+    path: 'training.end',
     attr: {
       name: 'end',
       type: "time",

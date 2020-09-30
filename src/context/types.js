@@ -17,3 +17,7 @@ export const CHANGE_VALUE = 'CHANGE_VALUE'
 export const ADD__MEEL = 'ADD__MEEL'
 export const REMOVE__MEEL = 'REMOVE__MEEL'
 export const CHANGE__MEEL = 'CHANGE__MEEL'
+
+export const ADD__PHARMA = 'ADD__PHARMA'
+export const REMOVE__PHARMA = 'REMOVE__PHARMA'
+export const CHANGE__PHARMA = 'CHANGE__PHARMA'

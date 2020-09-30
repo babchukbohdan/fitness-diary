@@ -1,35 +1,88 @@
-import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REPLACE_SET, CHANGE_VALUE, INIT_STATE, ADD__MEEL,  REMOVE__MEEL, CHANGE__MEEL } from "../types"
+import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REPLACE_SET, CHANGE_VALUE, INIT_STATE, ADD__MEEL,  REMOVE__MEEL, CHANGE__MEEL, ADD__PHARMA, REMOVE__PHARMA, CHANGE__PHARMA } from "../types"
 
 const handlers = {
   [INIT_STATE]: (state, {payload}) => (payload),
   [ADD_EXERCISE]: (state, {payload}) => {
-    if (!state.exercises) {
-      state.exercises = []
+    if (!state.training.exercises) {
+      state.training.exercises = []
     }
+    const {training} = state
     return {
       ...state,
-      exercises: [...state.exercises, payload],
+      training: {
+        ...training,
+        exercises: [...training.exercises, payload],
+      }
     }
   },
   [REMOVE_EXERCISE]: (state, {payload}) => ({
     ...state,
-    exercises: state.exercises.filter(({id}) => id !== payload)
+    training: {
+      ...state.training,
+      exercises: state.training.exercises.filter(({id}) => id !== payload)
+    }
+
   }),
   [ADD_SET]: (state, {payload}) => ({
     ...state,
-    exercises: _addSet(state.exercises, payload.id, payload.set)
+    training: {
+      ...state.training,
+      exercises: _addSet(state.training.exercises, payload.id, payload.set)
+    }
   }),
   [REPLACE_SET]: (state, {payload}) => ({
     ...state,
-    exercises: _replaceSet(
-      state.exercises,
-      payload.exerciseId,
-      payload.setId,
-      payload.newSet
-    )
+    training: {
+      ...state.training,
+      exercises: _replaceSet(
+        state.training.exercises,
+        payload.exerciseId,
+        payload.setId,
+        payload.newSet
+      )
+    }
+
   }),
-  [CHANGE_VALUE]: (state, {payload}) => ({
-    ...state, [payload.key]: payload.value
+  [CHANGE_VALUE]: (state, {payload}) => {
+    const path = payload.path.split('.')
+    const mainProp = path[0]
+    const secProp = path[1]
+    return {
+      ...state,
+      [mainProp]: {
+        ...state[mainProp],
+        [secProp]: payload.value
+      }
+    }
+  },
+
+  [ADD__PHARMA]: (state, {payload}) => {
+    if (!state.pharmacology.medications) {
+      state.pharmacology.medications = []
+    }
+    return {
+      ...state,
+      pharmacology: {...state.pharmacology, medications: [...state.pharmacology.medications, payload]}
+    }
+  },
+  [REMOVE__PHARMA]: (state, { payload}) => ({
+    ...state,
+    pharmacology: {
+      ...state.pharmacology,
+      medications: [...state.pharmacology.medications.filter(({ id }) => id !== payload)]}
+  }),
+
+  [CHANGE__PHARMA]: (state, { payload }) => ({
+    ...state,
+    pharmacology: {
+      ...state.pharmacology,
+      medications: [...state.pharmacology.medications].map((item) => {
+        if (item.id === payload.id) {
+          return { ...item, ...payload.newItem }
+        }
+        return item
+      })}
+
   }),
 
   [ADD__MEEL]: (state, { payload, dietType }) => {
@@ -48,11 +101,11 @@ const handlers = {
     diet: {
       ...state.diet,
       [dietType]: [...state.diet[dietType]].map((item) => {
-      if (item.id === payload.id) {
-        return { ...item, ...payload.newItem }
-      }
-      return item
-    })}
+        if (item.id === payload.id) {
+          return { ...item, ...payload.newItem }
+        }
+        return item
+      })}
 
   }),
   DEFAULT: state => state
@@ -64,6 +117,8 @@ export const todayReducer = (state, action) => {
   console.log(newState, 'today newState')
   return newState
 }
+
+// Helpfull functions
 
 const changeExercise = (exercises, exerciseId, newExercise) => {
   const exerciseIndex = exercises.findIndex((item) => item.id === exerciseId)

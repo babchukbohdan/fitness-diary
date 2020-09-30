@@ -24,7 +24,9 @@ export const Info = (props) => {
 
   if (!dayData) return <Loader />
 
-  const {exercises} = dayData
+  const {training} = dayData
+  const {exercises} = training
+
   const maxSetsLength = exercises.reduce((acc, item) => {
     return Math.max(acc, item.sets.length)
   }, 0)

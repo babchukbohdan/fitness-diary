@@ -1,4 +1,4 @@
-import { getTimeString } from "../Month/utils"
+import { getDayString, getTimeString } from "../Month/utils"
 
 const exercises = {
   "legs": ["Приседания с штангой на спине"],
@@ -23,17 +23,31 @@ const random = (min, max) => {
   return Math.round(rand);
 }
 
-export const mockTraining = () => {
-  const start = new Date().getTime()
+export const mockTraining = (month, day) => {
+  const start = new Date()
   const end = start + random(60, 90) * 60 * 1000
 
   const state = {
-    exercises: [],
-    note: '',
-    start: getTimeString(new Date(start)),
-    end: getTimeString(new Date(end)),
-    weight: random(72, 77),
-    sleep: random(6, 8)
+    info: {
+      date: getDayString(new Date(2020, month - 1, day), true),
+      weight: random(69, 80),
+      sleep: random(6, 9),
+    },
+    training: {
+      exercises: [],
+      note: '',
+      start: getTimeString(new Date()),
+      end: getTimeString(new Date()),
+    },
+    diet: {
+      meal: getMeals(),
+      nutrition: getMeals(),
+      note: `Today I eat ${random(1893, 2585)} calories`
+    },
+    pharmacology: {
+      medications: getPharmas(),
+      note: `Today I inject ${random(100, 200)} ME pharmacology`
+    },
   }
 
   const getSets = () => {
@@ -49,6 +63,33 @@ export const mockTraining = () => {
     })
   }
 
+  function getMeals() {
+
+    const getMeal = (index) => ({
+      calorie: random(245, 900),
+      id: Date.now() + random(1, 99999),
+      name: 'Meal #' + index
+    })
+
+    return new Array(random(3, 5)).fill('').map((item, index) => {
+      return getMeal(index + 1)
+    })
+  }
+
+  function getPharmas() {
+
+    const getPharma = (index) => ({
+      id: Date.now() + random(1, 99999),
+      name: 'Anabolik #' + index,
+      dose: `${random(10, 100)} ME`
+    })
+
+    return new Array(random(3, 5)).fill('').map((item, index) => {
+      return getPharma(index + 1)
+    })
+  }
+
+
   const ex = new Array(random(5, 7))
     .fill('')
     .map(item => ({
@@ -61,7 +102,7 @@ export const mockTraining = () => {
     return item.name.name
   }).join(', ')
 
-  state.exercises = ex;
-  state.note = `Лучшая тренировка в мире. Сделал: ${note}`
+  state.training.exercises = ex;
+  state.training.note = `Лучшая тренировка в мире. Сделал: ${note}`
   return state
 }

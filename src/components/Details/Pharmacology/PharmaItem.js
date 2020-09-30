@@ -1,22 +1,30 @@
 import React from 'react'
 import { DeleteBtn } from '../../UI/DeleteBtn/DeleteBtn'
 
-export const PharmaItem = () => {
+export const PharmaItem = ({index, item, removeItem, changePharma}) => {
+  const {dose, id, name} = item
+  console.log(name, 'name')
+  console.log(dose, 'dose')
+  const inputHandler = (e) => {
+    changePharma(id, {
+      [e.target.name]: e.target.value
+    })
+  }
   return (
     <div className="exercise">
       <div className="pharmacology__container">
         <label
-          // htmlFor={item.id}
+          // htmlFor={id}
           className='pharmacology__label'
-        ><span className="label-text">Pharma #</span>
+        ><span className="label-text">{index + 1}</span>
         <input
           name="name"
           // id={item.id}
-          // onChange={inputHandler}
-          // value={name}
+          onChange={inputHandler}
+          value={name}
           type="text"
           className="input input--bd-radius--small pharmacology__input"
-          autoComplete={false}
+          // autoComplete={'false'}
         />
         </label>
         <label
@@ -26,11 +34,11 @@ export const PharmaItem = () => {
         <input
           className="input input--bd-radius--small pharmacology__input pharmacology__input--right"
           // id={item.id + 'a'}
-          name="calorie"
-          type="number"
-          min={0}
-          // onChange={(e) => changeItem(item.id, {calorie: e.target.value }, type)}
-          // value={calorie}
+          name="dose"
+          type="text"
+          // min={0}
+          onChange={inputHandler}
+          value={dose}
         />
         <span className="label-text">ml</span>
         </label>
@@ -39,7 +47,7 @@ export const PharmaItem = () => {
 
       <div className="exercise__close">
         <DeleteBtn
-          // onClickHandler={() => removeItem(item.id, type)}
+          onClickHandler={() => removeItem(id)}
           btnClasses='btn'
           iconClasses="exercise__close icon"
         />

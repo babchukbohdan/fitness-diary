@@ -4,7 +4,27 @@ import { FirebaseContext } from './firebaseContext'
 import { firebaseReducer } from './firebaseReducer'
 import { NotificationContext } from '../Notification/notificationContext'
 import { SHOW_LOADER_FETCHING, ADD_TRAINING, FETCH_MONTH, REMOVE_TRAINING, HIDE_LOADER_FETCHING, SHOW_LOADER_POSTING, HIDE_LOADER_POSTING } from '../types'
+import { mockTraining } from '../../components/MockData/MockData'
 
+// delete start
+// axios.get(`https://fitness-diary-f96e8.firebaseio.com/2020.json`)
+//   .then((res) => {
+//     const newRes = res.data.filter(item => item !== null)
+
+//     newRes.map((month, index) => {
+//       const mapping = Object.keys(month)
+
+//       mapping.map((id, idx) => {
+//         const changeDb = async () => {
+//           return await axios.put(`https://fitness-diary-f96e8.firebaseio.com/2020/${index}/${id}.json`, mockTraining(index, idx + 1))
+//         }
+//         changeDb()
+//         return true
+//       })
+//     })
+//   })
+
+  //delete end
 
 export const FirebaseState = ({children}) => {
   const initialState = {

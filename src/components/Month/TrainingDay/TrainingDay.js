@@ -5,7 +5,10 @@ import { getmuscleGroups } from '../utils'
 
 
 export const TrainingDay = ({day}) => {
-  const {url, id, exercises, date} = day
+  const {url, id, training, info} = day
+  const {exercises} = training
+  const {date} = info
+
   const dateNum = new Date(date).getDate() || ''
   const uniqueMuscleGroups = getmuscleGroups(exercises)
   return (

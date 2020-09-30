@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { DeleteBtn } from '../UI/DeleteBtn/DeleteBtn'
+import { DeleteBtn } from '../../UI/DeleteBtn/DeleteBtn'
 
 
 export const Meal = ({ item, changeItem, removeItem, type, index }) => {
@@ -21,7 +21,7 @@ export const Meal = ({ item, changeItem, removeItem, type, index }) => {
         <label
           htmlFor={item.id}
           className='meal__label'
-        ><span className="label-text">{type} # {index + 1}</span>
+        ><span className="label-text">{index + 1}</span>
         <input
           name="name"
           id={item.id}
