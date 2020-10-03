@@ -4,7 +4,7 @@ import { todayReducer } from './todayReducer'
 import { getDayString, getTimeString } from '../../components/Month/utils'
 import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REPLACE_SET, CHANGE_VALUE, INIT_STATE, ADD__MEEL,
   REMOVE__MEEL, CHANGE__MEEL, ADD__PHARMA, REMOVE__PHARMA, CHANGE__PHARMA } from '../types'
-import { transformObjEqualToInterface } from '../../components/utils'
+import { random, transformObjEqualToInterface } from '../../components/utils'
 
 export const TodayState = ({children}) => {
 
@@ -64,10 +64,7 @@ export const TodayState = ({children}) => {
   }
 
 
-  const random = (min, max) => {
-    let rand = min - 0.5 + Math.random() * (max - min + 1);
-    return Math.round(rand);
-  }
+
 
 
   const addSet = (id) => {

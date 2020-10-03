@@ -19,6 +19,20 @@ export const transformObjEqualToInterface = (obj, example) => {
   return obj
 }
 
+export const random = (min, max) => {
+  let rand = min - 0.5 + Math.random() * (max - min + 1);
+  return Math.round(rand);
+}
+
+export const getRandomHslColor = (s = 100, l = 63) => {
+  // console.log(`hsl( ${random(0, 360)}, ${s}%, ${l}% )`, 'color')
+  return `hsl( ${random(0, 360)}, ${s}%, ${l}% )`
+}
+
+export const fromCamelCaseToLowerSpaceCase = (str) => {
+  const result = str.replace( /([A-Z])/g, " $1" );
+  return result.split(' ').map(word => word.toLowerCase()).join(' ')
+}
 
 function checkObjPropertiesEqualToInterface(obj, example) {
   const objKeys = Object.keys(obj)

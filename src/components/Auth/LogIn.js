@@ -26,7 +26,7 @@ const Login = ({history}) => {
   )
 
   if (user?.emailVerified) {
-    return <Redirect to="/details" />
+    return <Redirect to="/progress" />
   }
 
   const loginForm = (

@@ -1,4 +1,5 @@
 import { getDayString, getTimeString } from "../Month/utils"
+import { random } from "../utils"
 
 const exercises = {
   "legs": ["Приседания с штангой на спине"],
@@ -17,11 +18,6 @@ const exArr = Object.keys(exercises).map(key => {
     muscleGroup: key
   }
 })
-
-const random = (min, max) => {
-  let rand = min - 0.5 + Math.random() * (max - min + 1);
-  return Math.round(rand);
-}
 
 export const mockTraining = (month, day) => {
   const start = new Date()

@@ -23,7 +23,6 @@ import { mockTraining } from '../../components/MockData/MockData'
 //       })
 //     })
 //   })
-
   //delete end
 
 export const FirebaseState = ({children}) => {
@@ -33,6 +32,9 @@ export const FirebaseState = ({children}) => {
     loading: false,
     error: false
   }
+  // axios.post("https://fitness-diary-f96e8.firebaseio.com/2020/10", {
+  //   info: '2020-10-04'
+  // })
 
 
   const [state, dispatch] = useReducer(firebaseReducer, initialState)
@@ -129,7 +131,7 @@ export const FirebaseState = ({children}) => {
       const pathWithId = `${path}/${same.id}`
       await removeTraining(same.date, pathWithId)
     } else {
-
+      console.log('else in remove Same')
     }
   }
 

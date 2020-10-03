@@ -10,27 +10,40 @@ import { SelectMuscle } from '../UI/SelectMuscle/SelectMuscle';
 import { PieChartCalories } from './PieChart/PieChart';
 
 export const Progress = () => {
-  const [date, setDate] = useState((new Date(2020, 8)))
+  const {fetchMonth, month} = useContext(FirebaseContext)
+console.log(month, 'month')
   const [exercise, setExercise] = useState({
     name: 'Приседания с штангой на спине',
     muscleGroup: 'legs'
   })
   const [dataForChart, setDataForChart] = useState(null)
   const [dataForChart2, setDataForChart2] = useState(null)
+  const [date, setDate] = useState(null)
 
-  console.log(dataForChart, 'dataForChart')
-  console.log(dataForChart2, 'dataForChart2')
-  const {fetchMonth, month} = useContext(FirebaseContext)
+  // if (!month.length) {
+  //   setDate(new Date())
+  // }
 
 
   useEffect(() => {
-    fetchMonth(`${date.getFullYear()}/${date.getMonth() + 1}`)
+    if (!month.length) {
+      setDate(new Date())
+    }
+
+  }, [])
+
+
+  useEffect(() => {
+    setDataForChart([])  // change TEST
+    if(date) {
+      fetchMonth(`${date.getFullYear()}/${date.getMonth() + 1}`)
+    }
+
     // eslint-disable-next-line
   }, [date])
 
   useEffect(() => {
     let ex = month.filter(day => !!day?.training?.exercises)
-    console.log('filtred month', ex)
     ex = ex.filter(({training}) => training.exercises.some(ex => {
       return ex.name.name === exercise.name
     })).map(day => {
@@ -113,7 +126,6 @@ export const Progress = () => {
 
       ]
     }
-    console.log(data)
     return data
   }
 
@@ -176,17 +188,18 @@ export const Progress = () => {
 
       </section>
 
-      <section className="progress__chart">
+      <section className="progress__chart pie">
+        <h2>Total callories per month</h2>
         {
           month
-          ? <PieChartCalories data={month} />
+          ? <PieChartCalories data={month} width={'100%'} height={300} />
           : <Message severity="warn" text="You haven't Calories data in this month"/>
         }
       </section>
 
       <section className="progress__chart">
         {
-          dataForChart
+          dataForChart?.length
             ? <LinearChart data={dataForChart} />
             : <Message severity="warn" text="You haven't training in this month"/>
         }
