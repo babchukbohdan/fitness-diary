@@ -48,7 +48,7 @@ export const getDaysData = (date, trainingsDays = []) => {
   // создает пустой массив в количестве firstDay
   const voidDays = new Array(getVoidDaysNumber(firstDay))
     .fill('')
-    .map((_, index) => ({id: 1 - index}))
+    .map((_, index, arr) => ({id: index + 1 - arr.length}))
 
   // создает массив данных для рендеринга по количеству дней в месяце (daysCount)
   let days = new Array(daysCount)

@@ -3,9 +3,6 @@ import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REPLACE_SET, CHANGE_VALUE, INIT
 const handlers = {
   [INIT_STATE]: (state, {payload}) => (payload),
   [ADD_EXERCISE]: (state, {payload}) => {
-    if (!state.training.exercises) {
-      state.training.exercises = []
-    }
     const {training} = state
     return {
       ...state,
@@ -57,9 +54,7 @@ const handlers = {
   },
 
   [ADD__PHARMA]: (state, {payload}) => {
-    if (!state.pharmacology.medications) {
-      state.pharmacology.medications = []
-    }
+
     return {
       ...state,
       pharmacology: {...state.pharmacology, medications: [...state.pharmacology.medications, payload]}
@@ -86,9 +81,6 @@ const handlers = {
   }),
 
   [ADD__MEEL]: (state, { payload, dietType }) => {
-    if (!state.diet[dietType]) {
-      state.diet[dietType] = []
-    }
     return {
       ...state, diet: {...state.diet, [dietType]:[...state.diet[dietType], payload]}
     }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { ReactComponent as CloseIcon } from "../../../images/close.svg";
 
 import './SelectMuscle.scss'
@@ -38,7 +39,7 @@ export const SelectMuscle = ({btnId = '', btnClasses, showExerciseInBtn = false,
     setActiveMuscleGroup(e.target.value)
   }
 
-  const clickHandler = (e) => {
+  const chooseHandler = (e) => {
     if (closeOnSelect) {
       setIsVisible(false)
     }
@@ -53,6 +54,14 @@ export const SelectMuscle = ({btnId = '', btnClasses, showExerciseInBtn = false,
 
   const ExercisesListing = () => {
     return (
+      <CSSTransition
+        in={isVisible}
+        timeout={500}
+        classNames="showlist"
+        unmountOnExit
+      >
+
+
       <div className="overlay" onClick={(e) => {
         if (e.target.classList.contains('overlay')) {
           setIsVisible(false)
@@ -67,7 +76,7 @@ export const SelectMuscle = ({btnId = '', btnClasses, showExerciseInBtn = false,
           </button>
           <div className="muscles__types">
             {
-              muscleGroups.map((type, i) => {
+              muscleGroups && muscleGroups.map((type, i) => {
                 const isActive = activeMuscleGroup === type
                 return (
                   <label key={type} className={isActive ? 'active' : null}>
@@ -87,10 +96,10 @@ export const SelectMuscle = ({btnId = '', btnClasses, showExerciseInBtn = false,
           <div className="muscles__exercises">
             <ul>
               {
-                db.exercises[activeMuscleGroup].map((exercise, i) =>
+                db && db.exercises[activeMuscleGroup].map((exercise, i) =>
                 <li
                   key ={exercise}
-                  onClick={clickHandler}
+                  onClick={chooseHandler}
                 >{exercise}</li>)
               }
             </ul>
@@ -98,6 +107,7 @@ export const SelectMuscle = ({btnId = '', btnClasses, showExerciseInBtn = false,
         </div>
 
       </div>
+      </CSSTransition>
     )
   }
 

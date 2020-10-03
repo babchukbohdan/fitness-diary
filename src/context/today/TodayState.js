@@ -4,23 +4,10 @@ import { todayReducer } from './todayReducer'
 import { getDayString, getTimeString } from '../../components/Month/utils'
 import { ADD_EXERCISE, REMOVE_EXERCISE, ADD_SET, REPLACE_SET, CHANGE_VALUE, INIT_STATE, ADD__MEEL,
   REMOVE__MEEL, CHANGE__MEEL, ADD__PHARMA, REMOVE__PHARMA, CHANGE__PHARMA } from '../types'
-import { checkPropertysEqualToInterface } from '../../components/utils'
+import { transformObjEqualToInterface } from '../../components/utils'
 
 export const TodayState = ({children}) => {
-  const initialState2 = {
-    date: getDayString(new Date(), true),
-    exercises: [],
-    diet: {
-      meal: [],
-      nutrition: [],
-      note: ''
-    },
-    note: '',
-    start: getTimeString(new Date()),
-    end: getTimeString(new Date()),
-    weight: 77,
-    sleep: 8
-  }
+
   const initialState = {
     info: {
       date: getDayString(new Date(), true),
@@ -47,7 +34,7 @@ export const TodayState = ({children}) => {
   const [state, dispatch] = useReducer(todayReducer, initialState)
 
   const pushState = (data) => {
-    data = checkPropertysEqualToInterface(data, initialState)
+    data = transformObjEqualToInterface(data, initialState)
     dispatch({
       type: INIT_STATE,
       payload: {...data}

@@ -26,15 +26,11 @@ export const Details = () => {
 
   const {exercises, note, start, end} = state.training
 
-  console.log(state, 'todayState')
-  console.log(month, 'month')
-
   useEffect(() => {
     // console.log(month, 'month')
     // console.log(month[0]?.date.substr(0, 7), 'date')
     // if (month.length && month[0].date.substr(0, 7) === getDayString(new Date())) return
     if (!month.length || month[0].info.date.substr(0, 7) !== getDayString(new Date())) {
-      console.log('month = []')
       const date = new Date(Date.parse(state.info.date))
       fetchMonth(`${date.getFullYear()}/${date.getMonth() + 1}`)
         .then(res => {

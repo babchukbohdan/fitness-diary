@@ -29,24 +29,28 @@ export const Progress = () => {
   }, [date])
 
   useEffect(() => {
-    let ex = month.filter(day => !!day?.exercises)
+    let ex = month.filter(day => !!day?.training?.exercises)
     console.log('filtred month', ex)
-    ex = ex.filter(({exercises}) => exercises.some(ex => {
+    ex = ex.filter(({training}) => training.exercises.some(ex => {
       return ex.name.name === exercise.name
     })).map(day => {
       return {
         ...day,
-        exercises: day.exercises
+        training: {
+          ...day.training,
+          exercises: day.training.exercises
           .filter(({name}) => name.name === exercise.name)
           .reduce((acc, cur) => acc.concat(cur.sets), [])
           .reduce((acc, cur) => acc.weight > cur.weight ? acc : cur)
+        }
+
       }
-    }).map(({date, weight, exercises}) => ({
-      date: new Date(date).getTime(),
-      dateString: date,
-      bodyWeight: weight,
-      reps: exercises.reps,
-      exerciseWeight: exercises.weight
+    }).map(({info, training}) => ({
+      date: new Date(info.date).getTime(),
+      dateString: info.date,
+      bodyWeight: info.weight,
+      reps: training.exercises.reps,
+      exerciseWeight: training.exercises.weight
     })).sort((a, b) => a.date - b.date)
     const ex2 = getData(ex)
     setDataForChart(ex)
