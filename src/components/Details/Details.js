@@ -153,7 +153,13 @@ export const Details = () => {
 
               <Note path='training.note' value={note} changeValue={changeValue} />
 
-              <Submit btnText="Save" value={state} postData={addTrainingDay} loading={postingData} />
+              <Submit
+                btnText="Save"
+                value={state}
+                postData={addTrainingDay}
+                loading={postingData}
+                // disabled={}
+              />
               {/* <Submit btnText="Save pure" value={{
                 date: getDayString(new Date(), true),
                 exercises: [],

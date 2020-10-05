@@ -24,6 +24,11 @@ import { mockTraining } from '../../components/MockData/MockData'
 //     })
 //   })
   //delete end
+  // axios.post(
+  //   "https://fitness-diary-f96e8.firebaseio.com/2020/10.json",
+  //   mockTraining(10, 1)
+  // )
+
 
 export const FirebaseState = ({children}) => {
   const initialState = {
@@ -32,9 +37,7 @@ export const FirebaseState = ({children}) => {
     loading: false,
     error: false
   }
-  // axios.post("https://fitness-diary-f96e8.firebaseio.com/2020/10", {
-  //   info: '2020-10-04'
-  // })
+
 
 
   const [state, dispatch] = useReducer(firebaseReducer, initialState)
@@ -126,10 +129,12 @@ export const FirebaseState = ({children}) => {
   }
 
   const removeSameExercise = async (month, path, data) => {
-    const same = month.find(day => day.date === data.date)
+    console.log('remove same ex')
+    const same = month.find(day => day.info.date === data.info.date)
     if (same) {
+      console.log('fined same ex', same)
       const pathWithId = `${path}/${same.id}`
-      await removeTraining(same.date, pathWithId)
+      await removeTraining(same.info.date, pathWithId)
     } else {
       console.log('else in remove Same')
     }
@@ -179,7 +184,7 @@ export const FirebaseState = ({children}) => {
         detail: `Error server post method: ${error}`
       })
 
-      throw new Error(error.message)
+      // throw new Error(error.message)   WTF???
     }
     hidePostingLoader()
   }

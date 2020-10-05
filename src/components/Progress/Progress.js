@@ -1,29 +1,23 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { LinearChart } from './LinearChart/LinearChart';
 // import { Chart } from 'primereact/chart';
-import { Chart } from 'primereact/chart';
 import './Progress.scss'
 import { FirebaseContext } from '../../context/firebase/firebaseContext';
 import { DateInput } from '../Month/DateInput/DateInput';
-import {Message} from 'primereact/message';
 import { SelectMuscle } from '../UI/SelectMuscle/SelectMuscle';
 import { PieChartCalories } from './PieChart/PieChart';
+import { getCaloriesDataForPieChart } from './utils';
 
 export const Progress = () => {
-  const {fetchMonth, month} = useContext(FirebaseContext)
-console.log(month, 'month')
+  const {fetchMonth, month, loading} = useContext(FirebaseContext)
   const [exercise, setExercise] = useState({
-    name: 'Приседания с штангой на спине',
-    muscleGroup: 'legs'
+    name: 'Тяга штанги в наклоне',
+    muscleGroup: 'back'
   })
-  const [dataForChart, setDataForChart] = useState(null)
+  const [dataForChart, setDataForChart] = useState([])
   const [dataForChart2, setDataForChart2] = useState(null)
+  const [dataCaloriesForPieChart, setDataCaloriesForPieChart] = useState([])
   const [date, setDate] = useState(null)
-
-  // if (!month.length) {
-  //   setDate(new Date())
-  // }
-
 
   useEffect(() => {
     if (!month.length) {
@@ -34,7 +28,9 @@ console.log(month, 'month')
 
 
   useEffect(() => {
-    setDataForChart([])  // change TEST
+    setDataForChart([])
+    setDataCaloriesForPieChart([])
+      // change TEST
     if(date) {
       fetchMonth(`${date.getFullYear()}/${date.getMonth() + 1}`)
     }
@@ -43,6 +39,7 @@ console.log(month, 'month')
   }, [date])
 
   useEffect(() => {
+    setDataForChart([])  // change TEST
     let ex = month.filter(day => !!day?.training?.exercises)
     ex = ex.filter(({training}) => training.exercises.some(ex => {
       return ex.name.name === exercise.name
@@ -60,7 +57,7 @@ console.log(month, 'month')
       }
     }).map(({info, training}) => ({
       date: new Date(info.date).getTime(),
-      dateString: info.date,
+      // dateString: info.date,
       bodyWeight: info.weight,
       reps: training.exercises.reps,
       exerciseWeight: training.exercises.weight
@@ -69,6 +66,7 @@ console.log(month, 'month')
     setDataForChart(ex)
     setDataForChart2(ex2)
 
+    setDataCaloriesForPieChart(getCaloriesDataForPieChart(month))
 
   }, [exercise, month])
 
@@ -146,7 +144,6 @@ console.log(month, 'month')
   //       }
   //   ]
   // };
-
   return (
     <div className="progress wrap">
       <h1 className="progress__title">Progress</h1>
@@ -188,24 +185,39 @@ console.log(month, 'month')
 
       </section>
 
-      <section className="progress__chart pie">
+      {/* <section className="progress__chart pie">
         <h2>Total callories per month</h2>
         {
-          month
-          ? <PieChartCalories data={month} width={'100%'} height={300} />
-          : <Message severity="warn" text="You haven't Calories data in this month"/>
+          dataCaloriesForPieChart?.length
+            ? <PieChartCalories data={dataCaloriesForPieChart} width={'100%'} height={300} />
+            : <Message severity="warn" text="You haven't Calories data in this month"/>
         }
+      </section> */}
+      <section className="progress__chart pie">
+        <h2>Total callories per month</h2>
+        <PieChartCalories data={dataCaloriesForPieChart} width={'100%'} height={300} />
       </section>
 
-      <section className="progress__chart">
+      {/* <section className="progress__chart">
         {
-          dataForChart?.length
+          dataForChart?.length || !loading
             ? <LinearChart data={dataForChart} />
-            : <Message severity="warn" text="You haven't training in this month"/>
+            : loading
+              ? <Message severity="success" text="Loading data..."/>
+              : <Message severity="warn" text="You haven't training in this month"/>
         }
 
-      </section>
+      </section> */}
       <section className="progress__chart">
+        <LinearChart
+          data={dataForChart}
+          loading={loading}
+        />
+      </section>
+      {/* <section className="progress__chart">
+
+
+
       {
         dataForChart2 &&
         <Chart
@@ -297,7 +309,7 @@ console.log(month, 'month')
           }}
         />
       }
-      </section>
+      </section> */}
     </div>
   )
 }

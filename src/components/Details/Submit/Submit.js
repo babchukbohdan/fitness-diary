@@ -2,7 +2,7 @@ import React from 'react'
 import { Spinner } from '../../UI/Spinner/Spinner'
 import { useFirebaseContext } from '../../../context/firebase/firebaseContext'
 
-export const Submit = ({value, postData, loading, btnText}) => {
+export const Submit = ({value, postData, loading, btnText, disabled}) => {
 
   const today = new Date()
   const path = `${today.getFullYear()}/${today.getMonth() + 1}`

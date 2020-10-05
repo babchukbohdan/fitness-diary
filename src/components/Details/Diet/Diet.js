@@ -5,11 +5,9 @@ import { Submit } from '../Submit/Submit'
 import { useFirebaseContext } from '../../../context/firebase/firebaseContext'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import './Diet.scss'
-import { DetailsInfoList } from '../DetailsInfoList/DetailsInfoList'
 import { detailsDiet } from '../../../constants'
 import { Note } from '../Note/Note'
 import { DetailsInfo } from '../DetailsInfo/DetailsInfo'
-import { getPropertyWithString } from '../utils'
 import { getTimeString } from '../../Month/utils'
 export const Diet = () => {
 

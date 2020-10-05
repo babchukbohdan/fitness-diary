@@ -8,39 +8,11 @@ import { getRandomHslColor, random } from '../../utils'
 
 
 export const PieChartCalories = ({data, width = 300, height = 300}) => {
-  console.log('REnder PieChartCalories')
   const [activeIndex, setActiveIndex] = useState(0)
 
   const COLORS = ['#84ff42', '#00C49F', '#0088FE', '#FFBB28', '#FF8042', ];
   const fill = COLORS[random(0, COLORS.length - 1)]
   const fillRef = useRef(fill)
-
-  const toPie = data.filter(day => {
-    return day.diet !== undefined
-  })
-
-  const totalMeal = toPie.reduce((acc, val) => {
-    return acc + val.diet.meal.reduce((ac, va) => ac + va.calorie , 0)
-  }, 0)
-
-  const totalNutrition = toPie.reduce((acc, val) => {
-    if (!val.diet.nutrition) {
-      return acc + 0
-    }
-    return acc + val.diet.nutrition.reduce((ac, va) => ac + va.calorie , 0)
-  }, 0)
-
-  const dataSet = [
-    {
-      "name": "Meal",
-      "value": totalMeal
-    },
-    {
-      "name": "Nutrition",
-      "value": totalNutrition
-    }
-  ]
-
 
   const renderActiveShape = (props) => {
     const RADIAN = Math.PI / 180;
@@ -103,7 +75,7 @@ export const PieChartCalories = ({data, width = 300, height = 300}) => {
           <Pie
             activeIndex={activeIndex}
             activeShape={renderActiveShape}
-            data={dataSet}
+            data={data}
             cx={'50%'}
             cy={'50%'}
             innerRadius={60}
@@ -113,7 +85,7 @@ export const PieChartCalories = ({data, width = 300, height = 300}) => {
             onMouseEnter={onPieEnter}
           >
             {
-          	  dataSet.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]}/>)
+          	  data.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]}/>)
             }
           </Pie>
         </PieChart>

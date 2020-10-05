@@ -15,7 +15,7 @@ const handlers = {
   }),
   [REMOVE_TRAINING]: (state, {payload}) => ({
     ...state,
-    month: state.month.filter(({date}) => date !== payload)
+    month: state.month.filter(({info}) => info.date !== payload)
   }),
   DEFAULT: state => state
 }
