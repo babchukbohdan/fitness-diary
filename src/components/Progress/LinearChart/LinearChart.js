@@ -2,6 +2,8 @@ import React from 'react'
 import {ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 // remove recharts or chart.js
 import { getDayString } from '../../Month/utils';
+import { Message } from '../../UI/Message/Message';
+import { Spinner } from '../../UI/Spinner/Spinner';
 import { fromCamelCaseToLowerSpaceCase, getRandomHslColor, random } from '../../utils';
 
 
@@ -23,7 +25,6 @@ export const LinearChart = ({data, loading}) => {
   }
 
   const renderColorfulLegendText = (value, entry) => {
-    // console.log(entry, 'entry')
     const {color} = entry
     return <span style={{ color }}>{fromCamelCaseToLowerSpaceCase(value)}</span>;
   }
@@ -36,9 +37,6 @@ export const LinearChart = ({data, loading}) => {
     height = lines.length * 50 + 300
   }
 
-  // min-heigh = 300px
-  // one line = +50px
-  console.log(data, 'line data')
   return (
     <>
       <ResponsiveContainer width='100%' height={height}>
@@ -53,7 +51,9 @@ export const LinearChart = ({data, loading}) => {
                 <Line
                   key={key}
                   type="linear"
+                  connectNulls={true}
                   dataKey={key}
+                  name={fromCamelCaseToLowerSpaceCase(key)}
                   unit="kg"
                   strokeWidth={4}
                   stroke={COLORS[idx]}
@@ -135,7 +135,6 @@ export const LinearChart = ({data, loading}) => {
           <Tooltip
             separator=": "
             offset={10}
-            filterNull={true}
             active={true}
             labelFormatter={(value) => {
               return `Date: ${getDayString(new Date(value), true)}`
@@ -151,10 +150,17 @@ export const LinearChart = ({data, loading}) => {
         </LineChart>
       </ResponsiveContainer>
       {
-        !data.length && (
-          <div className="message">
+        !data.length && !loading && (
+          <Message>
             Have't training this exercise
-          </div>
+          </Message>
+        )
+      }
+      {
+        loading && (
+          <Message>
+            <span>Loading</span> <Spinner />
+          </Message>
         )
       }
     </>

@@ -6,7 +6,8 @@ import { FirebaseContext } from '../../context/firebase/firebaseContext';
 import { DateInput } from '../Month/DateInput/DateInput';
 import { SelectMuscle } from '../UI/SelectMuscle/SelectMuscle';
 import { PieChartCalories } from './PieChart/PieChart';
-import { getCaloriesDataForPieChart } from './utils';
+import { getCaloriesDataForPieChart, getDataForChartBy } from './utils';
+import { getDayString } from '../Month/utils';
 
 export const Progress = () => {
   const {fetchMonth, month, loading} = useContext(FirebaseContext)
@@ -17,21 +18,15 @@ export const Progress = () => {
   const [dataForChart, setDataForChart] = useState([])
   const [dataForChart2, setDataForChart2] = useState(null)
   const [dataCaloriesForPieChart, setDataCaloriesForPieChart] = useState([])
-  const [date, setDate] = useState(null)
 
-  useEffect(() => {
-    if (!month.length) {
-      setDate(new Date())
-    }
-
-  }, [])
-
+  const currentDate = month.length ? new Date(month[0].info.date) : new Date()
+  const [date, setDate] = useState(currentDate)
 
   useEffect(() => {
     setDataForChart([])
     setDataCaloriesForPieChart([])
-      // change TEST
-    if(date) {
+
+    if (!(month.length && month[0].info.date.substr(0, 7) === getDayString(date))) {
       fetchMonth(`${date.getFullYear()}/${date.getMonth() + 1}`)
     }
 
@@ -40,37 +35,78 @@ export const Progress = () => {
 
   useEffect(() => {
     setDataForChart([])  // change TEST
-    let ex = month.filter(day => !!day?.training?.exercises)
-    ex = ex.filter(({training}) => training.exercises.some(ex => {
-      return ex.name.name === exercise.name
-    })).map(day => {
-      return {
-        ...day,
-        training: {
-          ...day.training,
-          exercises: day.training.exercises
-          .filter(({name}) => name.name === exercise.name)
-          .reduce((acc, cur) => acc.concat(cur.sets), [])
-          .reduce((acc, cur) => acc.weight > cur.weight ? acc : cur)
-        }
 
+    const ex = getDataForChartBy(month, exercise)
+    const ex2 = getDataForChartBy(month, {
+      name: 'Жим штанги лёжа',
+      muscleGroup: 'legs'
+    })
+
+    console.log(ex, 'ex')
+    console.log(ex2, 'ex2')
+
+    const newEx = ex.map(val => {
+      const as = ex2.filter(ex2 => ex2.date === val.date)[0]
+      if (as) {
+        return ({
+          ...val,
+          'Жим штанги лёжа': as['Жим штанги лёжа'],
+          'Жим штанги лёжа reps': as['Жим штанги лёжа reps']
+        })
+      } else {
+        return {
+          ...val,
+          'Жим штанги лёжа': null,
+          'Жим штанги лёжа reps': null
+        }
       }
-    }).map(({info, training}) => ({
-      date: new Date(info.date).getTime(),
-      // dateString: info.date,
-      bodyWeight: info.weight,
-      reps: training.exercises.reps,
-      exerciseWeight: training.exercises.weight
-    })).sort((a, b) => a.date - b.date)
-    const ex2 = getData(ex)
-    setDataForChart(ex)
-    setDataForChart2(ex2)
+
+    })
+    newEx.push({
+      bodyWeight: 70,
+      date: 1601769600000,
+      [exercise.name]: null,
+      'Жим штанги лёжа': 84,
+      'Жим штанги лёжа reps': 19,
+      [exercise.name + 'reps']: null,
+    })
+    newEx.sort((a, b) => a.date - b.date)
+    console.log('newEx', newEx)
+    // let ex = month.filter(day => !!day?.training?.exercises)
+    // ex = ex.filter(({training}) => training.exercises.some(ex => {
+    //   return ex.name.name === exercise.name
+    // })).map(day => {
+    //   return {
+    //     ...day,
+    //     training: {
+    //       ...day.training,
+    //       exercises: day.training.exercises
+    //       .filter(({name}) => name.name === exercise.name)
+    //       .reduce((acc, cur) => acc.concat(cur.sets), [])
+    //       .reduce((acc, cur) => acc.weight > cur.weight ? acc : cur)
+    //     }
+
+    //   }
+    // }).map(({info, training}) => ({
+    //   date: new Date(info.date).getTime(),
+    //   // dateString: info.date,
+    //   bodyWeight: info.weight,
+    //   reps: training.exercises.reps,
+    //   exerciseWeight: training.exercises.weight
+    // })).sort((a, b) => a.date - b.date)
+
+
+
+
+    // const ex2 = getData(ex)
+    setDataForChart(newEx)
+    // setDataForChart2(ex2)
 
     setDataCaloriesForPieChart(getCaloriesDataForPieChart(month))
 
   }, [exercise, month])
 
-
+  // for chart.js
   function getData(dataForChart) {
     const labels = dataForChart.map(val => {
       const date = new Date(val.date)
@@ -112,14 +148,14 @@ export const Progress = () => {
           }
         },
         {
-          label: 'reps',
-          data: reps,
-          fill: false,
-          borderColor: '#d88484',
-          pointBackgroundColor: '#d88484',
-          tooltips: {
-            backgroundColor: '#d88484',
-          }
+          // label: 'reps',
+          // data: reps,
+          // fill: false,
+          // borderColor: '#d88484',
+          // pointBackgroundColor: '#d88484',
+          // tooltips: {
+          //   backgroundColor: '#d88484',
+          // }
         },
 
       ]
@@ -187,27 +223,9 @@ export const Progress = () => {
 
       {/* <section className="progress__chart pie">
         <h2>Total callories per month</h2>
-        {
-          dataCaloriesForPieChart?.length
-            ? <PieChartCalories data={dataCaloriesForPieChart} width={'100%'} height={300} />
-            : <Message severity="warn" text="You haven't Calories data in this month"/>
-        }
-      </section> */}
-      <section className="progress__chart pie">
-        <h2>Total callories per month</h2>
         <PieChartCalories data={dataCaloriesForPieChart} width={'100%'} height={300} />
-      </section>
-
-      {/* <section className="progress__chart">
-        {
-          dataForChart?.length || !loading
-            ? <LinearChart data={dataForChart} />
-            : loading
-              ? <Message severity="success" text="Loading data..."/>
-              : <Message severity="warn" text="You haven't training in this month"/>
-        }
-
       </section> */}
+
       <section className="progress__chart">
         <LinearChart
           data={dataForChart}

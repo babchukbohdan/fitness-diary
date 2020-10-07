@@ -1,6 +1,6 @@
 import { dayNames } from "../../constants"
 
-export const getmuscleGroups = (exercises) => {
+export const getmuscleGroups = (exercises = []) => {
   const muscleGroups = exercises.map(exercise => {
     return exercise.name.muscleGroup
   })
