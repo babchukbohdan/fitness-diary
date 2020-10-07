@@ -105,7 +105,8 @@ export const LinearChart = ({data, loading}) => {
             type='number'
             domain={['auto', 'auto']}
             tickFormatter={(tick) => {
-              return getDayString(new Date(tick), true).slice(8)
+              const date = getDayString(new Date(tick), true)
+              return `${date.slice(8)}.${date.slice(5, 7)}`
             }}
             label={{value: 'Date', position: 'bottom', offset: 0}}
           />

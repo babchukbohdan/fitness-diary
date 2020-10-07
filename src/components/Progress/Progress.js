@@ -6,12 +6,16 @@ import { FirebaseContext } from '../../context/firebase/firebaseContext';
 import { DateInput } from '../Month/DateInput/DateInput';
 import { SelectMuscle } from '../UI/SelectMuscle/SelectMuscle';
 import { PieChartCalories } from './PieChart/PieChart';
-import { getCaloriesDataForPieChart, getDataForChartBy } from './utils';
+import { addExerciseToDataChart, getCaloriesDataForPieChart, getDataForChartBy } from './utils';
 import { getDayString } from '../Month/utils';
 
 export const Progress = () => {
   const {fetchMonth, month, loading} = useContext(FirebaseContext)
   const [exercise, setExercise] = useState({
+    name: 'Тяга штанги в наклоне',
+    muscleGroup: 'back'
+  })
+  const [exercise2, setExercise2] = useState({
     name: 'Тяга штанги в наклоне',
     muscleGroup: 'back'
   })
@@ -37,41 +41,9 @@ export const Progress = () => {
     setDataForChart([])  // change TEST
 
     const ex = getDataForChartBy(month, exercise)
-    const ex2 = getDataForChartBy(month, {
-      name: 'Жим штанги лёжа',
-      muscleGroup: 'legs'
-    })
 
-    console.log(ex, 'ex')
-    console.log(ex2, 'ex2')
+    const newEx2 = addExerciseToDataChart(month, exercise2, ex)
 
-    const newEx = ex.map(val => {
-      const as = ex2.filter(ex2 => ex2.date === val.date)[0]
-      if (as) {
-        return ({
-          ...val,
-          'Жим штанги лёжа': as['Жим штанги лёжа'],
-          'Жим штанги лёжа reps': as['Жим штанги лёжа reps']
-        })
-      } else {
-        return {
-          ...val,
-          'Жим штанги лёжа': null,
-          'Жим штанги лёжа reps': null
-        }
-      }
-
-    })
-    newEx.push({
-      bodyWeight: 70,
-      date: 1601769600000,
-      [exercise.name]: null,
-      'Жим штанги лёжа': 84,
-      'Жим штанги лёжа reps': 19,
-      [exercise.name + 'reps']: null,
-    })
-    newEx.sort((a, b) => a.date - b.date)
-    console.log('newEx', newEx)
     // let ex = month.filter(day => !!day?.training?.exercises)
     // ex = ex.filter(({training}) => training.exercises.some(ex => {
     //   return ex.name.name === exercise.name
@@ -99,12 +71,12 @@ export const Progress = () => {
 
 
     // const ex2 = getData(ex)
-    setDataForChart(newEx)
+    setDataForChart(newEx2)
     // setDataForChart2(ex2)
 
     setDataCaloriesForPieChart(getCaloriesDataForPieChart(month))
 
-  }, [exercise, month])
+  }, [exercise, exercise2, month])
 
   // for chart.js
   function getData(dataForChart) {
@@ -216,6 +188,22 @@ export const Progress = () => {
             btnId="progress__exercise"
             btnClasses='progress__input btn btn--border'
             btnText={exercise.name}
+          />
+        </div>
+        <div className="filter__item">
+          <label
+            className="progress__label"
+            htmlFor="progress__exercise"
+          >
+            Choose exercise#2:
+          </label>
+          <SelectMuscle
+            closeOnSelect={true}
+            showExerciseInBtn={true}
+            onSelectExercise={setExercise2}
+            btnId="progress__exercise"
+            btnClasses='progress__input btn btn--border'
+            btnText={exercise2.name}
           />
         </div>
 

@@ -48,6 +48,7 @@
   &__chart {
     width: 100%;
     position: relative;
+    overflow: hidden;
   }
 
   .pie {
@@ -68,6 +69,13 @@
   }
   .recharts-layer {
     fill: var(--text-link-color);
+  }
+
+  .recharts-legend-wrapper {
+    height: auto;
+  }
+  .recharts-line-curve {
+    opacity: 0.8;
   }
   .recharts-legend-item-text {
     color: var(--text-link-color);

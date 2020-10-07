@@ -48,7 +48,7 @@ export const getDataForChartBy = (month, exercise) => {
       date: new Date(info.date).getTime(),
       // dateString: info.date,
       bodyWeight: info.weight,
-      [`${exercise.name} reps`]: training.exercises.reps,
+      [`${exercise.name} (reps)`]: training.exercises.reps,
       [exercise.name]: training.exercises.weight
     })).sort((a, b) => a.date - b.date)
 }
@@ -79,5 +79,48 @@ const getDaysWithExercise = (month, exercise) => {
 
   console.log(res, exercise)
 
+  return res
+}
+
+export const addExerciseToDataChart = (month, exercise, ex) => {
+
+  const ex2 = getDataForChartBy(month, exercise)
+  const newEx = ex.map(val => {
+    const as = ex2.filter(ex2 => ex2.date === val.date)[0]
+    if (as) {
+      return ({
+        ...val,
+        [exercise.name]: as[exercise.name],
+        [exercise.name + ' (reps)']: as[exercise.name + ' (reps)']
+      })
+    } else {
+      return {
+        ...val,
+        [exercise.name]: null,
+        [exercise.name + ' (reps)']: null
+      }
+    }
+  })
+
+  ex2.forEach(val => {
+    const as = ex.filter(newEx => newEx.date === val.date)[0]
+    if (!as) {
+      newEx.push({
+        ...resetPropsValues(ex[0]),
+        ...val
+      })
+    }
+  })
+
+  return newEx.sort((a, b) => a.date - b.date)
+}
+
+const resetPropsValues = (obj) => {
+  let res = {}
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      res[key] = null
+    }
+  }
   return res
 }
