@@ -127,6 +127,7 @@ export const Details = () => {
               </DetailsInfoList>
               <div className="details__main">
               <div className="details__exercises" >
+                <h1 className="title">Exercises</h1>
                 <TransitionGroup component="div">
 
                   {exercises && exercises.map((item, i) => (

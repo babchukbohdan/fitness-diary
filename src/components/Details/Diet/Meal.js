@@ -68,7 +68,7 @@ export const Meal = ({ item, changeItem, removeItem, type, index }) => {
         <label
           className='meal__label'
         >
-          <span className="label-text">Carbohydrates</span>
+          <span className="label-text">Carbs</span>
         <input
           type="number"
           className="input input--bd-radius--small meal__input"

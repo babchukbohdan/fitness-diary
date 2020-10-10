@@ -19,9 +19,9 @@ export const LinearChart = ({data, loading}) => {
   let count = 0
   const CustomizedLabel = (props) => {
     const {
-      x, y, stroke, value,
+      x, y, stroke, value, textColor
     } = props;
-    return <text x={x} y={y} dy={count++ % 2 === 0 ? -10 : +17 } fill={stroke} fontSize={12} textAnchor="middle">{value}</text>;
+    return <text x={x} y={y} dy={count++ % 2 === 0 ? -10 : +17 } fill={textColor} fontSize={12} textAnchor="middle">{value}</text>;
   }
 
   const renderColorfulLegendText = (value, entry) => {
@@ -29,9 +29,10 @@ export const LinearChart = ({data, loading}) => {
     return <span style={{ color }}>{fromCamelCaseToLowerSpaceCase(value)}</span>;
   }
   // const COLORS =["#82ca9d", "#8884d8", "#d88484"]
-  let props, lines, COLORS, height
+  let props, lines, COLORS, height, propsObj
   if (data.length) {
-    props = Object.keys(data[0])
+    propsObj = data.reduce((acc, cur) => ({...acc, ...cur}) , {})
+    props = Object.keys(propsObj)
     lines = props.filter(key => key !== 'date')
     COLORS = new Array(lines.length).fill('').map((_, idx) => `hsl( ${(idx + 1) * 360/lines.length}, 40%, 65% )`)
     height = lines.length * 50 + 300
@@ -42,7 +43,7 @@ export const LinearChart = ({data, loading}) => {
       <ResponsiveContainer width='100%' height={height}>
         <LineChart
           data={data}
-          margin={{ top: 5, right: 20, bottom: 35, left: 0 }}
+          margin={{ top: 0, right: 20, bottom: 35, left: 0 }}
         >
 
           {data.length &&
@@ -54,12 +55,19 @@ export const LinearChart = ({data, loading}) => {
                   connectNulls={true}
                   dataKey={key}
                   name={fromCamelCaseToLowerSpaceCase(key)}
-                  unit="kg"
+                  // unit="kg"
                   strokeWidth={4}
                   stroke={COLORS[idx]}
                   activeDot={{ strokeWidth: 2, r: 5 }}
-                  label={<CustomizedLabel />}
+                  label={<CustomizedLabel textColor={COLORS[idx]} />}
                   animationDuration={3000}
+                  // label={
+                  //     {
+                  //       position: 'top',
+                  //       offset: 10,
+                  //       fontSize: 12,
+                  //     }
+                  //   }
                 />
               )
             })
@@ -116,7 +124,7 @@ export const LinearChart = ({data, loading}) => {
             orientation='left'
             type='number'
             domain={[
-              0,
+              dataMin => Math.ceil(dataMin),
               dataMax => Math.ceil(dataMax)]}
             // interval={0}
             // minTickGap={1000}

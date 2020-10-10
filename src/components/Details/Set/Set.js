@@ -53,7 +53,7 @@ export const Set = ({exerciseId, id, index, weight, reps}) => {
         >
           <DeleteSetIcon
             className="set__icon icon"
-            src="./img/icons/close.svg"
+            // src="./img/icons/close.svg"
             alt="delete set"
           />
           {/* &times; */}

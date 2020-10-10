@@ -8,23 +8,38 @@ import { SelectMuscle } from '../UI/SelectMuscle/SelectMuscle';
 import { PieChartCalories } from './PieChart/PieChart';
 import { addExerciseToDataChart, getCaloriesDataForPieChart, getDataForChartBy } from './utils';
 import { getDayString } from '../Month/utils';
+import { ReactComponent as DeleteSetIcon } from "../../images/close.svg";
 
 export const Progress = () => {
   const {fetchMonth, month, loading} = useContext(FirebaseContext)
-  const [exercise, setExercise] = useState({
+  const [exercises, setExercises] = useState([{
     name: 'Тяга штанги в наклоне',
     muscleGroup: 'back'
-  })
-  const [exercise2, setExercise2] = useState({
-    name: 'Тяга штанги в наклоне',
-    muscleGroup: 'back'
-  })
+  }])
+
+  console.log(exercises)
   const [dataForChart, setDataForChart] = useState([])
-  const [dataForChart2, setDataForChart2] = useState(null)
   const [dataCaloriesForPieChart, setDataCaloriesForPieChart] = useState([])
 
   const currentDate = month.length ? new Date(month[0].info.date) : new Date()
   const [date, setDate] = useState(currentDate)
+
+  const onSelectExercise = (exercise) => {
+    if (!exercises.some(ex => ex.name === exercise.name)) {
+      setExercises(state => [...state, exercise])
+    }
+  }
+  const onDeleteExercise = (val) => {
+    console.log(val)
+    // setExercises(state => state.filter(ex => ex.name !== exercise.name))
+    const res = dataForChart.map(item => {
+      const res = {...item}
+      delete res[val]
+      return res
+    })
+    setDataForChart(res)
+    console.log(res)
+  }
 
   useEffect(() => {
     setDataForChart([])
@@ -40,9 +55,11 @@ export const Progress = () => {
   useEffect(() => {
     setDataForChart([])  // change TEST
 
-    const ex = getDataForChartBy(month, exercise)
+    const ex = getDataForChartBy(month, exercises)
 
-    const newEx2 = addExerciseToDataChart(month, exercise2, ex)
+    // const newEx2 = addExerciseToDataChart(month, exercise2, ex)
+    // console.log(newEx2, 'newEx2')
+    // const newEx3 = addExerciseToDataChart(month, exercise3, newEx2)
 
     // let ex = month.filter(day => !!day?.training?.exercises)
     // ex = ex.filter(({training}) => training.exercises.some(ex => {
@@ -71,12 +88,12 @@ export const Progress = () => {
 
 
     // const ex2 = getData(ex)
-    setDataForChart(newEx2)
+    setDataForChart(ex)
     // setDataForChart2(ex2)
 
     setDataCaloriesForPieChart(getCaloriesDataForPieChart(month))
 
-  }, [exercise, exercise2, month])
+  }, [exercises, month])
 
   // for chart.js
   function getData(dataForChart) {
@@ -174,38 +191,54 @@ export const Progress = () => {
           </label>
             <DateInput setDate={setDate} date={date} id='progress__month' />
         </div>
+
+        {
+
+          Object.keys(dataForChart.reduce((acc, cur) => ({...acc, ...cur}) , {}))
+          .filter(val => val !== 'date')
+          .map(val => (
+            <div
+              key={val}
+              className="exercise-list"
+            >
+              <span
+                type='text'
+                className='input'
+              >
+                {val}
+
+                <button
+                  className="btn"
+                  onClick={() => onDeleteExercise(val)}
+                >
+                  <DeleteSetIcon
+                    className="icon icon--small"
+                    alt="delete exercise"
+                  />
+                </button>
+              </span>
+            </div>
+          ))
+        }
         <div className="filter__item">
-          <label
+          {/* <label
             className="progress__label"
             htmlFor="progress__exercise"
           >
             Choose exercise:
-          </label>
+          </label> */}
           <SelectMuscle
             closeOnSelect={true}
-            showExerciseInBtn={true}
-            onSelectExercise={setExercise}
+            // onSelectExercise={setExercise}
+            onSelectExercise={onSelectExercise}
             btnId="progress__exercise"
             btnClasses='progress__input btn btn--border'
-            btnText={exercise.name}
+            btnText={`Add exercise`}
+            showExerciseInBtn={false}
+            // btnText={exercise.name}
           />
         </div>
-        <div className="filter__item">
-          <label
-            className="progress__label"
-            htmlFor="progress__exercise"
-          >
-            Choose exercise#2:
-          </label>
-          <SelectMuscle
-            closeOnSelect={true}
-            showExerciseInBtn={true}
-            onSelectExercise={setExercise2}
-            btnId="progress__exercise"
-            btnClasses='progress__input btn btn--border'
-            btnText={exercise2.name}
-          />
-        </div>
+
 
       </section>
 
