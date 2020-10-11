@@ -4,10 +4,12 @@ import { useState } from 'react'
 import {
   PieChart, Pie, Sector, Cell, Tooltip, ResponsiveContainer
 } from 'recharts'
+import { Message } from '../../UI/Message/Message'
+import { Spinner } from '../../UI/Spinner/Spinner'
 import { getRandomHslColor, random } from '../../utils'
 
 
-export const PieChartCalories = ({data, width = 300, height = 300}) => {
+export const PieChartCalories = ({data, width = 300, height = 300, loading}) => {
   const [activeIndex, setActiveIndex] = useState(0)
 
   const COLORS = ['#84ff42', '#00C49F', '#0088FE', '#FFBB28', '#FF8042', ];
@@ -89,8 +91,21 @@ export const PieChartCalories = ({data, width = 300, height = 300}) => {
             }
           </Pie>
         </PieChart>
-
       </ResponsiveContainer>
+      {
+        !data.length && !loading && (
+          <Message>
+            Have't training this exercise
+          </Message>
+        )
+      }
+      {
+        loading && (
+          <Message>
+            <span>Loading</span> <Spinner />
+          </Message>
+        )
+      }
     </>
   );
 }

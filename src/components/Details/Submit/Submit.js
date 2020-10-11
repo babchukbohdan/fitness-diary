@@ -25,7 +25,7 @@ export const Submit = ({value, postData, loading, btnText, disabled}) => {
 
       <button
         disabled={loading}
-        className="btn btn-big btn--border"
+        className="btn btn--big btn--border btn--outlined btn--hovered"
         onClick={() => {
           submitHandler(value, path)
         }}

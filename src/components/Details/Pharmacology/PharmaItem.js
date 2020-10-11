@@ -48,7 +48,7 @@ export const PharmaItem = ({index, item, removeItem, changePharma}) => {
       <div className="exercise__close">
         <DeleteBtn
           onClickHandler={() => removeItem(id)}
-          btnClasses='btn'
+          btnClasses='btn btn--outlined btn--hovered'
           iconClasses="exercise__close icon"
         />
       </div>

@@ -48,7 +48,7 @@ export const Set = ({exerciseId, id, index, weight, reps}) => {
 
       <div className="set__remove">
         <button
-          className="set__btn"
+          className="set__btn btn--outlined btn--hovered"
           onClick={() => replaceSet(exerciseId, id)}
         >
           <DeleteSetIcon

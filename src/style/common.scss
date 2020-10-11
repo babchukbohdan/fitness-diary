@@ -47,19 +47,22 @@ html {
     color: var(--navbar-bg-color);
   }
 
-  &:hover, &:focus {
-    background-color: var(--hover-bg-color);
+  &--hovered {
+    &:hover, &:focus {
+      background-color: var(--hover-bg-color);
+    }
   }
 
-  &:enabled:focus {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: 0 0 0 0.2em var(--hover-bg-color);
-    // border-color: var(--hover-bg-color);
-  }
+  &--outlined {
+    &:enabled:focus {
+      // outline: 0 none;
+      // outline-offset: 0;
+      // box-shadow: 0 0 0 0.2em var(--hover-bg-color);
+      // border-color: var(--hover-bg-color);
 
-  &--small {
-    padding: 5px 10px;
+      outline: none;
+      box-shadow: inset 0 0 0 1px var(--svg-color)
+    }
   }
 
   &--border {
@@ -67,7 +70,11 @@ html {
     border-radius: var(--input-border-radius, 3px);
   }
 
-  &-big {
+  &--small {
+    padding: 5px 10px;
+  }
+
+  &--big {
     padding: 15px;
 
     display: flex;

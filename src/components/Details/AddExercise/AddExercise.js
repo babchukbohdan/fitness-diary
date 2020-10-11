@@ -7,7 +7,7 @@ export const AddExercise = ({onClickHandler}) => {
     <div className="details__addexercise">
       <button
         onClick={onClickHandler}
-        className="btn-big btn"
+        className="btn btn--big btn--outlined"
       >
         <AddExerciseIcon className="details__icon icon" name="add" />
         Add exercise

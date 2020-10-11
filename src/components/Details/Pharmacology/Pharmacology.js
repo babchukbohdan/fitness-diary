@@ -42,7 +42,7 @@ export const Pharmacology = () => {
 
         <div className="details__addexercise">
           <button
-            className='btn btn-big btn--border'
+            className='btn btn--big btn--border btn--outlined btn--hovered'
             onClick={() => addPharma()}
           >
             Add pharma

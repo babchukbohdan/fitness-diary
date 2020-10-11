@@ -8,7 +8,7 @@ import { fromCamelCaseToLowerSpaceCase, getRandomHslColor, random } from '../../
 
 
 export const LinearChart = ({data, loading}) => {
-
+  // console.log(data, 'data in chart')
   // var data = data.map(item => {
   //   return {
   //     ...item,
@@ -38,6 +38,10 @@ export const LinearChart = ({data, loading}) => {
     height = lines.length * 50 + 300
   }
 
+  if (!data.length) {
+    return null
+  }
+
   return (
     <>
       <ResponsiveContainer width='100%' height={height}>
@@ -46,7 +50,7 @@ export const LinearChart = ({data, loading}) => {
           margin={{ top: 0, right: 20, bottom: 35, left: 0 }}
         >
 
-          {data.length &&
+          {data.length ?
             lines.map((key, idx) => {
               return (
                 <Line
@@ -71,6 +75,7 @@ export const LinearChart = ({data, loading}) => {
                 />
               )
             })
+            : null
           }
 
 
@@ -125,7 +130,8 @@ export const LinearChart = ({data, loading}) => {
             type='number'
             domain={[
               dataMin => Math.ceil(dataMin),
-              dataMax => Math.ceil(dataMax)]}
+              dataMax => Math.ceil(dataMax)
+            ]}
             // interval={0}
             // minTickGap={1000}
             // allowDataOverflow={true}

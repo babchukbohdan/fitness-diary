@@ -146,7 +146,7 @@ export const Details = () => {
                     closeOnSelect={false}
                     btnText='Add exercise'
                     onSelectExercise={addExercise}
-                    btnClasses="btn btn-big btn--border"
+                    btnClasses="btn btn--big btn--border btn--outlined btn--hovered"
                   />
                 </div>
 

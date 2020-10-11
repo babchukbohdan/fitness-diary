@@ -98,7 +98,7 @@ export const Diet = () => {
         }
         </TransitionGroup>
         <div className="details__addexercise">
-          <button onClick={() => addMeel('meal')} className="btn btn-big btn--border">Add meel</button>
+          <button onClick={() => addMeel('meal')} className="btn btn--big btn--border btn--outlined btn--hovered">Add meel</button>
         </div>
       </div>
 
@@ -125,7 +125,7 @@ export const Diet = () => {
         }
         </TransitionGroup>
         <div className="details__addexercise">
-          <button onClick={() => addMeel('nutrition')} className="btn btn-big btn--border">Add sportfood</button>
+          <button onClick={() => addMeel('nutrition')} className="btn btn--big btn--border  btn--outlined btn--hovered">Add sportfood</button>
         </div>
 
       </div>

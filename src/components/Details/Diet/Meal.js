@@ -79,7 +79,7 @@ export const Meal = ({ item, changeItem, removeItem, type, index }) => {
       <div className="exercise__close">
         <DeleteBtn
           onClickHandler={() => removeItem(item.id, type)}
-          btnClasses='btn'
+          btnClasses='btn btn--outlined btn--hovered'
           iconClasses="exercise__close icon"
         />
       </div>

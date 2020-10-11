@@ -51,7 +51,7 @@ export const Exercise = ({exercise}) => {
         </TransitionGroup>
 
         <div className="exercise__addset">
-          <button className="btn" onClick={() => addSet(id)}>
+          <button className="btn btn--outlined btn--hovered" onClick={() => addSet(id)}>
             <AddSetIcon className="exercise__addset icon" name="add set" />
             {/* Add<br/>set */}
           </button>
@@ -62,7 +62,7 @@ export const Exercise = ({exercise}) => {
       <div className="exercise__close">
         <DeleteBtn
           onClickHandler={() => removeExercise(id)}
-          btnClasses='btn'
+          btnClasses='btn btn--outlined btn--hovered'
           iconClasses="exercise__close icon"
         />
       </div>
