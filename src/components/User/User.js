@@ -4,11 +4,12 @@ import { FirebaseContext } from '../../context/firebase/firebaseContext'
 import { AuthContext } from '../../context/auth/authContext'
 import { useState } from 'react'
 import { NotificationContext } from '../../context/Notification/notificationContext'
+import './User.scss'
 
 export const User = () => {
-  const {showNotification} = useContext(NotificationContext)
-  const {resetState} = useContext(FirebaseContext)
-  const {logout, user} = useContext(AuthContext)
+  const { showNotification } = useContext(NotificationContext)
+  const { resetState } = useContext(FirebaseContext)
+  const { logout, user } = useContext(AuthContext)
 
   const [userProfile, setUserProfile] = useState(user.displayName)
 
@@ -19,8 +20,8 @@ export const User = () => {
 
 
   return (
-    <div className="wrap" >
-      <h1>User Settings</h1>
+    <div className="wrap user" >
+      <h1 className="user__title" >User Settings</h1>
       <div>
         Name
         <input

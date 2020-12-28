@@ -1,5 +1,5 @@
 .progress {
-  width: calc(100% - 300px);
+  // width: calc(100% - 300px);
   min-height: 100vh;
   padding: 0 10px;
 
@@ -13,6 +13,10 @@
     .filter__item {
       display: flex;
       align-items: center;
+
+      button:nth-child(1) {
+        margin-right: 5px;
+      }
     }
   }
 
@@ -28,26 +32,39 @@
   .exercise-list {
     display: flex;
 
+    .text {
+      padding: 2.5px 5px;
+      // padding-inline-end: 5px;
+      margin: 0 5px 5px 0px;
+    }
 
-    span {
-      padding-right: 45px;
-      position: relative;
+    .name {
+      padding-inline-end: 1rem;
     }
 
     button {
-      position: absolute;
-      top: 0;
-      right: 0;
+      width: 13px;
+      height: 13px;
+      padding: 0;
+
+      .icon {
+        width: 13px;
+        height: 13px;
+        transition: fill ease 0.25s;
+
+        &:hover {
+          fill: var(--text-color);
+        }
+      }
     }
   }
 
   &__label {
     margin-right: 10px;
-
   }
 
   &__input {
-    padding: .5em;
+    padding: 0.5em;
 
     border-radius: 3px;
 
@@ -64,7 +81,6 @@
   }
 
   #progress__month {
-
   }
 
   #progress__exercise {
@@ -81,8 +97,6 @@
     height: auto;
     min-height: fit-content;
   }
-
-
 
   .recharts-default-tooltip {
     background-color: var(--navbar-bg-color) !important;

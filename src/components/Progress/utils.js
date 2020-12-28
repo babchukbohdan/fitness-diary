@@ -9,13 +9,13 @@ export const getCaloriesDataForPieChart = (data) => {
 
   const totalMeal = toPie.reduce((acc, val) => {
     return 'meal' in val.diet
-      ? acc + val.diet.meal.reduce((ac, va) => ac + va.calorie , 0)
+      ? acc + val.diet.meal.reduce((ac, va) => ac + va.calorie, 0)
       : acc
   }, 0)
 
   const totalNutrition = toPie.reduce((acc, val) => {
     return 'nutrition' in val.diet
-      ? acc + val.diet.nutrition.reduce((ac, va) => ac + va.calorie , 0)
+      ? acc + val.diet.nutrition.reduce((ac, va) => ac + va.calorie, 0)
       : acc
   }, 0)
 
@@ -33,52 +33,55 @@ export const getCaloriesDataForPieChart = (data) => {
 
 
 export const getDataForChartBy = (month, exercises) => {
-console.log(month,'month')
-    // const newData = before.map(({info, training}) => training.exercises.map((set, idx, arr) => ({
-    //   date: (new Date(info.date).setHours(0)) + (86400000 / arr.length * idx),
-    //   bodyWeight: info.weight,
-    //   reps: set.reps,
-    //   exerciseWeight: set.weight
-    // })) ).flat()
+  console.log(month, 'month')
+  // const newData = before.map(({info, training}) => training.exercises.map((set, idx, arr) => ({
+  //   date: (new Date(info.date).setHours(0)) + (86400000 / arr.length * idx),
+  //   bodyWeight: info.weight,
+  //   reps: set.reps,
+  //   exerciseWeight: set.weight
+  // })) ).flat()
 
-    // return newData
+  // return newData
 
-    const res = getDaysWithExercise(month, exercises)
-      .map((trainings) => {
-        return trainings.map(({info, training, diet}) => {
-          const {name, maxSet} = training.exercises
-          const res = {
-            date: +new Date(info.date),
-            // dateString: info.date,
-            bodyWeight: info.weight,
-            [name.name]: maxSet.weight,
-            // calories: getTotalCalories(diet)
-          }
-          if (name.withReps) {
-            res[`${name.name} (reps)`] = maxSet.reps
-          }
-          return res
-        })
+  const res = getDaysWithExercise(month, exercises)
+    .map((trainings) => {
+      return trainings.map(({ info, training, diet }) => {
+        const { name, maxSet } = training.exercises
+        const res = {
+          date: +new Date(info.date),
+          // dateString: info.date,
+
+          [name.name]: maxSet.weight,
+          // calories: getTotalCalories(diet)
+        }
+        if (name.withReps) {
+          res[`${name.name} (reps)`] = maxSet.reps
+        }
+        if (name?.withBodyWeight) {
+          res.bodyWeight = info.weight
+        }
+        return res
       })
-    // console.log(res, 'res')
-    const res2 = res.flat().sort((a, b) => a.date - b.date)
+    })
+  // console.log(res, 'res')
+  const res2 = res.flat().sort((a, b) => a.date - b.date)
 
-    const res3 = res2.reduce((acc, cur, idx, arr) => {
-      if (!acc.some((obj) => obj.date === cur.date)) {
-        const sameDate = arr.filter(day => day.date === cur.date)
-        const newTraining = sameDate.reduce((acc, cur) => {
-          return {...acc, ...cur}
-        }, {})
+  const res3 = res2.reduce((acc, cur, idx, arr) => {
+    if (!acc.some((obj) => obj.date === cur.date)) {
+      const sameDate = arr.filter(day => day.date === cur.date)
+      const newTraining = sameDate.reduce((acc, cur) => {
+        return { ...acc, ...cur }
+      }, {})
 
-        return [...acc, newTraining]
-      } else {
-        return acc
-      }
+      return [...acc, newTraining]
+    } else {
+      return acc
+    }
 
-    }, []).sort((a, b) => a.date - b.date)
+  }, []).sort((a, b) => a.date - b.date)
 
 
-    return res3
+  return res3
 }
 
 const getTotalCalories = (diet) => {
@@ -91,7 +94,7 @@ const getTotalCalories = (diet) => {
 
 export const geyDataForDietChart = (month) => {
   const res = month
-    .map(({info, diet}) => {
+    .map(({ info, diet }) => {
       return {
         date: +new Date(info.date),
         calories: getTotalCalories(diet),
@@ -124,9 +127,9 @@ const getDaysWithExercise = (month, exercises = []) => {
             name: exercise,
             // ...day.training.exercises,
             maxSet: day.training.exercises
-            .filter(({name}) => name.name === exercise.name)
-            .reduce((acc, cur) => acc.concat(cur.sets), []) // if 2 same exercises in one day make one array
-            .reduce((acc, cur) => acc.weight > cur.weight ? acc : cur) // show only 1 set with max exercise weight
+              .filter(({ name }) => name.name === exercise.name)
+              .reduce((acc, cur) => acc.concat(cur.sets), []) // if 2 same exercises in one day make one array
+              .reduce((acc, cur) => acc.weight > cur.weight ? acc : cur) // show only 1 set with max exercise weight
           }
         }
 
@@ -134,13 +137,13 @@ const getDaysWithExercise = (month, exercises = []) => {
     })
   })
 
-  // console.log(daysWithSelectedExercises, 'daysWithSelectedExercises')
+  console.log(daysWithSelectedExercises, 'daysWithSelectedExercises')
   return daysWithSelectedExercises
 }
 
 const filterTrainingsByExercise = (trainings, exercise) => {
   return trainings.filter(
-    ({training}) => training.exercises.some(ex => {
+    ({ training }) => training.exercises.some(ex => {
       return ex.name.name === exercise.name
     }))
 }

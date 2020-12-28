@@ -1,8 +1,10 @@
 import React from 'react'
+import "./Copyright.scss"
 
 export const Copyright = () => {
   return (
-    <div className="wrap" >
+    <div className="wrap copyright" >
+      <h1 className="copyright__title">Copyright</h1>
       <div>Icons made by&nbsp;
         <a
           href="https://www.flaticon.com/authors/freepik"
@@ -13,7 +15,7 @@ export const Copyright = () => {
           href="https://www.flaticon.com/"
           title="Flaticon"
         >
-         www.flaticon.com
+          www.flaticon.com
         </a>
       </div>
 
@@ -36,6 +38,14 @@ export const Copyright = () => {
           rel="noopener noreferrer"
           href="https://icons8.ru"
         >https://loading.io/</a>
+      </div>
+      <div>
+        Hooks from
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://usehooks.com/"
+        >https://usehooks.com/</a>
       </div>
 
     </div>

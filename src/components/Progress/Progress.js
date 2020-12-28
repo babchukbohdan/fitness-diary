@@ -11,12 +11,15 @@ import { getDayString } from '../Month/utils';
 import { ReactComponent as DeleteSetIcon } from "../../images/close.svg";
 
 export const Progress = () => {
-  const {fetchMonth, month, loading} = useContext(FirebaseContext)
+  const { fetchMonth, month, loading } = useContext(FirebaseContext)
   const [exercises, setExercises] = useState([{
     name: 'Тяга штанги в наклоне',
     muscleGroup: 'back',
-    withReps: true
+    withReps: true,
+    withBodyWeight: false
   }])
+
+  const isWithBodyWeight = exercises[0]?.withBodyWeight
 
   // console.log(exercises, 'exercises')
   const [dataForChart, setDataForChart] = useState([])
@@ -27,19 +30,23 @@ export const Progress = () => {
 
   const onSelectExercise = (exercise) => {
     if (!exercises.some(ex => ex.name === exercise.name)) {
-      const ex = {...exercise, withReps: true}
+      const ex = { ...exercise, withReps: true }
       setExercises(state => [...state, ex])
     }
   }
   const onDeleteExercise = (val) => {
+    console.log(val, 'val')
     const isDeletingReps = !!val.match(/\(reps\)/g)
     let exercise = val.replace(/\s\(reps\)/g, '')
-    if (isDeletingReps) {
-      setExercises(state => state.map(ex => ex.name === exercise ? ({...ex, withReps: false}) : ex))
+    if (val === 'bodyWeight') {
+      setExercises(state => state.map(ex => ({ ...ex, withBodyWeight: false })))
+    } else if (isDeletingReps) {
+      setExercises(state => state.map(ex => ex.name === exercise ? ({ ...ex, withReps: false }) : ex))
     } else {
       setExercises(state => state.filter(ex => ex.name !== val))
     }
   }
+
 
   useEffect(() => {
     // setDataForChart([])
@@ -83,36 +90,36 @@ export const Progress = () => {
             onChange={(e) => setDate(new Date(e.target.value))}
           /> */}
           </label>
-            <DateInput setDate={setDate} date={date} id='progress__month' />
+          <DateInput setDate={setDate} date={date} id='progress__month' />
         </div>
 
         {
 
-          Object.keys(dataForChart.reduce((acc, cur) => ({...acc, ...cur}) , {}))
-          .filter(val => val !== 'date')
-          .map(val => (
-            <div
-              key={val}
-              className="exercise-list"
-            >
-              <span
-                type='text'
-                className='input'
+          Object.keys(dataForChart.reduce((acc, cur) => ({ ...acc, ...cur }), {}))
+            .filter(val => val !== 'date')
+            .filter(val => val !== 'bodyWeight')
+            .map(val => (
+              <div
+                key={val}
+                className="exercise-list"
               >
-                {val}
-
-                <button
-                  className="btn btn--outlined"
-                  onClick={() => onDeleteExercise(val)}
+                <span
+                  className='input text'
                 >
-                  <DeleteSetIcon
-                    className="icon icon--small"
-                    alt="delete exercise"
-                  />
-                </button>
-              </span>
-            </div>
-          ))
+                  <span className="name">{val}</span>
+
+                  <button
+                    className="btn btn--outlined"
+                    onClick={() => onDeleteExercise(val)}
+                  >
+                    <DeleteSetIcon
+                      className="icon icon--small"
+                      alt="delete exercise"
+                    />
+                  </button>
+                </span>
+              </div>
+            ))
         }
         <div className="filter__item">
           {/* <label
@@ -129,8 +136,20 @@ export const Progress = () => {
             btnClasses='progress__input btn btn--border'
             btnText={`Add exercise`}
             showExerciseInBtn={false}
-            // btnText={exercise.name}
+          // btnText={exercise.name}
           />
+          <button
+            className='progress__input btn btn--border'
+            type='button'
+            onClick={() => {
+              setExercises(state => state.map(ex => ({ ...ex, withBodyWeight: !isWithBodyWeight })))
+            }}
+          >
+            {
+              (isWithBodyWeight) ? 'Remove ' : 'Add '
+            }
+            body weight
+          </button>
         </div>
 
 
@@ -153,7 +172,7 @@ export const Progress = () => {
         />
       </section>
 
-        {/* <section className="progress__chart">
+      {/* <section className="progress__chart">
           <WeightCaloriesChart
             data={dataForWeightCaloriesChart}
           />

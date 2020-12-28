@@ -1,22 +1,25 @@
 .settings {
-}
+  padding: 0 10px;
 
+  &__title {
+    margin-block-end: 10px;
+  }
+}
 
 .group {
   display: flex;
   align-items: center;
   &-title {
-    margin-right: 5px;
+    // margin-right: 5px;
   }
 }
 
 .switch {
+  margin-left: 5px;
   position: relative;
   display: inline-block;
   width: var(--toggle-width);
   height: var(--toggle-height);
-
-
 
   --toggle-width: 35px;
   --toggle-height: 20px;
@@ -51,11 +54,11 @@
   cursor: pointer;
   background-color: var(--toggle-bg-off);
 
-  transition: background-color .3s;
+  transition: background-color 0.3s;
 }
 
 .slider:before {
-  content: "";
+  content: '';
   position: absolute;
   left: var(--slider-left);
   bottom: var(--slider-bottom);
@@ -64,7 +67,7 @@
   height: var(--slider-height);
 
   background-color: var(--slider-bg);
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 
 input:checked + .slider {

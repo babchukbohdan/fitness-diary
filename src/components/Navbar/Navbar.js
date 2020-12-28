@@ -16,17 +16,24 @@ import './Navbar.scss'
 import { ThemeButton } from '../Settings/ThemeButton';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/auth/authContext';
+import { useMedia } from '../../hooks/useMedia';
+import { useEffect } from 'react';
 
 export const Navbar = () => {
-  const [smallWidth, setSmallWidth] = useState(false)
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
   const isUserVerified = user?.emailVerified
-
+  const value = useMedia(
+    ['(max-width: 950px)', '(min-width: 951px)'],
+    [true, false],
+    false
+  )
+  const [smallWidth, setSmallWidth] = useState(false)
   if (user) {
-    // console.log(user)
-
-
   }
+
+  useEffect(() => {
+    setSmallWidth(value)
+  }, [value])
 
   return (
     <div className={smallWidth ? "navbar navbar--small" : "navbar navbar--big"}>
@@ -34,7 +41,7 @@ export const Navbar = () => {
       <button
         className="navbar__toggle"
         onClick={() => {
-          setSmallWidth(!smallWidth)
+          setSmallWidth(smallWidth => !smallWidth)
         }}
       >
         <ArrowIcon className="icon toggle__icon" />
@@ -43,26 +50,26 @@ export const Navbar = () => {
       <ul className="navbar__list">
         <li className="navbar__item">
           <NavLink to="/user" className="navbar__user">
-            <AvatarIcon className="navbar__avatar"/>
+            <AvatarIcon className="navbar__avatar" />
 
             {
               isUserVerified
                 ? (<>
-                    {/* <p><span className="navbar__name">{user.displayName}</span></p> */}
-                    <p><span className="navbar__email">{user.email}</span></p>
-                  </>)
+                  {/* <p><span className="navbar__name">{user.displayName}</span></p> */}
+                  <p><span className="navbar__email">{user.email}</span></p>
+                </>)
                 : (<>
-                    {/* <p><span className="navbar__name">John Doe</span></p> */}
-                    <p><span className="navbar__email">john.doe@gmail.com</span></p>
-                  </>)
+                  {/* <p><span className="navbar__name">John Doe</span></p> */}
+                  <p><span className="navbar__email">john.doe@gmail.com</span></p>
+                </>)
             }
           </NavLink>
         </li>
 
         <li className="navbar__item">
           <span className="navbar__link">
-            <span className="navbar__page">Change &nbsp;</span>
-            <ThemeButton/>
+            <span className="navbar__page">Change theme</span>
+            <ThemeButton />
           </span>
         </li>
 
